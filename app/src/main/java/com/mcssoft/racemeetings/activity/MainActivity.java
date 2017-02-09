@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        String str = new DownloadData(this).toString();
-        textView.setText(str);
+        DownloadData dld = new DownloadData(this);
+        dld.execute();
+
+        //textView.setText(str);
     }
 
     private TextView textView;

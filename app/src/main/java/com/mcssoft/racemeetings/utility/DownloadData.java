@@ -30,10 +30,10 @@ public class DownloadData extends AsyncTask<String,String,String> {
             theResult = sw.remoteRequest();
         }
         catch (Exception exception) {
-
+           theResult = exception.toString();
         }
         return theResult;
     }
 
-    Context context;
+    private Context context;
 }
