@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RaceMeetings</string>
+    <string name="SOAP_ACTION">http://www.racingqueensland.com.au/opendatawebservices/calendar/GetAvailableClubs</string>
+    <string name="OPERATION_NAME">GetAvailableClubs</string>
+    <string name="TARGET_NAMESPACE">http://www.racingqueensland.com.au/opendatawebservices/calendar/</string>
+    <string name="SOAP_ADDRESS">http://www.racingqueensland.com.au/opendatawebservices/calendar.asmx</string>
 </resources>
