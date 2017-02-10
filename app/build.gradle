@@ -21,5 +21,4 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.1'
-    compile project(':ksoap2-android-assembly-3.6.2-jar-with-dependencies')
 }

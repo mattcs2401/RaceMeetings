@@ -9,11 +9,6 @@ import android.widget.TextView;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.utility.DownloadData;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -38,10 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        DownloadData dld = new DownloadData(this);
+        DownloadData dld = new DownloadData(textView,this);
         dld.execute();
+        //String str = dld.get();
 
-        //textView.setText(str);
     }
 
     private TextView textView;

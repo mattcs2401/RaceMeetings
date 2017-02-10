@@ -1,3 +1,10 @@
+------
+To Do:
+------
+-> Start categorising the things we want to access.
+-> How ill they be displayed.
+
+
 -----------------------
 QLD Gov (data) website:
 -----------------------
@@ -11,18 +18,12 @@ http://www.racingqueensland.com.au/OpenDataWebServices/
 
 http://www.racingqueensland.com.au/OpenDataWebServices/rq-open-data-web-services.pdf
 
-
----------------
-KSoap web site:
----------------
-http://simpligility.github.io/ksoap2-android/howto.html#
+Example:
+http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/GetMeetingDetails?MeetingId=89226
 
 
 ----------------------------
 Assorted sample (tutorials):
 ----------------------------
-*** many examples on KSoap website ***
-
-causes network on main exception -> http://naveenbalani.com/index.php/articles/invoke-webservices-from-android/
-http://navinsandroidtutorial.blogspot.com.au/2013/12/android-soap-based-web-services.html
+https://developer.android.com/training/basics/network-ops/xml.html
 
