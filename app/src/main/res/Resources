@@ -1,8 +1,11 @@
 ------
 To Do:
 ------
+-> Check connection exists, then ...
 -> Start categorising the things we want to access.
+   - pre-loaded list of race tracks ? as database ?
 -> How ill they be displayed.
+   e.g. (for an individual race) number | recent form | name | trainer | jockey
 
 
 -----------------------
@@ -16,10 +19,33 @@ Racing QLD Open Data Web Services:
 ----------------------------------
 http://www.racingqueensland.com.au/OpenDataWebServices/
 
+http://www.racingqueensland.com.au/opendatawebservices/calendar.asmx
+
+http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx
+
 http://www.racingqueensland.com.au/OpenDataWebServices/rq-open-data-web-services.pdf
 
 Example:
 http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/GetMeetingDetails?MeetingId=89226
+
+<Club Id="50020">
+<ClubName>Brisbane Racing Club@Doomben</ClubName>
+</Club>
+<Club Id="50019">
+<ClubName>Brisbane Racing Club@Eagle Farm</ClubName>
+</Club>
+<Club Id="50072">
+<ClubName>Ipswich Turf Club</ClubName>
+</Club>
+<Club Id="53300">
+<ClubName>Sunshine Coast Turf Club</ClubName>
+</Club>
+<Club Id="51640">
+<ClubName>Gold Coast Turf Club</ClubName>
+</Club>
+<Club Id="53458">
+<ClubName>Toowoomba Turf Club</ClubName>
+</Club>
 
 
 ----------------------------
