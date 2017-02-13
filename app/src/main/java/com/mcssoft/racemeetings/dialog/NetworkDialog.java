@@ -62,11 +62,11 @@ public class NetworkDialog extends DialogPreference
 
         if(rbShowWifi.getId() == radioButtonId) {
             rbShowWifi.setChecked(true);
-            rbValue = Resources.getInstance().getString(R.string.pref_network_wifi_connected_tag);
+            rbValue = Resources.getInstance().getString(R.string.network_wifi_connected_tag);
         } else {
             // no need to check for id, but we still record on save.
             rbShowAny.setChecked(true);
-            rbValue = Resources.getInstance().getString(R.string.pref_network_any_connected_tag);        }
+            rbValue = Resources.getInstance().getString(R.string.network_any_connected_tag);        }
     }
 
     private void saveNetworkPreference() {
@@ -102,7 +102,7 @@ public class NetworkDialog extends DialogPreference
                 .getString(R.string.pref_network_access_button_id_key), radioButton.getId()).apply();
             spe.putString(Resources.getInstance()
                     .getString(R.string.pref_network_access_tag_key),
-                    Resources.getInstance().getString(R.string.pref_network_wifi_connected_tag)).apply();
+                    Resources.getInstance().getString(R.string.network_wifi_connected_tag)).apply();
         }
     }
 

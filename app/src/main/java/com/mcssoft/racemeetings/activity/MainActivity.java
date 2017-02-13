@@ -28,24 +28,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initialise();
 
+        String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
+        
         if(savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.listing_container, mainFragment, "main_fragment_tag")
+                    .replace(R.id.listing_container, mainFragment, fragment_tag)
                     .addToBackStack(null)
                     .commit();
         } else {
             // TBA ...
             mainFragment = (MainFragment) getFragmentManager()
-                    .getFragment(savedInstanceState,"main_fragment_tag");
+                    .getFragment(savedInstanceState, fragment_tag);
         }
     }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        setContentView(R.layout.activity_main);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,6 +71,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Resources.getInstance().destroy();
+        Preferences.getInstance().destroy();
     }
 
     @Override
