@@ -11,6 +11,7 @@ import java.util.Map;
 
 public class Preferences {
 
+    //<editor-fold defaultstate="collapsed" desc="Region: Access">
     private Preferences(Context context) {
         this.context = context;
         getPreferences();
@@ -30,8 +31,23 @@ public class Preferences {
     public static boolean instanceExists() {
         return instance != null ? true : false;
     }
+    //</editor-fold>
 
+    /**
+     * Get the id of the radio button selected for the network access preference.
+     * @return The button id.
+     */
+    public int networkPrefButtonId() {
+        return getDefaultSharedPreferences().getInt(Resources.getInstance()
+                .getString(R.string.pref_network_access_button_id_key), R.integer.init_default);
+    }
 
+    public String networkPrefTag() {
+        return getDefaultSharedPreferences().getString(Resources.getInstance()
+                .getString(R.string.pref_network_access_tag_key), null);
+    }
+
+    //<editor-fold defaultstate="collapsed" desc="Region: Utility">
     private Bundle getPreferences() {
 
         Map<String,?> prefsMap = getDefaultSharedPreferences().getAll();
@@ -56,6 +72,12 @@ public class Preferences {
     public SharedPreferences getDefaultSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
+
+    public void destroy() {
+        context = null;
+        instance = null;
+    }
+    //</editor-fold>
 
     private Context context;
     private static volatile Preferences instance = null;

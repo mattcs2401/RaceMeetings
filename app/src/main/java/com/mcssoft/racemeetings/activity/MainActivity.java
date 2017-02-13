@@ -18,6 +18,7 @@ import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.fragment.MainFragment;
 import com.mcssoft.racemeetings.utility.DownloadData;
 import com.mcssoft.racemeetings.utility.Preferences;
+import com.mcssoft.racemeetings.utility.Resources;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -70,9 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-//        textView = (TextView) findViewById(R.id.id_textview);
-//        button = (Button) findViewById(R.id.id_button);
-//        button.setOnClickListener(this);
     }
 
     @Override
@@ -82,9 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-//        DownloadData dld = new DownloadData(textView,this);
-//        dld.execute();
-        //String str = dld.get();
 
     }
 
@@ -98,10 +93,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initialise() {
         setContentView(R.layout.activity_main);
         mainFragment = new MainFragment();
+        Resources.getInstance(this);
         Preferences.getInstance(this);
     }
 
     private MainFragment mainFragment;
-    private TextView textView;
-    private Button button;
 }

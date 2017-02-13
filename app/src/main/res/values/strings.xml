@@ -1,9 +1,16 @@
 <resources>
-    <string name="wifi_connected">Connected to WiFi.</string>
-    <string name="lost_connection">Connection has been lost.</string>
     <string name="app_name">RaceMeetings</string>
+    <!-- generic connectivity messages. -->
+    <string name="lost_connection">Connection has been lost.</string>
+    <!-- TBA -->
     <string name="SOAP_ACTION">http://www.racingqueensland.com.au/opendatawebservices/meetings/GetRacesForMeeting</string>
     <string name="OPERATION_NAME">GetRacesForMeeting</string>
     <string name="TARGET_NAMESPACE">http://www.racingqueensland.com.au/opendatawebservices/meetings/</string>
     <string name="SOAP_ADDRESS">http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx</string>
+    <!-- Preference keys. -->
+    <!-- Network access preference. -->
+    <string name="pref_network_access_button_id_key">pref_network_access_id_key</string>
+    <string name="pref_network_access_tag_key">pref_network_access_tag_key</string>
+    <string name="pref_network_wifi_connected_tag">Connected to WiFi.</string>
+    <string name="pref_network_any_connected_tag">Connected to mobile data.</string>
 </resources>

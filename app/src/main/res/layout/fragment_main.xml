@@ -23,7 +23,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginBottom="?attr/actionBarSize"/>
 
-    <!--<include layout="@layout/racemeet_row" />-->
-    <!--
-    -->
+    <include layout="@layout/meeting_row" />
+
 </android.support.design.widget.CoordinatorLayout>
