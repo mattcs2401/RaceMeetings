@@ -1,26 +1,26 @@
 package com.mcssoft.racemeetings.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.fragment.MainFragment;
-import com.mcssoft.racemeetings.utility.DownloadData;
 import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.Resources;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initialise();
 
         String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
-        
+
         if(savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.listing_container, mainFragment, fragment_tag)
+                    .replace(R.id.content_main, mainFragment, fragment_tag)
                     .addToBackStack(null)
                     .commit();
         } else {
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.listing_toolbar_menu, menu);
+//        getMenuInflater().inflate(R.menu.listing_toolbar_menu, menu);
         return true;
     }
 
@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            case R.id.toolbar_menu_insert:
 //                onEditMeeting(R.integer.new_meeting);
 //                break;
-            case R.id.toolbar_preference_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
+//            case R.id.toolbar_preference_settings:
+//                startActivity(new Intent(this, SettingsActivity.class));
+//                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -81,8 +81,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view) {
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        switch(id) {
+            case R.id.id_nav_menu_1:
+                break;
+            case R.id.id_nav_menu_2:
+                break;
+            case R.id.id_nav_menu_3:
+                break;
+            case R.id.id_nav_menu_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+        }
+//        if (id == R.id.id_nav_menu_1) {
+//
+//        } else if (id == R.id.id_nav_menu_2) {
+//
+//        } else if (id == R.id.id_nav_menu_3) {
+//
+//        } else if (id == R.id.id_nav_menu_settings) {
+//            startActivity(new Intent(this, SettingsActivity.class));
+//        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private boolean checkForNetwork() {
@@ -97,6 +132,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mainFragment = new MainFragment();
         Resources.getInstance(this);
         Preferences.getInstance(this);
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_frag_main);
+//        setSupportActionBar(toolbar);
+//
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
+//
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private MainFragment mainFragment;

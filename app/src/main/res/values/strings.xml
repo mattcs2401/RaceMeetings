@@ -15,4 +15,7 @@
     <!-- Network access preference. -->
     <string name="pref_network_access_button_id_key">pref_network_access_id_key</string>
     <string name="pref_network_access_tag_key">pref_network_access_tag_key</string>
+    <!-- Navigation drawer. -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
