@@ -41,13 +41,15 @@ public class NetworkDialog extends DialogPreference
 
     @Override
     public void onClick(View view) {
-        int viewId = view.getId();
-        switch (viewId) {
-            case R.id.id_rb_only_wifi:
-                break;
-            case R.id.id_rb_any_network:
-                break;
-        }
+//        int viewId = view.getId();
+//        switch (viewId) {
+//            case R.id.id_rb_only_wifi:
+//                rbValue = Resources.getInstance().getString(R.string.network_type_name_wifi);
+//                break;
+//            case R.id.id_rb_any_network:
+//                rbValue = Resources.getInstance().getString(R.string.network_type_name_any);
+//                break;
+//        }
     }
 
     private void initialise(View view) {
@@ -62,11 +64,10 @@ public class NetworkDialog extends DialogPreference
 
         if(rbShowWifi.getId() == radioButtonId) {
             rbShowWifi.setChecked(true);
-            rbValue = Resources.getInstance().getString(R.string.network_wifi_connected_tag);
         } else {
             // no need to check for id, but we still record on save.
             rbShowAny.setChecked(true);
-            rbValue = Resources.getInstance().getString(R.string.network_any_connected_tag);        }
+        }
     }
 
     private void saveNetworkPreference() {
@@ -79,7 +80,7 @@ public class NetworkDialog extends DialogPreference
             spe.putInt(Resources.getInstance()
                     .getString(R.string.pref_network_access_button_id_key), buttonId).apply();
             spe.putString(Resources.getInstance()
-                    .getString(R.string.pref_network_access_tag_key), rbValue).apply();
+                    .getString(R.string.pref_network_access_tag_key), getRbValueType()).apply();
             notifyChanged();
         }
     }
@@ -98,12 +99,26 @@ public class NetworkDialog extends DialogPreference
             RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.id_rg_network);
 
             RadioButton radioButton = (RadioButton) radioGroup.getChildAt(0);
+
             spe.putInt(Resources.getInstance()
                 .getString(R.string.pref_network_access_button_id_key), radioButton.getId()).apply();
             spe.putString(Resources.getInstance()
                     .getString(R.string.pref_network_access_tag_key),
-                    Resources.getInstance().getString(R.string.network_wifi_connected_tag)).apply();
+                    Resources.getInstance().getString(R.string.network_type_name_wifi)).apply();
         }
+    }
+
+    private String getRbValueType() {
+        String rbValue = "";
+        switch(radioGroup.getCheckedRadioButtonId()) {
+            case R.id.id_rb_only_wifi:
+                rbValue = Resources.getInstance().getString(R.string.network_type_name_wifi);
+                break;
+            case R.id.id_rb_any_network:
+                rbValue = Resources.getInstance().getString(R.string.network_type_name_any);
+                break;
+        }
+        return rbValue;
     }
 
     private RadioGroup radioGroup;

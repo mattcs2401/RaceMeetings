@@ -53,9 +53,6 @@ public class MainActivity extends AppCompatActivity
 //        Log.d(LOG_TAG, "onOptionsItemSelected");
 
         switch (item.getItemId()) {
-//            case R.id.toolbar_menu_insert:
-//                onEditMeeting(R.integer.new_meeting);
-//                break;
 //            case R.id.toolbar_preference_settings:
 //                startActivity(new Intent(this, SettingsActivity.class));
 //                return true;
@@ -92,7 +89,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch(id) {
             case R.id.id_nav_menu_1:
@@ -105,26 +101,9 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
         }
-//        if (id == R.id.id_nav_menu_1) {
-//
-//        } else if (id == R.id.id_nav_menu_2) {
-//
-//        } else if (id == R.id.id_nav_menu_3) {
-//
-//        } else if (id == R.id.id_nav_menu_settings) {
-//            startActivity(new Intent(this, SettingsActivity.class));
-//        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private boolean checkForNetwork() {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        return (networkInfo != null && networkInfo.isConnected());
     }
 
     private void initialise() {
@@ -133,15 +112,15 @@ public class MainActivity extends AppCompatActivity
         Resources.getInstance(this);
         Preferences.getInstance(this);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_frag_main);
-//        setSupportActionBar(toolbar);
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(toggle);
-//        toggle.syncState();
-//
+        Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }

@@ -3,8 +3,8 @@
     <!-- Fragment tags. -->
     <string name="main_fragment_tag">main_fragment_tag</string>
     <!-- generic connectivity messages. -->
-    <string name="network_wifi_connected_tag">Connected to WiFi.</string>
-    <string name="network_any_connected_tag">Connected to mobile data.</string>
+    <string name="network_type_name_wifi">WIFI</string>
+    <string name="network_type_name_any">MOBILE</string>
     <string name="lost_connection">Connection has been lost.</string>
     <!-- TBA -->
     <string name="SOAP_ACTION">http://www.racingqueensland.com.au/opendatawebservices/meetings/GetRacesForMeeting</string>
