@@ -1,12 +1,10 @@
 package com.mcssoft.racemeetings.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Database utility class.
@@ -23,8 +21,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.beginTransaction();
         try {
-            db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.DATABASE_TABLE + ";");
-            db.execSQL(SchemaConstants.DATABASE_CREATE);
+            db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.REGIONS_TABLE + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.CLUBS_TABLE + ";");
+            db.execSQL(SchemaConstants.REGIONS_TABLE_CREATE);
+            db.execSQL(SchemaConstants.CLUBS_CREATE);
             db.setTransactionSuccessful();
         } catch(SQLException sqle) {
             Log.d(LOG_TAG, "Exception thrown on database create: " + sqle.getMessage());
@@ -36,68 +36,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(this.getClass().getCanonicalName(), "onUpgrade");
-        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.DATABASE_TABLE + ";");
-    }
+        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.REGIONS_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.CLUBS_TABLE + ";");    }
 
     public enum Projection {
-        DatabaseSchema, MeetingListItem, DChange, Notify
+        RegionsSchema, ClubsScema
     }
 
     public static String [] getProjection(Projection projection) {
         switch (projection) {
-            case DatabaseSchema:
-                return getDatabaseSchemaProjection();
-            case MeetingListItem:
-                return getMeetingListItemProjection();
-            case DChange:
-                return getDChangeProjection();
-            case Notify:
-                return getNotifyProjection();
+            case RegionsSchema:
+                return getRegionsSchemaProjection();
+            case ClubsScema:
+                return getClubsProjection();
         }
         return  null;
     }
 
-    private static final String[] getDatabaseSchemaProjection() {
+    private static final String[] getRegionsSchemaProjection() {
         return new String[] {
-            SchemaConstants.COLUMN_ROWID,
-            SchemaConstants.COLUMN_CITY_CODE,
-            SchemaConstants.COLUMN_RACE_CODE,
-            SchemaConstants.COLUMN_RACE_NUM,
-            SchemaConstants.COLUMN_RACE_SEL,
-            SchemaConstants.COLUMN_DATE_TIME,
-            SchemaConstants.COLUMN_D_CHG_REQ,
-            SchemaConstants.COLUMN_NOTIFIED
+            SchemaConstants.REGIONS_ROWID,
+            SchemaConstants.REGIONS_ID,
+            SchemaConstants.REGIONS_NAME,
+            SchemaConstants.REGIONS_S_NAME
         };
     }
 
-    private static final String[] getMeetingListItemProjection() {
+    private static final String[] getClubsProjection() {
         return new String [] {
-            SchemaConstants.COLUMN_CITY_CODE,
-            SchemaConstants.COLUMN_RACE_CODE,
-            SchemaConstants.COLUMN_RACE_NUM,
-            SchemaConstants.COLUMN_RACE_SEL,
-            SchemaConstants.COLUMN_DATE_TIME,
-            SchemaConstants.COLUMN_D_CHG_REQ,
-            SchemaConstants.COLUMN_NOTIFIED
-        };
-    }
-
-    private static final String [] getDChangeProjection () {
-        return new String[] {
-            SchemaConstants.COLUMN_ROWID,
-            SchemaConstants.COLUMN_DATE_TIME,
-            SchemaConstants.COLUMN_D_CHG_REQ
-        };
-    }
-
-    private static final String[] getNotifyProjection() {
-        return new String[] {
-            SchemaConstants.COLUMN_ROWID,
-            SchemaConstants.COLUMN_CITY_CODE,
-            SchemaConstants.COLUMN_RACE_CODE,
-            SchemaConstants.COLUMN_RACE_NUM,
-            SchemaConstants.COLUMN_RACE_SEL,
-            SchemaConstants.COLUMN_DATE_TIME
+            SchemaConstants.CLUB_ROWID,
+            SchemaConstants.CLUB_ID,
+            SchemaConstants.CLUB_NAME
         };
     }
 

@@ -37,10 +37,10 @@ public class MeetingsProvider extends ContentProvider {
 
         switch (urimatch) {
             case SchemaConstants.MEETING_TABLE:
-                cursor = dB.query(SchemaConstants.DATABASE_TABLE, projection, selection, selectionArgs, null, null, SchemaConstants.SORT_ORDER);
+                cursor = dB.query(SchemaConstants.REGIONS_TABLE, projection, selection, selectionArgs, null, null, null); //SchemaConstants.SORT_ORDER);
                 break;
             case SchemaConstants.MEETING_RECORD:
-                cursor = dB.query(SchemaConstants.DATABASE_TABLE, projection, SchemaConstants.COLUMN_ROWID + "=?", selectionArgs, null, null, null, null);
+                cursor = dB.query(SchemaConstants.REGIONS_TABLE, projection, SchemaConstants.REGIONS_ROWID + "=?", selectionArgs, null, null, null, null);
                 if (cursor != null && cursor.getCount() > 0) {
                     cursor.moveToFirst();
                 }
@@ -56,9 +56,9 @@ public class MeetingsProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         // not sure why this is here.
-        values.remove(SchemaConstants.COLUMN_ROWID);
+        values.remove(SchemaConstants.REGIONS_ROWID);
 
-        long id = dB.insertOrThrow(SchemaConstants.DATABASE_TABLE, null, values);
+        long id = dB.insertOrThrow(SchemaConstants.REGIONS_TABLE, null, values);
         getContext().getContentResolver().notifyChange(uri, null);
         return ContentUris.withAppendedId(uri, id);
     }
@@ -67,7 +67,7 @@ public class MeetingsProvider extends ContentProvider {
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         String[] id = new String[] { Long.toString(ContentUris.parseId(uri)) };
 
-        int count = dB.delete(SchemaConstants.DATABASE_TABLE, SchemaConstants.COLUMN_ROWID + "=?", id);
+        int count = dB.delete(SchemaConstants.REGIONS_TABLE, SchemaConstants.REGIONS_ROWID + "=?", id);
 
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
@@ -78,7 +78,7 @@ public class MeetingsProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         String[] id = new String[] { Long.toString(ContentUris.parseId(uri)) };
 
-        int count = dB.update(SchemaConstants.DATABASE_TABLE, values, SchemaConstants.COLUMN_ROWID + "=?", id);
+        int count = dB.update(SchemaConstants.REGIONS_TABLE, values, SchemaConstants.REGIONS_ROWID + "=?", id);
 
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);

@@ -13,57 +13,49 @@ public class SchemaConstants {
     public static final int MEETING_TABLE = 0;
     public static final int MEETING_RECORD = 1;
 
-    // Database columns
-    public static final String COLUMN_ROWID = "_id"; // Note: Has to be like this (upper case _ID ?).
-    public static final String COLUMN_CITY_CODE = "CITY_CODE";
-    public static final String COLUMN_RACE_CODE = "RACE_CODE";
-    public static final String COLUMN_RACE_NUM = "RACE_NUM";
-    public static final String COLUMN_RACE_SEL = "RACE_SEL";
-    public static final String COLUMN_DATE_TIME = "DATE_TIME";
-    // Generic field to indicate a display change is required.
-    public static final String COLUMN_D_CHG_REQ = "D_CHG_REQ";
-    // Generic field that indicates if a notification set for the record.
-    public static final String COLUMN_NOTIFIED = "NOTIFIED";
+    // Database columns REGIONS table.
+    public static final String REGIONS_ROWID = "_id"; // Note: Has to be like this (upper case _ID ?).
+    public static final String REGIONS_ID = "RegionsId";
+    public static final String REGIONS_NAME = "RegionName";
+    public static final String REGIONS_S_NAME = "RegionShortName";
+
+    // Database columns CLUBS table.
+    public static final String CLUB_ROWID = "_id"; // Note: Has to be like this (upper case _ID ?).
+    public static final String CLUB_ID = "Clubsd";
+    public static final String CLUB_NAME = "ClubName";
 
     // Database version and names.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "RACEMEETDB";
-    public static final String DATABASE_TABLE = "RACEMEETTBL";
+    public static final String DATABASE_NAME = "RACEMEETINGS";
+    public static final String REGIONS_TABLE = "REGIONS";
+    public static final String CLUBS_TABLE = "CLUBS";
 
     // Database table create.
-    public static final String DATABASE_CREATE = "CREATE TABLE "
-            + DATABASE_TABLE   + " ("
-            + COLUMN_ROWID     + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + COLUMN_CITY_CODE + " TEXT NOT NULL, "
-            + COLUMN_RACE_CODE + " TEXT NOT NULL, "
-            + COLUMN_RACE_NUM  + " INTEGER NOT NULL, "
-            + COLUMN_RACE_SEL  + " INTEGER NOT NULL, "
-            + COLUMN_DATE_TIME + " INTEGER NOT NULL, "
-            + COLUMN_D_CHG_REQ + " TEXT NOT NULL, "
-            + COLUMN_NOTIFIED  + " TEXT NOT NULL)";
+    public static final String REGIONS_TABLE_CREATE = "CREATE TABLE "
+            + REGIONS_TABLE  + " ("
+            + REGIONS_ROWID  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + REGIONS_ID     + " INTEGER NOT NULL, "
+            + REGIONS_NAME   + " TEXT NOT NULL, "
+            + REGIONS_S_NAME + " TEXT NOT NULL)";
 
-    public static final String SORT_ORDER = COLUMN_DATE_TIME + " ASC, " + COLUMN_RACE_SEL;
+    // Database table create.
+    public static final String CLUBS_CREATE = "CREATE TABLE "
+            + CLUBS_TABLE  + " ("
+            + CLUB_ROWID  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CLUB_ID     + " INTEGER NOT NULL, "
+            + CLUB_NAME   + " TEXT NOT NULL)";
+
+//    public static final String SORT_ORDER = COLUMN_DATE_TIME + " ASC, " + COLUMN_RACE_SEL;
 
     // marries with DatabaseHelper.getMeetingListItemProjection.
-    public static final String SELECT_ALL_MLI =
-            "SELECT " +
-                    COLUMN_CITY_CODE + "," +
-                    COLUMN_RACE_CODE + "," +
-                    COLUMN_RACE_NUM + "," +
-                    COLUMN_RACE_SEL + "," +
-                    COLUMN_DATE_TIME + "," +
-                    COLUMN_D_CHG_REQ + "," +
-                    COLUMN_NOTIFIED +
-                    " FROM " + DATABASE_TABLE;
+    public static final String SELECT_ALL_REGIONS = "SELECT * FROM " + REGIONS_TABLE;
+    public static final String SELECT_ALL_CLUBS = "SELECT * FROM " + CLUBS_TABLE;
 
     // Where a display change is required.
-    public final static String WHERE_FOR_DCHANGE = COLUMN_D_CHG_REQ + " = ? AND " +
-                                                   COLUMN_DATE_TIME + " < ?";
+//    public final static String WHERE_FOR_DCHANGE = COLUMN_D_CHG_REQ + " = ? AND " +
+//                                                   COLUMN_DATE_TIME + " < ?";
 
     // where for meetings to notify.
-    public static final String WHERE_FOR_NOTIFY = COLUMN_NOTIFIED + "='N'";
-
-    // where for which meetings to show.
-    public static final String WHERE_FOR_SHOW = COLUMN_DATE_TIME + " > ?";
+//    public static final String WHERE_FOR_NOTIFY = COLUMN_NOTIFIED + "='N'";
 
 }
