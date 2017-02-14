@@ -21,10 +21,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.beginTransaction();
         try {
-            db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.REGIONS_TABLE + ";");
-            db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.CLUBS_TABLE + ";");
-            db.execSQL(SchemaConstants.REGIONS_TABLE_CREATE);
-            db.execSQL(SchemaConstants.CLUBS_CREATE);
+            db.execSQL(SchemaConstants.DROP_REGIONS_TABLE);
+            db.execSQL(SchemaConstants.DROP_CLUBS_TABLE);
+            db.execSQL(SchemaConstants.CREATE_REGIONS_TABLE);
+            db.execSQL(SchemaConstants.CREATE_CLUBS_TABLE);
             db.setTransactionSuccessful();
         } catch(SQLException sqle) {
             Log.d(LOG_TAG, "Exception thrown on database create: " + sqle.getMessage());

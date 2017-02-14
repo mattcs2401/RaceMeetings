@@ -31,7 +31,7 @@ public class SchemaConstants {
     public static final String CLUBS_TABLE = "CLUBS";
 
     // Database table create.
-    public static final String REGIONS_TABLE_CREATE = "CREATE TABLE "
+    public static final String CREATE_REGIONS_TABLE = "CREATE TABLE "
             + REGIONS_TABLE  + " ("
             + REGIONS_ROWID  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + REGIONS_ID     + " INTEGER NOT NULL, "
@@ -39,11 +39,14 @@ public class SchemaConstants {
             + REGIONS_S_NAME + " TEXT NOT NULL)";
 
     // Database table create.
-    public static final String CLUBS_CREATE = "CREATE TABLE "
+    public static final String CREATE_CLUBS_TABLE = "CREATE TABLE "
             + CLUBS_TABLE  + " ("
             + CLUB_ROWID  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CLUB_ID     + " INTEGER NOT NULL, "
             + CLUB_NAME   + " TEXT NOT NULL)";
+
+    public  static final String DROP_REGIONS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + REGIONS_TABLE + ";";
+    public  static final String DROP_CLUBS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + CLUBS_TABLE + ";";
 
 //    public static final String SORT_ORDER = COLUMN_DATE_TIME + " ASC, " + COLUMN_RACE_SEL;
 
