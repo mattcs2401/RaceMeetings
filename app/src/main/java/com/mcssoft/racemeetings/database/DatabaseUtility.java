@@ -3,13 +3,20 @@ package com.mcssoft.racemeetings.database;
 import android.content.Context;
 import android.net.Uri;
 
-import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
-import com.mcssoft.racemeetings.utility.DownloadData;
-
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
-public class DatabaseUtility
-        implements IAsyncResponse {
+import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
+import com.mcssoft.racemeetings.meeting.Region;
+import com.mcssoft.racemeetings.utility.DownloadData;
+import com.mcssoft.racemeetings.utility.MeetingXMLParser;
+
+/**
+ * Utility class for database operations other than those of the MeetgingProvider/ContentResolver.
+ */
+public class DatabaseUtility implements IAsyncResponse {
 
     public DatabaseUtility(Context context) {
         this.context = context;
@@ -20,13 +27,13 @@ public class DatabaseUtility
      */
     public void databaseCheck() {
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        databaseHelper = new DatabaseHelper(context);
         baseTables = databaseHelper.checkTableRowCount(SchemaConstants.REGIONS_TABLE);
 
         if(!baseTables) {
             // Databases have no data so get the REGIONS and CLUBS data.
             loadRegionsTableData();
-            loadClubsTableData();
+            // CLUBS data is loaded in the async task's interface method.
         } else {
             String bp = "";
         }
@@ -39,10 +46,14 @@ public class DatabaseUtility
     @Override
     public void processFinish(String theResults) {
         if(regions) {
-            regionsResults = theResults;
+            InputStream inStream = new ByteArrayInputStream(theResults.getBytes());
+            MeetingXMLParser mxmlp = new MeetingXMLParser(inStream);
+            ArrayList<Region> regions = mxmlp.parseRegionsXml();
+
+            loadClubsTableData();
 
         } else if (clubs) {
-            clubsResults = theResults;
+            String bp = "";
         }
     }
 
@@ -95,10 +106,9 @@ public class DatabaseUtility
         return builder.toString();
     }
 
-    private String regionsResults;
-    private String clubsResults;
-    private boolean baseTables;
-    private boolean regions;
-    private boolean clubs;
+    private boolean baseTables;        // flag to indicate if REGIONS or CLUBS table exists.
+    private boolean regions;           // flag to indicate async results are for REGIONS
+    private boolean clubs;             // flag to indicate async results are for CLUBS
     private Context context;
+    private DatabaseHelper databaseHelper;
 }

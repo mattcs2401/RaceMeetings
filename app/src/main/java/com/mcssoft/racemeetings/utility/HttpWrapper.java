@@ -26,17 +26,7 @@ public class HttpWrapper {
     }
 
     public String remoteRequest() {
-//
-//        Uri.Builder builder = new Uri.Builder();
-//        builder.scheme("http")
-//                .authority("www.racingqueensland.com.au")
-//                .appendPath("opendatawebservices")
-//                .appendPath("meetings.asmx")
-//                .appendPath("GetMeetingDetails")
-//                .appendQueryParameter("MeetingId","89226");
-//        builder.build();
 
-//        URL url = null;
         InputStream stream = null;
         HttpURLConnection connection = null;
         String result = "";
@@ -45,7 +35,6 @@ public class HttpWrapper {
         StrictMode.setThreadPolicy(policy);
 
         try {
-//            url = new URL(builder.toString());
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
@@ -62,7 +51,7 @@ public class HttpWrapper {
             }
         }
         catch (Exception exception) {
-            result = exception.toString();
+             exception.printStackTrace();
         }
         finally {
             if(connection != null) {
@@ -72,11 +61,10 @@ public class HttpWrapper {
                 try {
                     stream.close();
                 } catch(Exception exception) {
-                    result = exception.toString();
+                    exception.printStackTrace();
                 }
             }
         }
-
         return result;
     }
 

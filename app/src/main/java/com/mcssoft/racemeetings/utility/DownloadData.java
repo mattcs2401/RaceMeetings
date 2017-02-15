@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
 
+import java.io.InputStream;
 import java.net.URL;
 
 public class DownloadData extends AsyncTask<String,String,String> {
@@ -38,15 +39,14 @@ public class DownloadData extends AsyncTask<String,String,String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String theResult = "";
+        String theResult = null;
         try {
             HttpWrapper sw = new HttpWrapper(context, url);
             theResult = sw.remoteRequest();
         }
         catch (Exception exception) {
-           theResult = exception.toString();
+           exception.printStackTrace();
         }
-
         return theResult;
     }
 
