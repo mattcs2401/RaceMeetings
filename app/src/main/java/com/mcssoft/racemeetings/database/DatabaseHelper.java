@@ -1,13 +1,14 @@
 package com.mcssoft.racemeetings.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Database utility class.
+ * Database utility class (basically used by the MeetingProvider and associated ContentResolver).
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -52,6 +53,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  null;
     }
 
+    /**
+     * Utility method to see if rows exist in the given table.
+     * @param tableName The table to check.
+     * @return True if the row count > 0.
+     */
+    public boolean checkTableRowCount(String tableName) {
+        String[] projection = {};
+        if(tableName == SchemaConstants.REGIONS_TABLE) {
+            projection = getRegionsSchemaProjection();
+        } else if(tableName == SchemaConstants.CLUBS_TABLE) {
+            projection = getClubsProjection();
+        }
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        Cursor cursor = db.query(tableName, projection, null, null, null, null, null);
+        db.endTransaction();
+        return (cursor.getCount() > 0);
+    }
+
     private static final String[] getRegionsSchemaProjection() {
         return new String[] {
             SchemaConstants.REGIONS_ROWID,
@@ -68,4 +88,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SchemaConstants.CLUB_NAME
         };
     }
+
+    private SQLiteDatabase db;
 }

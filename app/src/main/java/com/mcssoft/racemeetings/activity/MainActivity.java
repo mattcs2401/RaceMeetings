@@ -2,8 +2,6 @@ package com.mcssoft.racemeetings.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -19,13 +17,14 @@ import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
-import com.mcssoft.racemeetings.database.MeetingsProvider;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.fragment.MainFragment;
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
 import com.mcssoft.racemeetings.utility.DownloadData;
 import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.Resources;
+
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -35,19 +34,17 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initialise();
-        if(checkForNetwork()) {
-            if(!checkDatabase()) {
-                String theResults = "";
-                DownloadData dld = new DownloadData(theResults, this);
-                dld.asyncResponse = this;
-                dld.execute();
-                String s = theResults;
-            }
-        }
+        Resources.getInstance(this);        // setup resources access.
+        Preferences.getInstance(this);      // setup preferences access.
 
+        databaseCheck();                    // sanity check on database.
+        netWorkExists = checkForNetwork();  // does an active network exist?
+
+        initialiseUI();                     // initialise UI components.
+
+        // Setup main fragment.
         String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
-
+        mainFragment = new MainFragment();
         if(savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.content_main, mainFragment, fragment_tag)
@@ -59,24 +56,6 @@ public class MainActivity extends AppCompatActivity
                     .getFragment(savedInstanceState, fragment_tag);
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.listing_toolbar_menu, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        Log.d(LOG_TAG, "onOptionsItemSelected");
-//
-//        switch (item.getItemId()) {
-//            case R.id.toolbar_preference_settings:
-//                startActivity(new Intent(this, SettingsActivity.class));
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     protected void onStart() {
@@ -106,6 +85,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.listing_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.toolbar_preference_settings:
+//                startActivity(new Intent(this, SettingsActivity.class));
+//                return true;
+//        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch(id) {
@@ -124,12 +119,17 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void initialise() {
-        setContentView(R.layout.activity_main);
-        mainFragment = new MainFragment();
+    /**
+     * Async task results end up here.
+     * @param theResults The results from the async task.
+     */
+    @Override
+    public void processFinish(String theResults) {
+        String bp = "";
+    }
 
-        Resources.getInstance(this);
-        Preferences.getInstance(this);
+    private void initialiseUI() {
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
         setSupportActionBar(toolbar);
@@ -144,24 +144,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private boolean checkDatabase() {
-        // Quick and dirty check to see if any thing exists in the REGIONS table.
-        String[] projection = DatabaseHelper.getProjection(DatabaseHelper.Projection.RegionsSchema);
-
-        DatabaseHelper dbh = new DatabaseHelper(this);
-        SQLiteDatabase db = dbh.getWritableDatabase();
-
-        db.beginTransaction();
-        Cursor cursor = db.query(SchemaConstants.REGIONS_TABLE, projection, null, null, null, null, null);
-        db.endTransaction();
-        return (cursor.getCount() > 0);
-    }
-
     /**
      * Check the network type in the Preferences against the actual active network type.
      * @return True if the Preferences network type is the same as the actual active network type.
      */
     private boolean checkForNetwork() {
+        // TODO - Check for network; what if signed into Wifi and mobile data is on.
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -179,11 +167,68 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void processFinish(String theResults) {
-        String bp = "";
+    /**
+     *
+     */
+    private void databaseCheck() {
+
+        databaseHelper = new DatabaseHelper(this);
+        baseTables = databaseHelper.checkTableRowCount(SchemaConstants.REGIONS_TABLE);
+
+        if(baseTables) {
+            String bp = "";
+        } else {
+          // Databases have no data so get the REGIONS and CLUBS data.
+            loadBaseTablesData();
+        }
     }
 
+    private void loadBaseTablesData() {
+        String regionsUrl = createRegionsUrl();
+        String clubsUrl = createClubsUrl();
+        String[] regionsArray = {regionsUrl, clubsUrl};
+
+        DownloadData dld = new DownloadData(this);
+
+        for(String regions : regionsArray) {
+            try {
+//                DownloadData dld = new DownloadData(this);
+                dld.setUrl(new URL(regions));
+                dld.asyncResponse = this;
+                dld.execute();
+            } catch(Exception ex) {
+                String s = ex.getMessage();
+            }
+        }
+    }
+
+    private String createRegionsUrl() {
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("www.racingqueensland.com.au")
+                .appendPath("opendatawebservices")
+                .appendPath("calendar.asmx")
+                .appendPath("GetAvailableRegions");
+//                .appendQueryParameter("MeetingId","89226");
+        builder.build();
+        return builder.toString();
+    }
+
+    private String createClubsUrl() {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("www.racingqueensland.com.au")
+                .appendPath("opendatawebservices")
+                .appendPath("calendar.asmx")
+                .appendPath("GetAvailableClubs");
+//                .appendQueryParameter("MeetingId","89226");
+        builder.build();
+        return builder.toString();
+    }
+
+    private boolean baseTables;
     private boolean netWorkExists;
     private MainFragment mainFragment;
+    private DatabaseHelper databaseHelper;
 }

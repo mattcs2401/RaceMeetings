@@ -7,33 +7,36 @@ import android.os.StrictMode;
 
 import com.mcssoft.racemeetings.R;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.CharBuffer;
 
 import javax.net.ssl.HttpsURLConnection;
 
 
 public class HttpWrapper {
 
-    public HttpWrapper(Context context) {
+    public HttpWrapper(Context context, URL url) {
         this.context = context;
+        this.url = url;
     }
 
     public String remoteRequest() {
+//
+//        Uri.Builder builder = new Uri.Builder();
+//        builder.scheme("http")
+//                .authority("www.racingqueensland.com.au")
+//                .appendPath("opendatawebservices")
+//                .appendPath("meetings.asmx")
+//                .appendPath("GetMeetingDetails")
+//                .appendQueryParameter("MeetingId","89226");
+//        builder.build();
 
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("http")
-                .authority("www.racingqueensland.com.au")
-                .appendPath("opendatawebservices")
-                .appendPath("meetings.asmx")
-                .appendPath("GetMeetingDetails")
-                .appendQueryParameter("MeetingId","89226");
-        builder.build();
-
-        URL url = null;
+//        URL url = null;
         InputStream stream = null;
         HttpURLConnection connection = null;
         String result = "";
@@ -42,7 +45,7 @@ public class HttpWrapper {
         StrictMode.setThreadPolicy(policy);
 
         try {
-            url = new URL(builder.toString());
+//            url = new URL(builder.toString());
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
@@ -55,8 +58,7 @@ public class HttpWrapper {
             }
             stream = connection.getInputStream();
             if (stream != null) {
-                // Converts Stream to String with max length of 500.
-                result = readStream(stream, 500);
+                result = readStream(stream);
             }
         }
         catch (Exception exception) {
@@ -78,29 +80,17 @@ public class HttpWrapper {
         return result;
     }
 
-    private String readStream(InputStream stream, int maxLength) throws IOException {
-        String result = null;
-        // Read InputStream using the UTF-8 charset.
-        InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
-        // Create temporary buffer to hold Stream data with specified max length.
-        char[] buffer = new char[maxLength];
-        // Populate temporary buffer with Stream data.
-        int numChars = 0;
-        int readSize = 0;
-        while (numChars < maxLength && readSize != -1) {
-            numChars += readSize;
-            int pct = (100 * numChars) / maxLength;
-            readSize = reader.read(buffer, numChars, buffer.length - numChars);
+    private String readStream(InputStream stream) throws IOException {
+        String line = null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+        StringBuilder sb = new StringBuilder();
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
         }
-        if (numChars != -1) {
-            // The stream was not empty.
-            // Create String that is actual length of response body if actual length was less than
-            // max length.
-            numChars = Math.min(numChars, maxLength);
-            result = new String(buffer, 0, numChars);
-        }
-        return result;
+        stream.close();
+        return sb.toString();
     }
 
     private Context context;
+    private URL url;
 }
