@@ -13,6 +13,7 @@ public class DownloadData extends AsyncTask<String,String,String> {
 
     public DownloadData(Context context) {
         this.context = context;
+        this.theResults = theResults;
     }
 
     public DownloadData(Context context, URL url) {
@@ -61,6 +62,7 @@ public class DownloadData extends AsyncTask<String,String,String> {
 
     private URL url;
     private URL url2;
+    private String theResults;
     private Context context;
     private ProgressDialog progressDialog;
     public IAsyncResponse asyncResponse = null;

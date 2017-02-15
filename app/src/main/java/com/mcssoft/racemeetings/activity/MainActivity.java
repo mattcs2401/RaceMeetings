@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
+import com.mcssoft.racemeetings.database.DatabaseUtility;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.fragment.MainFragment;
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
@@ -27,8 +28,7 @@ import com.mcssoft.racemeetings.utility.Resources;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        IAsyncResponse {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,9 @@ public class MainActivity extends AppCompatActivity
         Resources.getInstance(this);        // setup resources access.
         Preferences.getInstance(this);      // setup preferences access.
 
-        databaseCheck();                    // sanity check on database.
         netWorkExists = checkForNetwork();  // does an active network exist?
+        DatabaseUtility dbUtil = new DatabaseUtility(this);
+        dbUtil.databaseCheck();             // sanity check on database.
 
         initialiseUI();                     // initialise UI components.
 
@@ -119,15 +120,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    /**
-     * Async task results end up here.
-     * @param theResults The results from the async task.
-     */
-    @Override
-    public void processFinish(String theResults) {
-        String bp = "";
-    }
-
     private void initialiseUI() {
         setContentView(R.layout.activity_main);
 
@@ -167,66 +159,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /**
-     *
-     */
-    private void databaseCheck() {
 
-        databaseHelper = new DatabaseHelper(this);
-        baseTables = databaseHelper.checkTableRowCount(SchemaConstants.REGIONS_TABLE);
-
-        if(baseTables) {
-            String bp = "";
-        } else {
-          // Databases have no data so get the REGIONS and CLUBS data.
-            loadBaseTablesData();
-        }
-    }
-
-    private void loadBaseTablesData() {
-        String regionsUrl = createRegionsUrl();
-        String clubsUrl = createClubsUrl();
-        String[] regionsArray = {regionsUrl, clubsUrl};
-
-        DownloadData dld = new DownloadData(this);
-
-        for(String regions : regionsArray) {
-            try {
-//                DownloadData dld = new DownloadData(this);
-                dld.setUrl(new URL(regions));
-                dld.asyncResponse = this;
-                dld.execute();
-            } catch(Exception ex) {
-                String s = ex.getMessage();
-            }
-        }
-    }
-
-    private String createRegionsUrl() {
-
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("http")
-                .authority("www.racingqueensland.com.au")
-                .appendPath("opendatawebservices")
-                .appendPath("calendar.asmx")
-                .appendPath("GetAvailableRegions");
-//                .appendQueryParameter("MeetingId","89226");
-        builder.build();
-        return builder.toString();
-    }
-
-    private String createClubsUrl() {
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("http")
-                .authority("www.racingqueensland.com.au")
-                .appendPath("opendatawebservices")
-                .appendPath("calendar.asmx")
-                .appendPath("GetAvailableClubs");
-//                .appendQueryParameter("MeetingId","89226");
-        builder.build();
-        return builder.toString();
-    }
-
+    private boolean gettingRegions;
+    private boolean gettingClubs;
     private boolean baseTables;
     private boolean netWorkExists;
     private MainFragment mainFragment;
