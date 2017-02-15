@@ -1,7 +1,15 @@
 ------
 To Do:
 ------
--> Check connection exists, then ...
+-> No active connection and 1st time app run:
+   - do nothing, display message.
+-> Active connection exists and 1st time app run (Uri matching ?):
+   - download regions info and parse xml
+     - write to database
+   - download clubs info and parse xml
+     - write to database.
+-> Uri matching for the two tables (CRUD).
+
 -> Start categorising the things we want to access.
    - pre-loaded list of race tracks ? as database ?
 -> How ill they be displayed.

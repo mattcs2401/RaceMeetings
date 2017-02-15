@@ -25,7 +25,9 @@ public class MeetingsProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         //Log.d(LOG_TAG, "onCreate");
-        initialise();
+        if(uriMatcher == null) {
+            initialise();
+        }
         return true;
     }
 
@@ -36,10 +38,10 @@ public class MeetingsProvider extends ContentProvider {
         int urimatch = uriMatcher.match(uri);
 
         switch (urimatch) {
-            case SchemaConstants.MEETING_TABLE:
+            case SchemaConstants.MEETINGS_TABLE:
                 cursor = dB.query(SchemaConstants.REGIONS_TABLE, projection, selection, selectionArgs, null, null, null); //SchemaConstants.SORT_ORDER);
                 break;
-            case SchemaConstants.MEETING_RECORD:
+            case SchemaConstants.MEETINGS_RECORD:
                 cursor = dB.query(SchemaConstants.REGIONS_TABLE, projection, SchemaConstants.REGIONS_ROWID + "=?", selectionArgs, null, null, null, null);
                 if (cursor != null && cursor.getCount() > 0) {
                     cursor.moveToFirst();
@@ -89,9 +91,9 @@ public class MeetingsProvider extends ContentProvider {
     public String getType(Uri uri) {
 //        Log.d(LOG_TAG, "getType");
         switch (uriMatcher.match(uri)) {
-            case SchemaConstants.MEETING_TABLE:
+            case SchemaConstants.MEETINGS_TABLE:
                 return MEETING_TABLE_TYPE;
-            case SchemaConstants.MEETING_RECORD:
+            case SchemaConstants.MEETINGS_RECORD:
                 return MEETING_RECORD_TYPE;
             default:
                 throw new IllegalArgumentException("Unknown Uri: " + uri);
@@ -101,10 +103,10 @@ public class MeetingsProvider extends ContentProvider {
     //<editor-fold defaultstate="collapsed" desc="Region: Utility">
     private static UriMatcher buildUriMatcher() {
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        matcher.addURI(SchemaConstants.AUTHORITY, SchemaConstants.MEETING, SchemaConstants.MEETING_TABLE);
+        matcher.addURI(SchemaConstants.AUTHORITY, SchemaConstants.MEETINGS, SchemaConstants.MEETINGS_TABLE);
         // == com.mcssoft.racemeeting.database.MeetingsProvider, meeting, 0
 
-        matcher.addURI(SchemaConstants.AUTHORITY, SchemaConstants.MEETING + "/#", SchemaConstants.MEETING_RECORD);
+        matcher.addURI(SchemaConstants.AUTHORITY, SchemaConstants.MEETINGS + "/#", SchemaConstants.MEETINGS_RECORD);
         // == com.mcssoft.racemeeting.database.MeetingsProvider, meeting/#, 1
 
         return matcher;

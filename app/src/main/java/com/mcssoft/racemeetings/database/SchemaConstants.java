@@ -3,24 +3,24 @@ package com.mcssoft.racemeetings.database;
 public class SchemaConstants {
 
     // Content Provider Uri and Authority
-    public static final String MEETING = "meeting";
+    public static final String MEETINGS = "meetings";
     public static final String BASE = "com.mcssoft.racemeeting.";
     public static final String AUTHORITY = BASE + "database.MeetingsProvider";
-    public static final String CONTENT_URI = "content://" + AUTHORITY + "/" + MEETING;
-    public static final String CURSOR_BASE_TYPE = "/" + BASE + MEETING;
+    public static final String CONTENT_URI = "content://" + AUTHORITY + "/" + MEETINGS;
+    public static final String CURSOR_BASE_TYPE = "/" + BASE + MEETINGS;
 
     // UriMatcher stuff
-    public static final int MEETING_TABLE = 0;
-    public static final int MEETING_RECORD = 1;
+    public static final int MEETINGS_TABLE = 0;
+    public static final int MEETINGS_RECORD = 1;
 
     // Database columns REGIONS table.
-    public static final String REGIONS_ROWID = "_id"; // Note: Has to be like this (upper case _ID ?).
+    public static final String REGIONS_ROWID = "_id";
     public static final String REGIONS_ID = "RegionsId";
     public static final String REGIONS_NAME = "RegionName";
     public static final String REGIONS_S_NAME = "RegionShortName";
 
     // Database columns CLUBS table.
-    public static final String CLUB_ROWID = "_id"; // Note: Has to be like this (upper case _ID ?).
+    public static final String CLUB_ROWID = "_id";
     public static final String CLUB_ID = "Clubsd";
     public static final String CLUB_NAME = "ClubName";
 
@@ -37,6 +37,12 @@ public class SchemaConstants {
             + REGIONS_ID     + " INTEGER NOT NULL, "
             + REGIONS_NAME   + " TEXT NOT NULL, "
             + REGIONS_S_NAME + " TEXT NOT NULL)";
+
+    public static final String SELECT_REGIONS = "SELECT "
+            + REGIONS_ROWID + ","
+            + REGIONS_ID    + ","
+            + REGIONS_NAME  + ","
+            + REGIONS_S_NAME + " FROM REGIONS;";
 
     // Database table create.
     public static final String CREATE_CLUBS_TABLE = "CREATE TABLE "

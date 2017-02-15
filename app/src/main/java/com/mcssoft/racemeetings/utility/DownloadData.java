@@ -5,12 +5,14 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
+
 public class DownloadData extends AsyncTask<String,String,String> {
 
-    public DownloadData(TextView textView, Context context) {
+    public DownloadData(String theResults, Context context) {
         super();
         this.context = context;
-        this.textView = textView;
+        this.theResults = theResults;
     }
 
     @Override
@@ -45,11 +47,13 @@ public class DownloadData extends AsyncTask<String,String,String> {
     protected void onPostExecute(String theResult) {
         super.onPostExecute(theResult);
         progressDialog.dismiss();
-        textView.setText(theResult);
+        //this.theResults = theResult;
+        asyncResponse.processFinish(theResult);
     }
 
 //    String theResult;
-    private TextView textView;
+    private String theResults;
     private Context context;
     private ProgressDialog progressDialog;
+    public IAsyncResponse asyncResponse = null;
 }

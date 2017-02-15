@@ -2,8 +2,11 @@ package com.mcssoft.racemeetings.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,18 +18,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
+import com.mcssoft.racemeetings.database.DatabaseHelper;
+import com.mcssoft.racemeetings.database.MeetingsProvider;
+import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.fragment.MainFragment;
+import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
+import com.mcssoft.racemeetings.utility.DownloadData;
 import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.Resources;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        IAsyncResponse {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initialise();
+        if(checkForNetwork()) {
+            if(!checkDatabase()) {
+                String theResults = "";
+                DownloadData dld = new DownloadData(theResults, this);
+                dld.asyncResponse = this;
+                dld.execute();
+                String s = theResults;
+            }
+        }
 
         String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
 
@@ -42,23 +60,23 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.listing_toolbar_menu, menu);
-        return true;
-    }
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
 //        Log.d(LOG_TAG, "onOptionsItemSelected");
-
-        switch (item.getItemId()) {
+//
+//        switch (item.getItemId()) {
 //            case R.id.toolbar_preference_settings:
 //                startActivity(new Intent(this, SettingsActivity.class));
 //                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     protected void onStart() {
@@ -109,6 +127,7 @@ public class MainActivity extends AppCompatActivity
     private void initialise() {
         setContentView(R.layout.activity_main);
         mainFragment = new MainFragment();
+
         Resources.getInstance(this);
         Preferences.getInstance(this);
 
@@ -125,5 +144,46 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    private boolean checkDatabase() {
+        // Quick and dirty check to see if any thing exists in the REGIONS table.
+        String[] projection = DatabaseHelper.getProjection(DatabaseHelper.Projection.RegionsSchema);
+
+        DatabaseHelper dbh = new DatabaseHelper(this);
+        SQLiteDatabase db = dbh.getWritableDatabase();
+
+        db.beginTransaction();
+        Cursor cursor = db.query(SchemaConstants.REGIONS_TABLE, projection, null, null, null, null, null);
+        db.endTransaction();
+        return (cursor.getCount() > 0);
+    }
+
+    /**
+     * Check the network type in the Preferences against the actual active network type.
+     * @return True if the Preferences network type is the same as the actual active network type.
+     */
+    private boolean checkForNetwork() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        if(networkInfo != null) {
+            String prefNetworkType = Preferences.getInstance().networkPrefTag();
+            String networkType = networkInfo.getTypeName();
+
+            // this may return false as well.
+            return (prefNetworkType.equals(networkType) && networkInfo.isConnected());
+
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void processFinish(String theResults) {
+        String bp = "";
+    }
+
+    private boolean netWorkExists;
     private MainFragment mainFragment;
 }

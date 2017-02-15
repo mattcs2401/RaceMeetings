@@ -17,7 +17,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d(LOG_TAG, "onCreate");
 
         db.beginTransaction();
         try {
@@ -27,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(SchemaConstants.CREATE_CLUBS_TABLE);
             db.setTransactionSuccessful();
         } catch(SQLException sqle) {
-            Log.d(LOG_TAG, "Exception thrown on database create: " + sqle.getMessage());
+            Log.d("Exception dB create: ", sqle.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -35,9 +34,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(this.getClass().getCanonicalName(), "onUpgrade");
         db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.REGIONS_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.CLUBS_TABLE + ";");    }
+        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.CLUBS_TABLE + ";");
+    }
 
     public enum Projection {
         RegionsSchema, ClubsScema
@@ -69,6 +68,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SchemaConstants.CLUB_NAME
         };
     }
-
-    private String LOG_TAG = this.getClass().getCanonicalName();
 }

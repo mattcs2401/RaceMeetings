@@ -37,13 +37,6 @@ public class MainFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
-
-        if(checkForNetwork()) {
-
-            String bp = "";
-        } else {
-
-        }
     }
 
     @Override
@@ -66,27 +59,7 @@ public class MainFragment extends Fragment
         meetingsAdapter.setOnItemClickListener(this);
         meetingsAdapter.setOnItemLongClickListener(this);
     }
-    /**
-     * Check the network type in the Preferences against the actual active network type.
-     * @return True if the Preferences network type is the same as the actual active network type.
-     */
-    private boolean checkForNetwork() {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-        if(networkInfo != null) {
-            String prefNetworkType = Preferences.getInstance().networkPrefTag();
-            String networkType = networkInfo.getTypeName();
-
-            // this may return false as well.
-            return (prefNetworkType.equals(networkType) && networkInfo.isConnected());
-
-        } else {
-            return false;
-        }
-    }
 
     private View rootView;
     private boolean activityCreated;
