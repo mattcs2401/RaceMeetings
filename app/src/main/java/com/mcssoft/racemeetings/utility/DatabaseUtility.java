@@ -59,6 +59,7 @@ public class DatabaseUtility implements IAsyncResponse {
 
             // If REGIONS data doesn't exist then it's likely CLUBS data won't exist either.
             if(!databaseHelper.checkTableRowCount(SchemaConstants.CLUBS_TABLE)) {
+                theResults = "";
                 loadClubsTableData();
             }
         } else if (clubs) {
