@@ -1,4 +1,4 @@
-package com.mcssoft.racemeetings.database;
+package com.mcssoft.racemeetings.utility;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,7 +8,10 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.mcssoft.racemeetings.database.DatabaseHelper;
+import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
+import com.mcssoft.racemeetings.meeting.Club;
 import com.mcssoft.racemeetings.meeting.Region;
 import com.mcssoft.racemeetings.utility.DownloadData;
 import com.mcssoft.racemeetings.utility.MeetingXMLParser;
@@ -28,14 +31,15 @@ public class DatabaseUtility implements IAsyncResponse {
     public void databaseCheck() {
 
         databaseHelper = new DatabaseHelper(context);
-        baseTables = databaseHelper.checkTableRowCount(SchemaConstants.REGIONS_TABLE);
 
-        if(!baseTables) {
-            // Databases have no data so get the REGIONS and CLUBS data.
+        if(!databaseHelper.checkTableRowCount(SchemaConstants.REGIONS_TABLE)) {
             loadRegionsTableData();
-            // CLUBS data is loaded in the async task's interface method.
-        } else {
-            String bp = "";
+        }
+
+        // Note: this won't be called if there is no REGIONS data as the async task returns to
+        // method processFinished().
+        if(!databaseHelper.checkTableRowCount(SchemaConstants.CLUBS_TABLE)) {
+            loadClubsTableData();
         }
     }
 
@@ -45,18 +49,21 @@ public class DatabaseUtility implements IAsyncResponse {
      */
     @Override
     public void processFinish(String theResults) {
-        if(regions) {
-            InputStream inStream = new ByteArrayInputStream(theResults.getBytes());
-            MeetingXMLParser mxmlp = new MeetingXMLParser(inStream);
-            ArrayList<Region> regions = mxmlp.parseRegionsXml();
+        databaseHelper = new DatabaseHelper(context);
+        InputStream inStream = new ByteArrayInputStream(theResults.getBytes());
+        MeetingXMLParser mxmlp = new MeetingXMLParser(inStream);
 
-            databaseHelper = new DatabaseHelper(context);
+        if(regions) {
+            ArrayList<Region> regions = mxmlp.parseRegionsXml();
             databaseHelper.insertFromList(SchemaConstants.REGIONS_TABLE, regions);
 
-            loadClubsTableData();
-
+            // If REGIONS data doesn't exist then it's likely CLUBS data won't exist either.
+            if(!databaseHelper.checkTableRowCount(SchemaConstants.CLUBS_TABLE)) {
+                loadClubsTableData();
+            }
         } else if (clubs) {
-            String bp = "";
+            ArrayList<Club> clubs = mxmlp.parseClubsXml();
+            databaseHelper.insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
         }
     }
 
@@ -109,7 +116,6 @@ public class DatabaseUtility implements IAsyncResponse {
         return builder.toString();
     }
 
-    private boolean baseTables;        // flag to indicate if REGIONS or CLUBS table exists.
     private boolean regions;           // flag to indicate async results are for REGIONS
     private boolean clubs;             // flag to indicate async results are for CLUBS
     private Context context;

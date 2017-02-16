@@ -3,12 +3,16 @@ package com.mcssoft.racemeetings.meeting;
 /**
  * Utility class to model avaialbe clubs.
  * From: http://www.racingqueensland.com.au/opendatawebservices/calendar.asmx/GetAvailableClubs
+ * <Clubs>
+     <Club Id="50254">
+       <ClubName>Alpha Jockey Club</ClubName>
+     </Club>
  */
-public class Clubs {
+public class Club {
 
-    public Clubs() { }
+    public Club() { }
 
-    public Clubs(int clubId, int clubName) {
+    public Club(int clubId, String clubName) {
         this.clubId = clubId;
         this.clubName = clubName;
     }
@@ -21,14 +25,14 @@ public class Clubs {
         this.clubId = clubId;
     }
 
-    public int getClubName() {
+    public String getClubName() {
         return clubName;
     }
 
-    public void setClubName(int clubName) {
+    public void setClubName(String clubName) {
         this.clubName = clubName;
     }
 
     private int clubId;
-    private int clubName;
+    private String clubName;
 }

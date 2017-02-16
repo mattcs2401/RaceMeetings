@@ -45,14 +45,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public enum Projection {
-        RegionsSchema, ClubsScema
+        RegionsSchema, ClubsSchema
     }
 
     public static String [] getProjection(Projection projection) {
         switch (projection) {
             case RegionsSchema:
                 return getRegionsProjection();
-            case ClubsScema:
+            case ClubsSchema:
                 return getClubsProjection();
         }
         return  null;
@@ -66,9 +66,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean checkTableRowCount(String tableName) {
         String[] projection = {};
         if(tableName == SchemaConstants.REGIONS_TABLE) {
-            projection = getRegionsProjection();
+            projection = getProjection(Projection.RegionsSchema);
         } else if(tableName == SchemaConstants.CLUBS_TABLE) {
-            projection = getClubsProjection();
+            projection = getProjection(Projection.ClubsSchema);
         }
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
@@ -77,38 +77,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return (cursor.getCount() > 0);
     }
 
-    public void insertFromList(String tableName, ArrayList thelist) {
-        //Cursor cursor;
+    public void insertFromList(String tableName, ArrayList theList) {
+        if(tableName.equals(SchemaConstants.REGIONS_TABLE)) {
+            insertFromListRegions(theList);
+        } else if (tableName.equals(SchemaConstants.CLUBS_TABLE)) {
+            insertFromListClubs(theList);
+        }
+    }
+
+    private void insertFromListRegions(ArrayList theList) {
         ContentValues cv;
-        String[] projection;
         SQLiteDatabase db = getWritableDatabase();
 
-        if(tableName.equals(SchemaConstants.REGIONS_TABLE)) {
-            projection = getRegionsProjection();
+        for (Object object : theList) {
+            Region region = (Region) object;
+            cv = new ContentValues();
+            cv.put(SchemaConstants.REGIONS_ID, region.getRegionId());
+            cv.put(SchemaConstants.REGIONS_NAME, region.getRegionName());
+            cv.put(SchemaConstants.REGIONS_S_NAME, region.getRegionSName());
 
-            for (Object object : thelist) {
-                long count = 0;
-                Region region = (Region) object;
-                cv = new ContentValues();
-                cv.put(SchemaConstants.REGIONS_ID, region.getRegionId());
-                cv.put(SchemaConstants.REGIONS_NAME, region.getRegionName());
-                cv.put(SchemaConstants.REGIONS_S_NAME, region.getRegionSName());
-
-                try {
-                    db.beginTransaction();
-                    count = db.insertOrThrow(SchemaConstants.REGIONS_TABLE, null, cv);
-                    db.setTransactionSuccessful();
-                } catch(SQLException ex) {
-                    ex.printStackTrace();
-                } finally {
-                    db.endTransaction();
-                }
+            try {
+                db.beginTransaction();
+                db.insertOrThrow(SchemaConstants.REGIONS_TABLE, null, cv);
+                db.setTransactionSuccessful();
+            } catch(SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                db.endTransaction();
             }
-        } else if (tableName.equals(SchemaConstants.CLUBS_TABLE)) {
-            projection = getClubsProjection();
-
-
         }
+    }
+
+    private void insertFromListClubs(ArrayList theList) {
+
     }
 
     private static final String[] getRegionsProjection() {

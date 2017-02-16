@@ -1,5 +1,6 @@
 package com.mcssoft.racemeetings.utility;
 
+import com.mcssoft.racemeetings.meeting.Club;
 import com.mcssoft.racemeetings.meeting.Region;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -57,6 +58,45 @@ public class MeetingXMLParser {
             ex.printStackTrace();
         } finally {
             return regions;
+        }
+    }
+
+    public ArrayList<Club> parseClubsXml() {
+        ArrayList<Club> clubs = null;
+        Club club = null;
+        try {
+            String elementName;
+            int eventType = parser.getEventType();
+            while(eventType != parser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        //regions = new ArrayList<>();
+                        break;
+                    case XmlPullParser.START_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Clubs")) {
+                            clubs = new ArrayList<>();
+                        }
+                        else if (elementName.equals("Club")) {
+                            club = new Club();
+                            club.setClubId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
+                        }
+                        else if(elementName.equals("ClubName")) {
+                            club.setClubName(parser.nextText());
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Club") && club != null) {
+                            clubs.add(club);
+                        }
+                }
+                eventType = parser.next();
+            }
+        } catch(XmlPullParserException ex) {
+            ex.printStackTrace();
+        } finally {
+            return clubs;
         }
     }
 
