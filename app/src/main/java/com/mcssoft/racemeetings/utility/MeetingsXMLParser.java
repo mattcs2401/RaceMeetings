@@ -10,13 +10,10 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-//http://www.journaldev.com/10653/android-xml-parsing-xmlpullparser-example-tutorial
+public class MeetingsXMLParser {
 
-public class MeetingXMLParser {
-
-    public MeetingXMLParser(InputStream inStream) {
-        this.inStream = inStream;
-        initialise();
+    public MeetingsXMLParser(InputStream inStream) {
+        initialise(inStream);
     }
 
     public ArrayList<Region> parseRegionsXml() {
@@ -100,10 +97,9 @@ public class MeetingXMLParser {
         }
     }
 
-    private void initialise() {
+    private void initialise(InputStream inStream) {
         try {
-            factory = XmlPullParserFactory.newInstance();
-            parser = factory.newPullParser();
+            parser = XmlPullParserFactory.newInstance().newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(inStream, null);
 
@@ -112,7 +108,5 @@ public class MeetingXMLParser {
         }
     }
 
-    private InputStream inStream;
-    private XmlPullParserFactory factory;
     private XmlPullParser parser;
 }

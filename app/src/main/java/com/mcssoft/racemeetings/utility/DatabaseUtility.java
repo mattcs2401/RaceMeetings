@@ -17,8 +17,6 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
 import com.mcssoft.racemeetings.meeting.Club;
 import com.mcssoft.racemeetings.meeting.Region;
-import com.mcssoft.racemeetings.utility.DownloadData;
-import com.mcssoft.racemeetings.utility.MeetingXMLParser;
 
 /**
  * Utility class for database operations other than those of the MeetgingProvider/ContentResolver.
@@ -47,7 +45,7 @@ public class DatabaseUtility implements IAsyncResponse {
     public void processFinish(String theResults) {
         databaseHelper = new DatabaseHelper(context);
         InputStream inStream = new ByteArrayInputStream(theResults.getBytes());
-        MeetingXMLParser mxmlp = new MeetingXMLParser(inStream);
+        MeetingsXMLParser mxmlp = new MeetingsXMLParser(inStream);
 
         if(regions) {
             ArrayList<Region> regions = mxmlp.parseRegionsXml();

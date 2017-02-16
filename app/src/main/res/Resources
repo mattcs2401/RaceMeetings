@@ -1,3 +1,9 @@
+-------
+Issues:
+-------
+-> REGIONS and CLUBS schema references are hard coded (i.e. DatabaseUtility and SchemaConstants).
+
+
 ------
 To Do:
 ------
