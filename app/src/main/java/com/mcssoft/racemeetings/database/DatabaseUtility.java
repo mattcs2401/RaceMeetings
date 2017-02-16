@@ -50,6 +50,9 @@ public class DatabaseUtility implements IAsyncResponse {
             MeetingXMLParser mxmlp = new MeetingXMLParser(inStream);
             ArrayList<Region> regions = mxmlp.parseRegionsXml();
 
+            databaseHelper = new DatabaseHelper(context);
+            databaseHelper.insertFromList(SchemaConstants.REGIONS_TABLE, regions);
+
             loadClubsTableData();
 
         } else if (clubs) {

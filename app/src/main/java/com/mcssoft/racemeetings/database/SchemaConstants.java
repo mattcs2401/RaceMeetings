@@ -15,14 +15,14 @@ public class SchemaConstants {
 
     // Database columns REGIONS table.
     public static final String REGIONS_ROWID = "_id";
-    public static final String REGIONS_ID = "RegionsId";
-    public static final String REGIONS_NAME = "RegionName";
-    public static final String REGIONS_S_NAME = "RegionShortName";
+    public static final String REGIONS_ID = "REGIONSID";
+    public static final String REGIONS_NAME = "REGIONNAME";
+    public static final String REGIONS_S_NAME = "REGIONSHORTNAME";
 
     // Database columns CLUBS table.
     public static final String CLUB_ROWID = "_id";
-    public static final String CLUB_ID = "Clubsd";
-    public static final String CLUB_NAME = "ClubName";
+    public static final String CLUB_ID = "CLUBSD";
+    public static final String CLUB_NAME = "CLUBNAME";
 
     // Database version and names.
     public static final int DATABASE_VERSION = 1;

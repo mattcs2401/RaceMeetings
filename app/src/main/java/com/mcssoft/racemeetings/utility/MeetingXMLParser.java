@@ -53,7 +53,6 @@ public class MeetingXMLParser {
                 }
                 eventType = parser.next();
             }
-
         } catch(XmlPullParserException ex) {
             ex.printStackTrace();
         } finally {

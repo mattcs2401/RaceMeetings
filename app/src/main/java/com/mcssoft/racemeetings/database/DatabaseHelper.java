@@ -1,11 +1,16 @@
 package com.mcssoft.racemeetings.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.mcssoft.racemeetings.meeting.Region;
+
+import java.util.ArrayList;
 
 /**
  * Database utility class (basically used by the MeetingProvider and associated ContentResolver).
@@ -46,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static String [] getProjection(Projection projection) {
         switch (projection) {
             case RegionsSchema:
-                return getRegionsSchemaProjection();
+                return getRegionsProjection();
             case ClubsScema:
                 return getClubsProjection();
         }
@@ -61,7 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean checkTableRowCount(String tableName) {
         String[] projection = {};
         if(tableName == SchemaConstants.REGIONS_TABLE) {
-            projection = getRegionsSchemaProjection();
+            projection = getRegionsProjection();
         } else if(tableName == SchemaConstants.CLUBS_TABLE) {
             projection = getClubsProjection();
         }
@@ -72,7 +77,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return (cursor.getCount() > 0);
     }
 
-    private static final String[] getRegionsSchemaProjection() {
+    public void insertFromList(String tableName, ArrayList thelist) {
+        //Cursor cursor;
+        ContentValues cv;
+        String[] projection;
+        SQLiteDatabase db = getWritableDatabase();
+
+        if(tableName.equals(SchemaConstants.REGIONS_TABLE)) {
+            projection = getRegionsProjection();
+
+            for (Object object : thelist) {
+                long count = 0;
+                Region region = (Region) object;
+                cv = new ContentValues();
+                cv.put(SchemaConstants.REGIONS_ID, region.getRegionId());
+                cv.put(SchemaConstants.REGIONS_NAME, region.getRegionName());
+                cv.put(SchemaConstants.REGIONS_S_NAME, region.getRegionSName());
+
+                try {
+                    db.beginTransaction();
+                    count = db.insertOrThrow(SchemaConstants.REGIONS_TABLE, null, cv);
+                    db.setTransactionSuccessful();
+                } catch(SQLException ex) {
+                    ex.printStackTrace();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+        } else if (tableName.equals(SchemaConstants.CLUBS_TABLE)) {
+            projection = getClubsProjection();
+
+
+        }
+    }
+
+    private static final String[] getRegionsProjection() {
         return new String[] {
             SchemaConstants.REGIONS_ROWID,
             SchemaConstants.REGIONS_ID,
