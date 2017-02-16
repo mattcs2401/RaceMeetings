@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.mcssoft.racemeetings.meeting.Club;
 import com.mcssoft.racemeetings.meeting.Region;
 
 import java.util.ArrayList;
@@ -45,15 +46,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public enum Projection {
-        RegionsSchema, ClubsSchema
+        RegionSchema, ClubSchema
     }
 
     public static String [] getProjection(Projection projection) {
         switch (projection) {
-            case RegionsSchema:
-                return getRegionsProjection();
-            case ClubsSchema:
-                return getClubsProjection();
+            case RegionSchema:
+                return getRegionProjection();
+            case ClubSchema:
+                return getClubProjection();
         }
         return  null;
     }
@@ -66,9 +67,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean checkTableRowCount(String tableName) {
         String[] projection = {};
         if(tableName == SchemaConstants.REGIONS_TABLE) {
-            projection = getProjection(Projection.RegionsSchema);
+            projection = getProjection(Projection.RegionSchema);
         } else if(tableName == SchemaConstants.CLUBS_TABLE) {
-            projection = getProjection(Projection.ClubsSchema);
+            projection = getProjection(Projection.ClubSchema);
         }
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
@@ -109,10 +110,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void insertFromListClubs(ArrayList theList) {
+        ContentValues cv;
+        SQLiteDatabase db = getWritableDatabase();
 
+        for (Object object : theList) {
+            Club club = (Club) object;
+            cv = new ContentValues();
+            cv.put(SchemaConstants.CLUB_ID, club.getClubId());
+            cv.put(SchemaConstants.CLUB_NAME, club.getClubName());
+
+            try {
+                db.beginTransaction();
+                db.insertOrThrow(SchemaConstants.CLUBS_TABLE, null, cv);
+                db.setTransactionSuccessful();
+            } catch(SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                db.endTransaction();
+            }
+        }
     }
 
-    private static final String[] getRegionsProjection() {
+    private static final String[] getRegionProjection() {
         return new String[] {
             SchemaConstants.REGIONS_ROWID,
             SchemaConstants.REGIONS_ID,
@@ -121,7 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         };
     }
 
-    private static final String[] getClubsProjection() {
+    private static final String[] getClubProjection() {
         return new String [] {
             SchemaConstants.CLUB_ROWID,
             SchemaConstants.CLUB_ID,
