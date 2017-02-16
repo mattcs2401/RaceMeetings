@@ -3,19 +3,31 @@ package com.mcssoft.racemeetings.utility;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.TextView;
+import java.net.URL;
 
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
 
-import java.io.InputStream;
-import java.net.URL;
-
+/**
+ * Utility class - generic async task used for getting data via http.
+ * Results are returned via the IAsyncResponse interface.
+ */
 public class DownloadData extends AsyncTask<String,String,String> {
 
+    /**
+     * Constructor.
+     * @param context The app cpntext.
+     * @param message A message for the progress dialog.
+     */
     public DownloadData(Context context, String message) {
         this.context = context;
         this.message = message;    }
 
+    /**
+     * Constructor.
+     * @param context The app cpntext.
+     * @param url The url for the http operation.
+     * @param message A message for the progress dialog.
+     */
     public DownloadData(Context context, URL url, String message) {
         super();
         this.context = context;
@@ -30,10 +42,6 @@ public class DownloadData extends AsyncTask<String,String,String> {
         progressDialog.setCancelable(false);
         progressDialog.setMessage(message);
         progressDialog.show();
-    }
-
-    public void setUrl(URL url) {
-        this.url = url;
     }
 
     @Override
@@ -58,6 +66,14 @@ public class DownloadData extends AsyncTask<String,String,String> {
         super.onPostExecute(theResult);
         progressDialog.dismiss();
         asyncResponse.processFinish(theResult);
+    }
+
+    /**
+     * Set the url for the http operation.
+     * @param url The url for the http operation.
+     */
+    public void setUrl(URL url) {
+        this.url = url;
     }
 
     private URL url;
