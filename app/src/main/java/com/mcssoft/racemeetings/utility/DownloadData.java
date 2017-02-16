@@ -12,13 +12,14 @@ import java.net.URL;
 
 public class DownloadData extends AsyncTask<String,String,String> {
 
-    public DownloadData(Context context) {
+    public DownloadData(Context context, String message) {
         this.context = context;
-    }
+        this.message = message;    }
 
-    public DownloadData(Context context, URL url) {
+    public DownloadData(Context context, URL url, String message) {
         super();
         this.context = context;
+        this.message = message;
         this.url = url;
     }
 
@@ -27,7 +28,7 @@ public class DownloadData extends AsyncTask<String,String,String> {
         super.onPreExecute();
         progressDialog = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Downloading ...");
+        progressDialog.setMessage(message);
         progressDialog.show();
     }
 
@@ -60,6 +61,7 @@ public class DownloadData extends AsyncTask<String,String,String> {
     }
 
     private URL url;
+    private String message;
     private Context context;
     private ProgressDialog progressDialog;
     public IAsyncResponse asyncResponse = null;

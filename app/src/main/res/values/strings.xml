@@ -2,15 +2,17 @@
     <string name="app_name">RaceMeetings</string>
     <!-- Fragment tags. -->
     <string name="main_fragment_tag">main_fragment_tag</string>
+    <!-- -->
+    <string name="base_path_calendar">http\\www.racingqueensland.com.au\opendatawebservices\calendar.asmx</string>
+    <string name="get_available_regions">GetAvailableRegions</string>
+    <string name="get_available_clubs">GetAvailableClubs</string>
     <!-- generic connectivity messages. -->
     <string name="network_type_name_wifi">WIFI</string>
     <string name="network_type_name_any">MOBILE</string>
     <string name="lost_connection">Connection has been lost.</string>
-    <!-- TBA -->
-    <string name="SOAP_ACTION">http://www.racingqueensland.com.au/opendatawebservices/meetings/GetRacesForMeeting</string>
-    <string name="OPERATION_NAME">GetRacesForMeeting</string>
-    <string name="TARGET_NAMESPACE">http://www.racingqueensland.com.au/opendatawebservices/meetings/</string>
-    <string name="SOAP_ADDRESS">http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx</string>
+    <!-- Progress dialog -->
+    <string name="init_clubs_data">Initialising Clubs data.</string>
+    <string name="init_regions_data">Initialising Regions data.</string>
     <!-- Preference keys. -->
     <!-- Network access preference. -->
     <string name="pref_network_access_button_id_key">pref_network_access_id_key</string>

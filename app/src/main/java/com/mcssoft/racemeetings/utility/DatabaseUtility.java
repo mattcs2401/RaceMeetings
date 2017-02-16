@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
@@ -136,7 +137,8 @@ public class DatabaseUtility implements IAsyncResponse {
     private void loadRegionsTableData() {
         regions = true; clubs = false;
         try {
-            DownloadData dld = new DownloadData(context, new URL(createRegionsUrl()));
+            DownloadData dld = new DownloadData(context, new URL(createRegionsUrl()),
+                    Resources.getInstance().getString(R.string.init_regions_data));
             dld.asyncResponse = this;
             dld.execute();
         } catch(Exception ex) {
@@ -147,7 +149,8 @@ public class DatabaseUtility implements IAsyncResponse {
     private void loadClubsTableData() {
         regions = false; clubs = true;
         try {
-            DownloadData dld = new DownloadData(context, new URL(createClubsUrl()));
+            DownloadData dld = new DownloadData(context, new URL(createClubsUrl()),
+                    Resources.getInstance().getString(R.string.init_clubs_data));
             dld.asyncResponse = this;
             dld.execute();
         } catch(Exception ex) {
@@ -156,26 +159,17 @@ public class DatabaseUtility implements IAsyncResponse {
     }
 
     private String createRegionsUrl() {
-
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("http")
-                .authority("www.racingqueensland.com.au")
-                .appendPath("opendatawebservices")
-                .appendPath("calendar.asmx")
-                .appendPath("GetAvailableRegions");
-//                .appendQueryParameter("MeetingId","89226");
+        builder.appendEncodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
+                .appendPath(Resources.getInstance().getString(R.string.get_available_regions));
         builder.build();
         return builder.toString();
     }
 
     private String createClubsUrl() {
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("http")
-                .authority("www.racingqueensland.com.au")
-                .appendPath("opendatawebservices")
-                .appendPath("calendar.asmx")
-                .appendPath("GetAvailableClubs");
-//                .appendQueryParameter("MeetingId","89226");
+        builder.appendEncodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
+                .appendPath(Resources.getInstance().getString(R.string.get_available_clubs));
         builder.build();
         return builder.toString();
     }
