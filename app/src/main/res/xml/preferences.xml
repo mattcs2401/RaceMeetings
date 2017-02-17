@@ -4,4 +4,7 @@
     <com.mcssoft.racemeetings.dialog.NetworkDialog
         android:title="Network Preferences"
         android:summary="Set network access preferences."/>
+    <com.mcssoft.racemeetings.dialog.TrackDialog
+        android:title="Track Preferences"
+        android:summary="Set the track preferences."/>
 </PreferenceScreen>
