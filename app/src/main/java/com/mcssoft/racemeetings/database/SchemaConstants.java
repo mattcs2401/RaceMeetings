@@ -23,6 +23,7 @@ public class SchemaConstants {
     public static final String CLUB_ROWID = "_id";
     public static final String CLUB_ID = "CLUBSD";
     public static final String CLUB_NAME = "CLUBNAME";
+    public static final String CLUB_PREF_CHECK = "PREFCHECK";
 
     // Database version and names.
     public static final int DATABASE_VERSION = 1;
@@ -38,18 +39,19 @@ public class SchemaConstants {
             + REGIONS_NAME   + " TEXT NOT NULL, "
             + REGIONS_S_NAME + " TEXT NOT NULL)";
 
-    public static final String SELECT_REGIONS = "SELECT "
-            + REGIONS_ROWID + ","
-            + REGIONS_ID    + ","
-            + REGIONS_NAME  + ","
-            + REGIONS_S_NAME + " FROM REGIONS;";
+//    public static final String SELECT_REGIONS = "SELECT "
+//            + REGIONS_ROWID + ","
+//            + REGIONS_ID    + ","
+//            + REGIONS_NAME  + ","
+//            + REGIONS_S_NAME + " FROM REGIONS;";
 
     // Database table create.
     public static final String CREATE_CLUBS_TABLE = "CREATE TABLE "
-            + CLUBS_TABLE  + " ("
-            + CLUB_ROWID  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + CLUB_ID     + " INTEGER NOT NULL, "
-            + CLUB_NAME   + " TEXT NOT NULL)";
+            + CLUBS_TABLE     + " ("
+            + CLUB_ROWID      + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CLUB_ID         + " INTEGER NOT NULL, "
+            + CLUB_NAME       + " TEXT NOT NULL, "
+            + CLUB_PREF_CHECK + " TEXT DEFAULT 'N')";  // indicates this club also used in track preference.
 
     public  static final String DROP_REGIONS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + REGIONS_TABLE + ";";
     public  static final String DROP_CLUBS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + CLUBS_TABLE + ";";
