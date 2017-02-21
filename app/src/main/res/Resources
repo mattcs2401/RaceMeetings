@@ -65,7 +65,7 @@ Notes:
 
 (1) GetMeetingsForDate - will give meeting id, track name, club name
     -> date format YYYY-MM-DD
-    -> then filter by ClubName
+    -> then filter by TrackName
 
 <Meetings>
   <Meeting Id="88788">

@@ -2,30 +2,24 @@ package com.mcssoft.racemeetings.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.preference.DialogPreference;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.adapter.MeetingsAdapter;
+import com.mcssoft.racemeetings.adapter.TrackPrefAdapter;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
-import com.mcssoft.racemeetings.utility.Preferences;
-import com.mcssoft.racemeetings.utility.Resources;
 
 public class TrackDialog extends DialogPreference
-    implements View.OnClickListener {
+    implements View.OnClickListener, IItemClickListener {
 
     public TrackDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
         checkPreference();
-        setDialogLayoutResource(R.layout.dialog_pref_track2);
+        setDialogLayoutResource(R.layout.dialog_pref_track);
     }
 
     @Override
@@ -44,6 +38,11 @@ public class TrackDialog extends DialogPreference
         }
     }
 
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
     private void initialise(View view) {
         setMeetingAdapter();
         setRecyclerView(view);
@@ -56,8 +55,8 @@ public class TrackDialog extends DialogPreference
     }
 
     private void setMeetingAdapter() {
-        meetingsAdapter = new MeetingsAdapter();
-//        meetingsAdapter.setOnItemClickListener(this);
+        trackPrefAdapter = new TrackPrefAdapter();
+        trackPrefAdapter.setOnItemClickListener(this);
     }
 
     private void setRecyclerView(View view) {
@@ -70,12 +69,12 @@ public class TrackDialog extends DialogPreference
         llm.scrollToPosition(0);
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(meetingsAdapter);
+        recyclerView.setAdapter(trackPrefAdapter);
     }
 
 
 
     private String[] defaultTracks;
     private RecyclerView recyclerView;
-    private MeetingsAdapter meetingsAdapter;
+    private TrackPrefAdapter trackPrefAdapter;
 }

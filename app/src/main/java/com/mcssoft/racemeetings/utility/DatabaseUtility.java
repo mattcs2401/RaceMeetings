@@ -13,11 +13,13 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import com.mcssoft.racemeetings.R;
+import com.mcssoft.racemeetings.adapter.TrackPrefAdapter;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
 import com.mcssoft.racemeetings.meeting.Club;
 import com.mcssoft.racemeetings.meeting.Region;
+import com.mcssoft.racemeetings.meeting.Track;
 
 /**
  * Utility class for database operations other than those of the MeetgingProvider/ContentResolver.
@@ -26,6 +28,7 @@ public class DatabaseUtility implements IAsyncResponse {
 
     public DatabaseUtility(Context context) {
         this.context = context;
+        checkTracks = false;
         databaseHelper = new DatabaseHelper(context);
     }
 
@@ -44,6 +47,12 @@ public class DatabaseUtility implements IAsyncResponse {
      */
     @Override
     public void processFinish(String theResults) {
+        if(!checkTracks) {
+            ArrayList<Track> tracks = mxmlp.parseRegionsXml();
+            insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
+            checkTracks = true;
+        }
+
         databaseHelper = new DatabaseHelper(context);
         InputStream inStream = new ByteArrayInputStream(theResults.getBytes());
         MeetingsXMLParser mxmlp = new MeetingsXMLParser(inStream);
@@ -96,9 +105,9 @@ public class DatabaseUtility implements IAsyncResponse {
         for (Object object : theList) {
             Region region = (Region) object;
             cv = new ContentValues();
-            cv.put(SchemaConstants.REGIONS_ID, region.getRegionId());
-            cv.put(SchemaConstants.REGIONS_NAME, region.getRegionName());
-            cv.put(SchemaConstants.REGIONS_S_NAME, region.getRegionSName());
+            cv.put(SchemaConstants.REGION_ID, region.getRegionId());
+            cv.put(SchemaConstants.REGION_NAME, region.getRegionName());
+            cv.put(SchemaConstants.REGION_S_NAME, region.getRegionSName());
 
             try {
                 db.beginTransaction();
@@ -174,8 +183,9 @@ public class DatabaseUtility implements IAsyncResponse {
         return builder.toString();
     }
 
-    private boolean regions;           // flag to indicate async results are for REGIONS
     private boolean clubs;             // flag to indicate async results are for CLUBS
+    private boolean regions;           // flag to indicate async results are for REGIONS
+    private boolean checkTracks;
     private Context context;
     private DatabaseHelper databaseHelper;
 }

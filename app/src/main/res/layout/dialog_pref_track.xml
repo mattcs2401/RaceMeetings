@@ -3,67 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <CheckBox
-        android:text="Doomben"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_rv_track_pref"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/id_cb_doomben"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="?attr/actionBarSize"/>
 
-    <CheckBox
-        android:text="Eagle Farm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/id_cb_eaglefarm"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_cb_doomben" />
-
-    <CheckBox
-        android:text="Sunshine Coast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/id_cb_sunshinecoast"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_cb_eaglefarm" />
-
-    <CheckBox
-        android:text="Gold Coast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/id_cb_goldcoast"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_cb_sunshinecoast" />
-
-    <CheckBox
-        android:text="Ipswich"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/id_cb_ipswich"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_cb_goldcoast" />
-
-    <CheckBox
-        android:text="Toowoomba"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:id="@+id/id_cb_toowoomba"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_cb_ipswich" />
+    <include layout="@layout/dialog_pref_track_row" />
 
 </android.support.constraint.ConstraintLayout>

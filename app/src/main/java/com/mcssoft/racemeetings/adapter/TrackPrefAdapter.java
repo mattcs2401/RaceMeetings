@@ -56,7 +56,6 @@ public class TrackPrefAdapter extends RecyclerView.Adapter<TrackPrefViewHolder> 
 
         idColNdx = cursor.getColumnIndex(SchemaConstants.CLUB_ROWID);
         trackNameColNdx = cursor.getColumnIndex(SchemaConstants.CLUB_NAME);
-        trackNameCbColNdx = cursor.getColumnIndex(SchemaConstants.CLUB_PREF_CHECK);
 
         notifyDataSetChanged();
     }
