@@ -3,7 +3,7 @@
     <!-- Fragment tags. -->
     <string name="main_fragment_tag">main_fragment_tag</string>
     <!-- -->
-    <string name="base_path_calendar">http\\www.racingqueensland.com.au\opendatawebservices\calendar.asmx</string>
+    <string name="base_path_calendar">http://www.racingqueensland.com.au/opendatawebservices/calendar.asmx</string>
     <string name="get_available_regions">GetAvailableRegions</string>
     <string name="get_available_clubs">GetAvailableClubs</string>
     <!-- generic connectivity messages. -->

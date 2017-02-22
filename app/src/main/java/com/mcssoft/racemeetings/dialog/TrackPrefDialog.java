@@ -2,6 +2,7 @@ package com.mcssoft.racemeetings.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.preference.DialogPreference;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,9 @@ import android.view.View;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.adapter.MeetingsAdapter;
 import com.mcssoft.racemeetings.adapter.TrackPrefAdapter;
+import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
+import com.mcssoft.racemeetings.utility.DatabaseUtility;
 
 public class TrackPrefDialog extends DialogPreference
     implements View.OnClickListener, IItemClickListener {
@@ -44,6 +47,7 @@ public class TrackPrefDialog extends DialogPreference
     }
 
     private void initialise(View view) {
+        getTracks();
         setMeetingAdapter();
         setRecyclerView(view);
     }
@@ -54,9 +58,15 @@ public class TrackPrefDialog extends DialogPreference
     private void checkPreference() {
     }
 
+    private void getTracks() {
+        DatabaseUtility dbUtil = new DatabaseUtility(this.getContext());
+        cursor = dbUtil.getAllFromTable(SchemaConstants.TRACKS_TABLE);
+    }
+
     private void setMeetingAdapter() {
         trackPrefAdapter = new TrackPrefAdapter();
         trackPrefAdapter.setOnItemClickListener(this);
+        trackPrefAdapter.swapCursor(cursor);
     }
 
     private void setRecyclerView(View view) {
@@ -73,8 +83,8 @@ public class TrackPrefDialog extends DialogPreference
     }
 
 
-
-    private String[] defaultTracks;
+    private Cursor cursor;
+    //private String[] defaultTracks;
     private RecyclerView recyclerView;
     private TrackPrefAdapter trackPrefAdapter;
 }

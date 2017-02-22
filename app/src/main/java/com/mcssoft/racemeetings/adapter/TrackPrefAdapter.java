@@ -2,7 +2,6 @@ package com.mcssoft.racemeetings.adapter;
 
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,7 @@ public class TrackPrefAdapter extends RecyclerView.Adapter<TrackPrefViewHolder> 
     @Override
     public void onBindViewHolder(TrackPrefViewHolder holder, int position) {
         holder.getTrackName().setText(cursor.getString(trackNameColNdx));
-        String checked = cursor.getString(trackNameCbColNdx);
+        String checked = cursor.getString(trackIsPrefColNdx);
         if(checked.equals("N")) {
             holder.getTrackNameCb().setChecked(false);
         } else if (checked.equals("Y")) {
@@ -54,8 +53,9 @@ public class TrackPrefAdapter extends RecyclerView.Adapter<TrackPrefViewHolder> 
         cursor = newCursor;
         cursor.moveToFirst();
 
-        idColNdx = cursor.getColumnIndex(SchemaConstants.CLUB_ROWID);
-        trackNameColNdx = cursor.getColumnIndex(SchemaConstants.CLUB_NAME);
+        idColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_ROWID);
+        trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
+        trackIsPrefColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_IS_PREF);
 
         notifyDataSetChanged();
     }
@@ -69,7 +69,7 @@ public class TrackPrefAdapter extends RecyclerView.Adapter<TrackPrefViewHolder> 
 
     private int idColNdx;
     private int trackNameColNdx;
-    private int trackNameCbColNdx;
+    private int trackIsPrefColNdx;
 
     private IItemClickListener itemClickListener;
 }

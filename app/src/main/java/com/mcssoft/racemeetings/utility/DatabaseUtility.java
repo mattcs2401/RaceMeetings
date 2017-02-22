@@ -13,7 +13,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.adapter.TrackPrefAdapter;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
@@ -29,7 +28,7 @@ public class DatabaseUtility implements IAsyncResponse {
     public DatabaseUtility(Context context) {
         this.context = context;
         checkTracks = false;
-        databaseHelper = new DatabaseHelper(context);
+        dbHelper = new DatabaseHelper(context);
     }
 
     /**
@@ -49,7 +48,7 @@ public class DatabaseUtility implements IAsyncResponse {
     public void processFinish(String theResults) {
         MeetingsXMLParser mxmlp = null;
         InputStream inStream = null;
-        databaseHelper = new DatabaseHelper(context);
+        dbHelper = new DatabaseHelper(context);
 
         if(!checkTracks) {
             // Sort of work around as Track data is from raw resource.
@@ -84,25 +83,7 @@ public class DatabaseUtility implements IAsyncResponse {
      * @return True if the row count > 0.
      */
     public boolean checkTableRowCount(String tableName) {
-        String[] projection = {};
-
-        switch (tableName) {
-            case SchemaConstants.REGIONS_TABLE:
-                projection = databaseHelper.getProjection(DatabaseHelper.Projection.RegionSchema);
-                break;
-            case SchemaConstants.CLUBS_TABLE:
-                projection = databaseHelper.getProjection(DatabaseHelper.Projection.ClubSchema);
-                break;
-            case SchemaConstants.TRACKS_TABLE:
-                projection = databaseHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
-                break;
-        }
-
-        SQLiteDatabase db = databaseHelper.getDatabase();
-        db.beginTransaction();
-        Cursor cursor = db.query(tableName, projection, null, null, null, null, null);
-        db.endTransaction();
-        return (cursor.getCount() > 0);
+        return (getAllFromTable(tableName).getCount() > 0);
     }
 
     public void insertFromList(String tableName, ArrayList theList) {
@@ -119,9 +100,29 @@ public class DatabaseUtility implements IAsyncResponse {
         }
     }
 
+    public Cursor getAllFromTable(String tableName) {
+        String[] projection = {};
+        switch (tableName) {
+            case SchemaConstants.REGIONS_TABLE:
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.RegionSchema);
+                break;
+            case SchemaConstants.CLUBS_TABLE:
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.ClubSchema);
+                break;
+            case SchemaConstants.TRACKS_TABLE:
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
+                break;
+        }
+        SQLiteDatabase db = dbHelper.getDatabase();
+        db.beginTransaction();
+        Cursor cursor = db.query(tableName, projection, null, null, null, null, null);
+        db.endTransaction();
+        return cursor;
+    }
+
     private void insertFromListRegions(ArrayList theList) {
         ContentValues cv;
-        SQLiteDatabase db = databaseHelper.getDatabase();
+        SQLiteDatabase db = dbHelper.getDatabase();
 
         for (Object object : theList) {
             Region region = (Region) object;
@@ -144,7 +145,7 @@ public class DatabaseUtility implements IAsyncResponse {
 
     private void insertFromListClubs(ArrayList theList) {
         ContentValues cv;
-        SQLiteDatabase db = databaseHelper.getDatabase();
+        SQLiteDatabase db = dbHelper.getDatabase();
 
         for (Object object : theList) {
             Club club = (Club) object;
@@ -166,13 +167,14 @@ public class DatabaseUtility implements IAsyncResponse {
 
     private void insertFromListTracks(ArrayList theList) {
         ContentValues cv;
-        SQLiteDatabase db = databaseHelper.getDatabase();
+        SQLiteDatabase db = dbHelper.getDatabase();
 
         for (Object object : theList) {
             Track track = (Track) object;
             cv = new ContentValues();
             cv.put(SchemaConstants.TRACK_NAME, track.getTrackName());
             cv.put(SchemaConstants.TRACK_CLUB_NAME, track.getTrackClubName());
+            cv.put(SchemaConstants.TRACK_IS_PREF, track.getTrackisPref());
 
             try {
                 db.beginTransaction();
@@ -212,7 +214,7 @@ public class DatabaseUtility implements IAsyncResponse {
 
     private String createRegionsUrl() {
         Uri.Builder builder = new Uri.Builder();
-        builder.appendEncodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
+        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
                 .appendPath(Resources.getInstance().getString(R.string.get_available_regions));
         builder.build();
         return builder.toString();
@@ -220,15 +222,16 @@ public class DatabaseUtility implements IAsyncResponse {
 
     private String createClubsUrl() {
         Uri.Builder builder = new Uri.Builder();
-        builder.appendEncodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
+        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
                 .appendPath(Resources.getInstance().getString(R.string.get_available_clubs));
         builder.build();
         return builder.toString();
     }
 
-    private boolean clubs;             // flag to indicate async results are for CLUBS
-    private boolean regions;           // flag to indicate async results are for REGIONS
-    private boolean checkTracks;
+    private boolean clubs;        // flag to indicate async results are for CLUBS
+    private boolean regions;      // flag to indicate async results are for REGIONS
+    private boolean checkTracks;  // flag to indicate load TRACKS from raw resource.
+
     private Context context;
-    private DatabaseHelper databaseHelper;
+    private DatabaseHelper dbHelper;
 }
