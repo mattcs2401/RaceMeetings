@@ -83,7 +83,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return new String [] {
                 SchemaConstants.TRACK_ROWID,
                 SchemaConstants.TRACK_NAME,
-                SchemaConstants.TRACK_CLUB_NAME
+                SchemaConstants.TRACK_CLUB_NAME,
+                SchemaConstants.TRACK_IS_PREF
         };
     }
 

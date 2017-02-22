@@ -15,10 +15,10 @@ import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.Resources;
 
-public class NetworkDialog extends DialogPreference
+public class NetworkPrefDialog extends DialogPreference
         implements View.OnClickListener{
 
-    public NetworkDialog(Context context, AttributeSet attrs) {
+    public NetworkPrefDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
         checkPreference();
         setDialogLayoutResource(R.layout.dialog_pref_network);

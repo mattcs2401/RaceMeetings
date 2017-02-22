@@ -66,6 +66,7 @@ public class TrackPrefAdapter extends RecyclerView.Adapter<TrackPrefViewHolder> 
 
     private View view;
     private Cursor cursor;
+
     private int idColNdx;
     private int trackNameColNdx;
     private int trackNameCbColNdx;

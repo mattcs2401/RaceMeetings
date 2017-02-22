@@ -47,15 +47,22 @@ public class DatabaseUtility implements IAsyncResponse {
      */
     @Override
     public void processFinish(String theResults) {
+        MeetingsXMLParser mxmlp = null;
+        InputStream inStream = null;
+        databaseHelper = new DatabaseHelper(context);
+
         if(!checkTracks) {
-            ArrayList<Track> tracks = mxmlp.parseRegionsXml();
+            // Sort of work around as Track data is from raw resource.
+            inStream = context.getResources().openRawResource(R.raw.tracks);
+            mxmlp = new MeetingsXMLParser(inStream);
+
+            ArrayList<Track> tracks = mxmlp.parseTracksXml();
             insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
             checkTracks = true;
         }
 
-        databaseHelper = new DatabaseHelper(context);
-        InputStream inStream = new ByteArrayInputStream(theResults.getBytes());
-        MeetingsXMLParser mxmlp = new MeetingsXMLParser(inStream);
+        inStream = new ByteArrayInputStream(theResults.getBytes());
+        mxmlp = new MeetingsXMLParser(inStream);
 
         if(regions) {
             ArrayList<Region> regions = mxmlp.parseRegionsXml();
@@ -78,11 +85,19 @@ public class DatabaseUtility implements IAsyncResponse {
      */
     public boolean checkTableRowCount(String tableName) {
         String[] projection = {};
-        if(tableName == SchemaConstants.REGIONS_TABLE) {
-            projection = databaseHelper.getProjection(DatabaseHelper.Projection.RegionSchema);
-        } else if(tableName == SchemaConstants.CLUBS_TABLE) {
-            projection = databaseHelper.getProjection(DatabaseHelper.Projection.ClubSchema);
+
+        switch (tableName) {
+            case SchemaConstants.REGIONS_TABLE:
+                projection = databaseHelper.getProjection(DatabaseHelper.Projection.RegionSchema);
+                break;
+            case SchemaConstants.CLUBS_TABLE:
+                projection = databaseHelper.getProjection(DatabaseHelper.Projection.ClubSchema);
+                break;
+            case SchemaConstants.TRACKS_TABLE:
+                projection = databaseHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
+                break;
         }
+
         SQLiteDatabase db = databaseHelper.getDatabase();
         db.beginTransaction();
         Cursor cursor = db.query(tableName, projection, null, null, null, null, null);
@@ -91,10 +106,16 @@ public class DatabaseUtility implements IAsyncResponse {
     }
 
     public void insertFromList(String tableName, ArrayList theList) {
-        if(tableName.equals(SchemaConstants.REGIONS_TABLE)) {
-            insertFromListRegions(theList);
-        } else if (tableName.equals(SchemaConstants.CLUBS_TABLE)) {
-            insertFromListClubs(theList);
+        switch (tableName) {
+            case SchemaConstants.REGIONS_TABLE:
+                insertFromListRegions(theList);
+                break;
+            case SchemaConstants.CLUBS_TABLE:
+                insertFromListClubs(theList);
+                break;
+            case SchemaConstants.TRACKS_TABLE:
+                insertFromListTracks(theList);
+                break;
         }
     }
 
@@ -134,6 +155,28 @@ public class DatabaseUtility implements IAsyncResponse {
             try {
                 db.beginTransaction();
                 db.insertOrThrow(SchemaConstants.CLUBS_TABLE, null, cv);
+                db.setTransactionSuccessful();
+            } catch(SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                db.endTransaction();
+            }
+        }
+    }
+
+    private void insertFromListTracks(ArrayList theList) {
+        ContentValues cv;
+        SQLiteDatabase db = databaseHelper.getDatabase();
+
+        for (Object object : theList) {
+            Track track = (Track) object;
+            cv = new ContentValues();
+            cv.put(SchemaConstants.TRACK_NAME, track.getTrackName());
+            cv.put(SchemaConstants.TRACK_CLUB_NAME, track.getTrackClubName());
+
+            try {
+                db.beginTransaction();
+                db.insertOrThrow(SchemaConstants.TRACKS_TABLE, null, cv);
                 db.setTransactionSuccessful();
             } catch(SQLException ex) {
                 ex.printStackTrace();

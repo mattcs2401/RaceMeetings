@@ -13,10 +13,10 @@ import com.mcssoft.racemeetings.adapter.MeetingsAdapter;
 import com.mcssoft.racemeetings.adapter.TrackPrefAdapter;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 
-public class TrackDialog extends DialogPreference
+public class TrackPrefDialog extends DialogPreference
     implements View.OnClickListener, IItemClickListener {
 
-    public TrackDialog(Context context, AttributeSet attrs) {
+    public TrackPrefDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
         checkPreference();
         setDialogLayoutResource(R.layout.dialog_pref_track);

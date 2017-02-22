@@ -2,6 +2,7 @@ package com.mcssoft.racemeetings.utility;
 
 import com.mcssoft.racemeetings.meeting.Club;
 import com.mcssoft.racemeetings.meeting.Region;
+import com.mcssoft.racemeetings.meeting.Track;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -94,6 +95,50 @@ public class MeetingsXMLParser {
             ex.printStackTrace();
         } finally {
             return clubs;
+        }
+    }
+
+    public ArrayList<Track> parseTracksXml() {
+        ArrayList<Track> tracks = null;
+        Track track = null;
+        try {
+            String elementName;
+            int eventType = parser.getEventType();
+            while(eventType != parser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        //regions = new ArrayList<>();
+                        break;
+                    case XmlPullParser.START_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Tracks")) {
+                            tracks = new ArrayList<>();
+                        }
+                        else if (elementName.equals("Track")) {
+                            track = new Track();
+                        }
+                        else if(elementName.equals("TrackName")) {
+                            track.setTrackName(parser.nextText());
+                        }
+                        else if(elementName.equals("TrackClubName")) {
+                            track.setTrackClubName(parser.nextText());
+                        }
+                        else if(elementName.equals("TrackIsPref")) {
+                            track.setTrackisPref(parser.nextText());
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Track") && track != null) {
+                            tracks.add(track);
+                        }
+                }
+                eventType = parser.next();
+            }
+        } catch(XmlPullParserException ex) {
+            ex.printStackTrace();
+        } finally {
+            return tracks;
         }
     }
 

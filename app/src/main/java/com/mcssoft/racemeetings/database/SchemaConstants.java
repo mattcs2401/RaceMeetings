@@ -35,6 +35,7 @@ public class SchemaConstants {
     public static final String TRACK_ROWID = "_id";
     public static final String TRACK_NAME = "TRACKNAME";
     public static final String TRACK_CLUB_NAME = "CLUBNAME";
+    public static final String TRACK_IS_PREF = "TRACKISPREF";
 
     // Regions table create.
     public static final String CREATE_REGIONS_TABLE = "CREATE TABLE "
@@ -56,7 +57,8 @@ public class SchemaConstants {
             + TRACKS_TABLE    + " ("
             + TRACK_ROWID     + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TRACK_NAME      + " TEXT NOT NULL, "
-            + TRACK_CLUB_NAME + " TEXT)";
+            + TRACK_CLUB_NAME + " TEXT NOT NULL, "
+            + TRACK_IS_PREF   + " TEXT NOT NULL)";
 
     public  static final String DROP_REGIONS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + REGIONS_TABLE + ";";
     public  static final String DROP_CLUBS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + CLUBS_TABLE + ";";

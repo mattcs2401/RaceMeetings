@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Tracks>
+  <Track>
+      <TrackName>Doomben</TrackName>
+      <TrackClubName>Brisbane Racing Club@Doomben</TrackClubName>
+      <TrackIsPref>Y</TrackIsPref>
+  </Track>
+    <Track>
+        <TrackName>Eagle Farm</TrackName>
+        <TrackClubName>Brisbane Racing Club@Eagle Farm</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Sunshine Coast</TrackName>
+        <TrackClubName>Sunshine Coast Turf Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Gold Coast</TrackName>
+        <TrackClubName>Gold Coast Turf Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Ipswich</TrackName>
+        <TrackClubName>Ipswich Turf Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Toowoomba</TrackName>
+        <TrackClubName>Toowoomba Turf Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+</Tracks>

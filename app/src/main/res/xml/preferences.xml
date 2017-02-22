@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.mcssoft.racemeetings.dialog.NetworkDialog
+    <com.mcssoft.racemeetings.dialog.NetworkPrefDialog
         android:title="Network Preferences"
         android:summary="Set network access preferences."/>
-    <com.mcssoft.racemeetings.dialog.TrackDialog
+    <com.mcssoft.racemeetings.dialog.TrackPrefDialog
         android:title="Track Preferences"
         android:summary="Set the track preferences."/>
 </PreferenceScreen>
