@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Simply used as a default list of tracks on app first run. -->
 <Tracks>
   <Track>
       <TrackName>Doomben</TrackName>

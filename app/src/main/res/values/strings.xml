@@ -20,13 +20,4 @@
     <!-- Navigation drawer. -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <!-- Track names. -->
-    <string-array name="track_names">
-        <item>Doomben</item>
-        <item>Eagle Farm</item>
-        <item>Gold Coast</item>
-        <item>Sunshine Coast</item>
-        <item>Ipswich</item>
-        <item>Toowoomba</item>
-    </string-array>
 </resources>

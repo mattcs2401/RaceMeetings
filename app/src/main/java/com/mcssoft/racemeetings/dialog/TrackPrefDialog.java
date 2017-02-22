@@ -16,6 +16,11 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
 
+/**
+ * Utility class to show a "preference" dialog for tracks.
+ * Note: The preferences are in the TRACKS table of the database with an "is_pref" indicator column.
+ *       This was done so more tracks could be added/removed as required.
+ */
 public class TrackPrefDialog extends DialogPreference
     implements View.OnClickListener, IItemClickListener {
 
