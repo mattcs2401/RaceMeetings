@@ -29,8 +29,12 @@ public class TrackPrefAdapter extends RecyclerView.Adapter<TrackPrefViewHolder> 
 
     @Override
     public void onBindViewHolder(TrackPrefViewHolder holder, int position) {
-        holder.getTrackName().setText(cursor.getString(trackNameColNdx));
+        cursor.moveToPosition(position);
+
+        String trackName = cursor.getString(trackNameColNdx);
+        holder.getTrackName().setText(trackName);
         String checked = cursor.getString(trackIsPrefColNdx);
+
         if(checked.equals("N")) {
             holder.getTrackNameCb().setChecked(false);
         } else if (checked.equals("Y")) {

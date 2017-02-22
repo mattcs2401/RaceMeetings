@@ -84,7 +84,6 @@ public class TrackPrefDialog extends DialogPreference
 
 
     private Cursor cursor;
-    //private String[] defaultTracks;
     private RecyclerView recyclerView;
     private TrackPrefAdapter trackPrefAdapter;
 }
