@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.adapter.MeetingsAdapter;
@@ -15,6 +17,9 @@ import com.mcssoft.racemeetings.adapter.TrackPrefAdapter;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility class to show a "preference" dialog for tracks.
@@ -48,16 +53,28 @@ public class TrackPrefDialog extends DialogPreference
 
     @Override
     public void onItemClick(View view, int position) {
+        TextView textView = (TextView) view.findViewById(R.id.id_tv_track_row);
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.id_cb_track_row);
 
+        if(checkBox.isChecked()) {
+            checkBox.setChecked(false);
+        } else {
+            checkBox.setChecked(true);
+        }
+        changeList.add(textView.getText().toString());
+        String bp = "";
     }
 
     private void initialise(View view) {
+        changeList = new ArrayList();
         getTracks();
         setMeetingAdapter();
         setRecyclerView(view);
     }
 
     private void saveTrackPreference() {
+        // Process the change list, anything checked is unchecked and vice vesa.
+
     }
 
     private void checkPreference() {
@@ -90,5 +107,6 @@ public class TrackPrefDialog extends DialogPreference
 
     private Cursor cursor;
     private RecyclerView recyclerView;
+    private ArrayList<String> changeList;
     private TrackPrefAdapter trackPrefAdapter;
 }

@@ -19,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/id_cb_track_row"
+        android:clickable="false"
         android:layout_marginStart="192dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
