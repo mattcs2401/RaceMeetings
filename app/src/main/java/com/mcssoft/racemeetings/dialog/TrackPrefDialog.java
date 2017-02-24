@@ -65,7 +65,7 @@ public class TrackPrefDialog extends DialogPreference
     }
 
     private void initialise(View view) {
-        changeList = new ArrayList();
+        changeList = new ArrayList<String>();
         getTracks();
         setMeetingAdapter();
         setRecyclerView(view);
@@ -74,11 +74,30 @@ public class TrackPrefDialog extends DialogPreference
     private void saveTrackPreference() {
         // Process the change list, anything checked is unchecked and vice vesa.
         DatabaseUtility dbUtil = new DatabaseUtility(this.getContext());
-        cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE, (String[]) changeList.toArray());
-        int trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
-        cursor.moveToFirst();
-        String trackName = cursor.getString(trackNameColNdx);
+        cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE, getChangeListAsArray());
 
+        int rowIdCol;
+        String trackNameCol;
+        String isPrefCol;
+
+        int rowIdColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_ROWID);
+        int trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
+        int isPrefColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_IS_PREF);
+
+        while (cursor.moveToNext()) {
+            rowIdCol = cursor.getInt(rowIdColNdx);
+            trackNameCol = cursor.getString(trackNameColNdx);
+            isPrefCol = cursor.getString(isPrefColNdx);
+
+            if(isPrefCol.equals('Y')) {
+                isPrefCol = "N";
+            } else {
+                isPrefCol = "Y";
+            }
+
+            // TBA - it's the pref column being updated . . . .
+            // dbUtil.updateTableByRowId(SchemaConstants.TRACKS_TABLE, rowIdCol, trackNameCol, isPrefCol);
+        }
     }
 
     private void checkPreference() {
@@ -108,6 +127,14 @@ public class TrackPrefDialog extends DialogPreference
         recyclerView.setAdapter(trackPrefAdapter);
     }
 
+    private String[] getChangeListAsArray() {
+        int size = changeList.size();
+        String[] changes = new String[size];
+        for(int ndx=0; ndx < size; ndx++) {
+            changes[ndx] = changeList.get(ndx);
+        }
+        return changes;
+    }
 
     private Cursor cursor;
     private RecyclerView recyclerView;

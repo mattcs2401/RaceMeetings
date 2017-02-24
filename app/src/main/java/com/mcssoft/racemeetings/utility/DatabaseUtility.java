@@ -101,28 +101,48 @@ public class DatabaseUtility implements IAsyncResponse {
     }
 
     public Cursor getAllFromTable(String tableName) {
-        String[] projection = {};
-        switch (tableName) {
-            case SchemaConstants.REGIONS_TABLE:
-                projection = dbHelper.getProjection(DatabaseHelper.Projection.RegionSchema);
-                break;
-            case SchemaConstants.CLUBS_TABLE:
-                projection = dbHelper.getProjection(DatabaseHelper.Projection.ClubSchema);
-                break;
-            case SchemaConstants.TRACKS_TABLE:
-                projection = dbHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
-                break;
-        }
+        String[] projection = getProjection(tableName);
+
         SQLiteDatabase db = dbHelper.getDatabase();
         db.beginTransaction();
         Cursor cursor = db.query(tableName, projection, null, null, null, null, null);
         db.endTransaction();
+
         return cursor;
     }
 
-    public Cursor getSelectionFromTable(String tableName, String[] tableSelect) {
+    public Cursor getSelectionFromTable(String tableName, String[] whereColVals) {
+        String[] projection = getProjection(tableName);
 
-        return null;
+        SQLiteDatabase db = dbHelper.getDatabase();
+
+        db.beginTransaction();
+        Cursor cursor = db.query(tableName, projection, SchemaConstants.WHERE_FOR_TRACK_CHANGE, whereColVals, null, null, null);
+        db.endTransaction();
+
+        return cursor;
+    }
+
+    /**
+     *
+     * @param tableName The table name.
+     * @param rowId The table row id.
+     * @param colName The table column name.
+     * @param value The column value.
+     * @return The update count.
+     */
+    public int updateTableByRowId(String tableName, int rowId, String colName, String value) {
+        SQLiteDatabase db = dbHelper.getDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(colName, rowId);
+
+        db.beginTransaction();
+        int counr = db.update(tableName, cv, SchemaConstants.WHERE_FOR_TRACK_UPDATE, new String[] {value});
+        db.endTransaction();
+        db.setTransactionSuccessful();
+
+        return counr;
     }
 
     private void insertFromListRegions(ArrayList theList) {
@@ -231,6 +251,22 @@ public class DatabaseUtility implements IAsyncResponse {
                 .appendPath(Resources.getInstance().getString(R.string.get_available_clubs));
         builder.build();
         return builder.toString();
+    }
+
+    private String[] getProjection(String tableName) {
+        String[] projection = {};
+        switch (tableName) {
+            case SchemaConstants.REGIONS_TABLE:
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.RegionSchema);
+                break;
+            case SchemaConstants.CLUBS_TABLE:
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.ClubSchema);
+                break;
+            case SchemaConstants.TRACKS_TABLE:
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
+                break;
+        }
+        return  projection;
     }
 
     private boolean clubs;        // flag to indicate async results are for CLUBS
