@@ -120,6 +120,11 @@ public class DatabaseUtility implements IAsyncResponse {
         return cursor;
     }
 
+    public Cursor getSelectionFromTable(String tableName, String[] tableSelect) {
+
+        return null;
+    }
+
     private void insertFromListRegions(ArrayList theList) {
         ContentValues cv;
         SQLiteDatabase db = dbHelper.getDatabase();

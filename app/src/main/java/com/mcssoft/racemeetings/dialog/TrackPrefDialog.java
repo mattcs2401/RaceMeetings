@@ -62,7 +62,6 @@ public class TrackPrefDialog extends DialogPreference
             checkBox.setChecked(true);
         }
         changeList.add(textView.getText().toString());
-        String bp = "";
     }
 
     private void initialise(View view) {
@@ -74,6 +73,11 @@ public class TrackPrefDialog extends DialogPreference
 
     private void saveTrackPreference() {
         // Process the change list, anything checked is unchecked and vice vesa.
+        DatabaseUtility dbUtil = new DatabaseUtility(this.getContext());
+        cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE, (String[]) changeList.toArray());
+        int trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
+        cursor.moveToFirst();
+        String trackName = cursor.getString(trackNameColNdx);
 
     }
 
