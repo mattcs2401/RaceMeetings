@@ -10,14 +10,8 @@
         android:id="@+id/id_rv_track_pref"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <include layout="@layout/dialog_pref_track_row"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+    <include layout="@layout/dialog_pref_track_row" />
 
 </android.support.constraint.ConstraintLayout>
