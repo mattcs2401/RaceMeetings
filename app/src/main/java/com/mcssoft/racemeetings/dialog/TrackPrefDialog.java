@@ -74,29 +74,24 @@ public class TrackPrefDialog extends DialogPreference
     private void saveTrackPreference() {
         // Process the change list, anything checked is unchecked and vice vesa.
         DatabaseUtility dbUtil = new DatabaseUtility(this.getContext());
-        cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE, getChangeListAsArray());
+        cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE,
+                SchemaConstants.TRACK_NAME + dbUtil.createWhereIN(changeList.size()),
+                getChangeListAsArray());
 
-        int rowIdCol;
-//        String trackNameCol;
-        String isPrefCol;
+        int rowId;
+        String isPref;
 
         int rowIdColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_ROWID);
-//        int trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
         int isPrefColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_IS_PREF);
 
         while (cursor.moveToNext()) {
-            rowIdCol = cursor.getInt(rowIdColNdx);
-//            trackNameCol = cursor.getString(trackNameColNdx);
-            isPrefCol = cursor.getString(isPrefColNdx);
+            rowId = cursor.getInt(rowIdColNdx);
+            isPref = cursor.getString(isPrefColNdx);
 
-            if(isPrefCol.equals('Y')) {
-                isPrefCol = "N";
-            } else {
-                isPrefCol = "Y";
-            }
+            if(isPref.equals("Y")) { isPref = "N"; } else { isPref = "Y"; }
 
-            // TBA - it's the pref column being updated . . . .
-            dbUtil.updateTableByRowId(SchemaConstants.TRACKS_TABLE, rowIdCol, SchemaConstants.TRACK_IS_PREF, isPrefCol);
+            dbUtil.updateTableByRowId(SchemaConstants.TRACKS_TABLE,
+                    SchemaConstants.WHERE_FOR_TRACK_UPDATE, rowId, SchemaConstants.TRACK_IS_PREF, isPref);
         }
     }
 

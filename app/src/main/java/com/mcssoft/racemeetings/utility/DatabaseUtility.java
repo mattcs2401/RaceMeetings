@@ -35,6 +35,7 @@ public class DatabaseUtility implements IAsyncResponse {
      * Sanity check that database base tables have values (rows data).
      */
     public void databaseCheck() {
+        // If REGIONS data doesn't exist. Note: it's likely CLUBS data won't exist either.
         if(!checkTableRowCount(SchemaConstants.REGIONS_TABLE)) {
             loadRegionsTableData();
         }
@@ -111,50 +112,56 @@ public class DatabaseUtility implements IAsyncResponse {
         return cursor;
     }
 
-    public Cursor getSelectionFromTable(String tableName, String[] whereColVals) {
-        StringBuilder sb = new StringBuilder();
-        for(String s : whereColVals) {
-            sb.append("'");
-            sb.append(s);
-            sb.append("'");
-            sb.append(",");
-        }
-        sb.deleteCharAt(sb.length() - 1);
-        String temp = sb.toString();
-
-        String[] projection = getProjection(tableName);
-
-        SQLiteDatabase db = dbHelper.getDatabase();
-
-        db.beginTransaction();
-        Cursor cursor = db.query(tableName, projection, SchemaConstants.WHERE_FOR_TRACK_CHANGE, new String[] {temp}, null, null, null);
-        db.endTransaction();
-
-        return cursor;
+    /**
+     * Utility wrapper method to query the database.
+     * @param tableName The table name.
+     * @param whereClause Where clause (without the "where").
+     * @param whereVals Where clause values
+     * @return A cursor over the result set.
+     * Note: Returns all columns.
+     */
+    public Cursor getSelectionFromTable(String tableName, String whereClause, String[] whereVals) {
+        return basicQuery(tableName, whereClause, whereVals);
     }
 
     /**
-     *
+     * Utility method to update a single value in a single row.
      * @param tableName The table name.
+     * @param where The where clause (without the "where").
      * @param rowId The table row id.
      * @param colName The table column name.
      * @param value The column value.
      * @return The update count.
      */
-    public int updateTableByRowId(String tableName, int rowId, String colName, String value) {
+    public int updateTableByRowId(String tableName, String where, int rowId, String colName, String value) {
         SQLiteDatabase db = dbHelper.getDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put(colName, value);
 
         db.beginTransaction();
-        int counr = db.update(tableName, cv, SchemaConstants.WHERE_FOR_TRACK_UPDATE, new String[] {Integer.toString(rowId)});
+        int counr = db.update(tableName, cv, where, new String[] {Integer.toString(rowId)});
         db.setTransactionSuccessful();
         db.endTransaction();
 
         return counr;
     }
 
+    /**
+     * Utility to create the '?' parameter part of an IN statement.
+     * @param iterations The number of '?' characters to insert.
+     * @return The formatted string e.g. " IN (?,?)".
+     */
+    public String createWhereIN(int iterations) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(" IN (");
+        for(int ndx = 0; ndx < iterations; ndx++) {
+            sb.append("?,");
+        }
+        sb.deleteCharAt(sb.length() - 1);   // remove last comma.
+        sb.append(")");
+        return sb.toString();
+    }
     
     private void insertFromListRegions(ArrayList theList) {
         ContentValues cv;
@@ -278,6 +285,15 @@ public class DatabaseUtility implements IAsyncResponse {
                 break;
         }
         return  projection;
+    }
+
+    private Cursor basicQuery(String tableName, String whereClause, String[] whereVals) {
+        SQLiteDatabase db = dbHelper.getDatabase();
+        db.beginTransaction();
+        Cursor cursor =  db.query(tableName, getProjection(tableName), whereClause, whereVals,
+                null, null, null);
+        db.endTransaction();
+        return cursor;
     }
 
     private boolean clubs;        // flag to indicate async results are for CLUBS

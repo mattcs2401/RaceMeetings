@@ -69,13 +69,6 @@ public class SchemaConstants {
     public static final String SELECT_ALL_CLUBS = "SELECT * FROM " + CLUBS_TABLE;
     public static final String SELECT_ALL_TRACKS = "SELECT * FROM " + TRACKS_TABLE;
 
-    public static final String WHERE_FOR_TRACK_CHANGE = SchemaConstants.TRACK_NAME + " = ?";
-    public static final String WHERE_FOR_TRACK_UPDATE = SchemaConstants.TRACK_ROWID + " = ?";
-    // Where a display change is required.
-//    public final static String WHERE_FOR_DCHANGE = COLUMN_D_CHG_REQ + " = ? AND " +
-//                                                   COLUMN_DATE_TIME + " < ?";
-
-    // where for meetings to notify.
-//    public static final String WHERE_FOR_NOTIFY = COLUMN_NOTIFIED + "='N'";
+    public static final String WHERE_FOR_TRACK_UPDATE = SchemaConstants.TRACK_ROWID + " = ?;";
 
 }
