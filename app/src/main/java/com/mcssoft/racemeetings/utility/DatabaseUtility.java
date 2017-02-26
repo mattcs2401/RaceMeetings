@@ -112,12 +112,22 @@ public class DatabaseUtility implements IAsyncResponse {
     }
 
     public Cursor getSelectionFromTable(String tableName, String[] whereColVals) {
+        StringBuilder sb = new StringBuilder();
+        for(String s : whereColVals) {
+            sb.append("'");
+            sb.append(s);
+            sb.append("'");
+            sb.append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        String temp = sb.toString();
+
         String[] projection = getProjection(tableName);
 
         SQLiteDatabase db = dbHelper.getDatabase();
 
         db.beginTransaction();
-        Cursor cursor = db.query(tableName, projection, SchemaConstants.WHERE_FOR_TRACK_CHANGE, whereColVals, null, null, null);
+        Cursor cursor = db.query(tableName, projection, SchemaConstants.WHERE_FOR_TRACK_CHANGE, new String[] {temp}, null, null, null);
         db.endTransaction();
 
         return cursor;
@@ -135,16 +145,17 @@ public class DatabaseUtility implements IAsyncResponse {
         SQLiteDatabase db = dbHelper.getDatabase();
 
         ContentValues cv = new ContentValues();
-        cv.put(colName, rowId);
+        cv.put(colName, value);
 
         db.beginTransaction();
-        int counr = db.update(tableName, cv, SchemaConstants.WHERE_FOR_TRACK_UPDATE, new String[] {value});
-        db.endTransaction();
+        int counr = db.update(tableName, cv, SchemaConstants.WHERE_FOR_TRACK_UPDATE, new String[] {Integer.toString(rowId)});
         db.setTransactionSuccessful();
+        db.endTransaction();
 
         return counr;
     }
 
+    
     private void insertFromListRegions(ArrayList theList) {
         ContentValues cv;
         SQLiteDatabase db = dbHelper.getDatabase();

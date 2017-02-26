@@ -77,16 +77,16 @@ public class TrackPrefDialog extends DialogPreference
         cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE, getChangeListAsArray());
 
         int rowIdCol;
-        String trackNameCol;
+//        String trackNameCol;
         String isPrefCol;
 
         int rowIdColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_ROWID);
-        int trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
+//        int trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
         int isPrefColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_IS_PREF);
 
         while (cursor.moveToNext()) {
             rowIdCol = cursor.getInt(rowIdColNdx);
-            trackNameCol = cursor.getString(trackNameColNdx);
+//            trackNameCol = cursor.getString(trackNameColNdx);
             isPrefCol = cursor.getString(isPrefColNdx);
 
             if(isPrefCol.equals('Y')) {
@@ -96,7 +96,7 @@ public class TrackPrefDialog extends DialogPreference
             }
 
             // TBA - it's the pref column being updated . . . .
-            // dbUtil.updateTableByRowId(SchemaConstants.TRACKS_TABLE, rowIdCol, trackNameCol, isPrefCol);
+            dbUtil.updateTableByRowId(SchemaConstants.TRACKS_TABLE, rowIdCol, SchemaConstants.TRACK_IS_PREF, isPrefCol);
         }
     }
 
