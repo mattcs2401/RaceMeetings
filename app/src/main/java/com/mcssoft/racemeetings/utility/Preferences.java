@@ -33,10 +33,7 @@ public class Preferences {
     }
     //</editor-fold>
 
-    /**
-     * Get the id of the radio button selected for the network access preference.
-     * @return The button id.
-     */
+    //<editor-fold defaultstate="collapsed" desc="Region: Network Preferences.">
     public int getNetworkPrefButtonId() {
         return getDefaultSharedPreferences().getInt(Resources.getInstance()
                 .getString(R.string.pref_network_access_button_id_key), R.integer.init_default);
@@ -44,13 +41,19 @@ public class Preferences {
 
     public void setNetworkPrefButtonId(int id) {
         getDefaultSharedPreferences().edit().putInt(Resources.getInstance()
-                .getString(R.string.pref_network_access_button_id_key), id);
+                .getString(R.string.pref_network_access_button_id_key), id).apply();
     }
 
     public String getNetworkPrefTag() {
         return getDefaultSharedPreferences().getString(Resources.getInstance()
                 .getString(R.string.pref_network_access_tag_key), null);
     }
+
+    public void setNetworkPrefTag(String tag) {
+        getDefaultSharedPreferences().edit().putString(Resources.getInstance()
+                .getString(R.string.pref_network_access_tag_key), tag).apply();
+    }
+    //</editor-fold>
 
     public SharedPreferences getDefaultSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);

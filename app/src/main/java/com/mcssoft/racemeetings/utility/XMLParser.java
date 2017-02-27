@@ -11,9 +11,9 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class MeetingsXMLParser {
+public class XMLParser {
 
-    public MeetingsXMLParser(InputStream inStream) {
+    public XMLParser(InputStream inStream) {
         initialise(inStream);
     }
 

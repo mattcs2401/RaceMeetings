@@ -47,14 +47,14 @@ public class DatabaseUtility implements IAsyncResponse {
      */
     @Override
     public void processFinish(String theResults) {
-        MeetingsXMLParser mxmlp = null;
+        XMLParser mxmlp = null;
         InputStream inStream = null;
         dbHelper = new DatabaseHelper(context);
 
         if(!checkTracks) {
             // Sort of work around as Track data is from raw resource.
             inStream = context.getResources().openRawResource(R.raw.tracks);
-            mxmlp = new MeetingsXMLParser(inStream);
+            mxmlp = new XMLParser(inStream);
 
             ArrayList<Track> tracks = mxmlp.parseTracksXml();
             insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
@@ -62,7 +62,7 @@ public class DatabaseUtility implements IAsyncResponse {
         }
 
         inStream = new ByteArrayInputStream(theResults.getBytes());
-        mxmlp = new MeetingsXMLParser(inStream);
+        mxmlp = new XMLParser(inStream);
 
         if(regions) {
             ArrayList<Region> regions = mxmlp.parseRegionsXml();
