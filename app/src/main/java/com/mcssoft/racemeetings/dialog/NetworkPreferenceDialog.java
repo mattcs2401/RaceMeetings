@@ -60,7 +60,7 @@ public class NetworkPreferenceDialog extends DialogPreference
         rbShowWifi.setOnClickListener(this);
         rbShowAny.setOnClickListener(this);
 
-        radioButtonId = Preferences.getInstance().networkPrefButtonId();
+        radioButtonId = Preferences.getInstance().getNetworkPrefButtonId();
 
         if(rbShowWifi.getId() == radioButtonId) {
             rbShowWifi.setChecked(true);

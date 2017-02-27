@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
         if(networkInfo != null) {
-            String prefNetworkType = Preferences.getInstance().networkPrefTag();
+            String prefNetworkType = Preferences.getInstance().getNetworkPrefTag();
             String networkType = networkInfo.getTypeName();
 
             // this may return false as well.

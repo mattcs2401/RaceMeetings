@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.fragment.SettingsFragment;
@@ -25,20 +26,22 @@ public class SettingsActivity extends PreferenceActivity
     protected void onResume() {
         super.onResume();
 
-        getPreferenceScreen().getSharedPreferences()
-                .registerOnSharedPreferenceChangeListener(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        getPreferenceScreen().getSharedPreferences()
-                .unregisterOnSharedPreferenceChangeListener(this);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        String bp = "";
 //        if (key.equals(SOME_KEY)) {
 //            // do something.
 //        }
     }
+
+    private SharedPreferences sharedPreferences;
 }
