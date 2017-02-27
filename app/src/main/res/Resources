@@ -1,7 +1,8 @@
 -------
 Issues:
 -------
--> REGIONS and CLUBS schema references are hard coded (i.e. DatabaseUtility and SchemaConstants).
+-> REGIONS, CLUBS and TRACKS schema references are hard coded (is there a way around this ?
+   maybe external config files) ?.
 
 
 ------
@@ -9,17 +10,20 @@ To Do:
 ------
 -> No active connection and 1st time app run:
    - do nothing, display message.
--> Active connection exists and 1st time app run (Uri matching ?):
-   - download regions info and parse xml
-     - write to database
-   - download clubs info and parse xml
-     - write to database.
--> Uri matching for the two tables (CRUD).
 
--> Start categorising the things we want to access.
-   - pre-loaded list of race tracks ? as database ?
--> How ill they be displayed.
-   e.g. (for an individual race) number | recent form | name | trainer | jockey
+-> What do we want this app to do ?
+   - Display a list of meetings based on track preferences.
+     - Need to limit by date.
+     - Enter date.
+       - So, get date and show potential options based on that date (WRT to track preferences).
+         - Show list of meetings (tracks) for that date.
+         - Categorise meetings by track name if more than one meeting on that date.
+   - For a particular meeting, list race details.
+   - For a particular race, list horse, jockey, trainer details.
+
+Notes:
+------
+Option to include form ?
 
 
 -----------------------
