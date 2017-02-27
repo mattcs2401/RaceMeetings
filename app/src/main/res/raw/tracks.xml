@@ -31,4 +31,59 @@
         <TrackClubName>Toowoomba Turf Club</TrackClubName>
         <TrackIsPref>N</TrackIsPref>
     </Track>
+    <Track>
+        <TrackName>Beaudesert</TrackName>
+        <TrackClubName>Beaudesert Race Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Deagon</TrackName>
+        <TrackClubName>Brisbane Racing Club@Deagon</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Rockhampton</TrackName>
+        <TrackClubName>Rockhampton Jockey Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Blackall</TrackName>
+        <TrackClubName>Barcoo Amateur Race Club Inc</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Chinchilla</TrackName>
+        <TrackClubName>Chinchilla Race Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Eagle Farm</TrackName>
+        <TrackClubName>Tattersall's Racing Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Gladstone</TrackName>
+        <TrackClubName>Gladstone Turf Club Inc</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Gympie</TrackName>
+        <TrackClubName>Gympie Turf Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Moranbah</TrackName>
+        <TrackClubName>Moranbah Race Club Inc</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Mount Isa</TrackName>
+        <TrackClubName>Mount Isa Race Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+    <Track>
+        <TrackName>Townsville</TrackName>
+        <TrackClubName>Townsville Turf Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
 </Tracks>

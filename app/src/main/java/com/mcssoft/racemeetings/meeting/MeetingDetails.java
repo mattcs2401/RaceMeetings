@@ -2,14 +2,15 @@ package com.mcssoft.racemeetings.meeting;
 
 /*
  * Utility class to model:
- <Meeting Id="89226">
- <MeetingDate>2017-02-11</MeetingDate>
- <TrackName>Doomben</TrackName>
- <ClubName>Brisbane Racing Club@Doomben</ClubName>
- <RacingStatus>Metropolitan</RacingStatus>
- <NumberOfRaces>9</NumberOfRaces>
- <IsBarrierTrial>false</IsBarrierTrial>
- </Meeting>
+<Meetings>
+  <Meeting Id="88788">
+    <MeetingDate>2017-02-18</MeetingDate>
+    <TrackName>Gold Coast</TrackName>
+    <ClubName>Gold Coast Turf Club</ClubName>
+    <RacingStatus>Provincial</RacingStatus>
+    <NumberOfRaces>8</NumberOfRaces>
+    <IsBarrierTrial>false</IsBarrierTrial>
+  </Meeting>
  */
 
 public class MeetingDetails {

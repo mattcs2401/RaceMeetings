@@ -71,6 +71,8 @@ Notes:
     -> date format YYYY-MM-DD
     -> then filter by TrackName
 
+Example: http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/GetMeetingsForDate?meetingDate=2017-03-04
+
 <Meetings>
   <Meeting Id="88788">
     <MeetingDate>2017-02-18</MeetingDate>
