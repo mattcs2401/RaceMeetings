@@ -31,7 +31,6 @@ public class TrackPrefDialog extends DialogPreference
 
     public TrackPrefDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
-        checkPreference();
         setDialogLayoutResource(R.layout.dialog_pref_track);
     }
 
@@ -95,9 +94,6 @@ public class TrackPrefDialog extends DialogPreference
         }
     }
 
-    private void checkPreference() {
-    }
-
     private void getTracks() {
         DatabaseUtility dbUtil = new DatabaseUtility(this.getContext());
         cursor = dbUtil.getAllFromTable(SchemaConstants.TRACKS_TABLE);
@@ -110,16 +106,13 @@ public class TrackPrefDialog extends DialogPreference
     }
 
     private void setRecyclerView(View view) {
-        if(recyclerView == null) {
-            // Will be null when app 1st starts.
-            recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_track_pref);
-        }
+        recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_track_pref);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(trackPrefAdapter);
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         llm.scrollToPosition(0);
         recyclerView.setLayoutManager(llm);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(trackPrefAdapter);
     }
 
     private String[] getChangeListAsArray() {
