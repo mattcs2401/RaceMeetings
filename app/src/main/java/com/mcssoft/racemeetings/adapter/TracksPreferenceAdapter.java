@@ -13,26 +13,28 @@ import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 /**
  * Adapter for the tracks preferences.
  */
-public class TracksPreferenceAdapter extends RecyclerView.Adapter<TracskPreferenceViewHolder> {
+public class TracksPreferenceAdapter extends RecyclerView.Adapter<TracksPreferenceViewHolder> {
 
     @Override
-    public TracskPreferenceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TracksPreferenceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Note: don't need to keep a local copy of MeetingViewHolder, framework now supplies.
         if ( parent instanceof RecyclerView ) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dialog_pref_track_row, parent, false);
             view.setFocusable(true);
-            return new TracskPreferenceViewHolder(view, itemClickListener);
+            return new TracksPreferenceViewHolder(view, itemClickListener);
         } else {
             throw new RuntimeException("Not bound to RecyclerView");
         }
     }
 
     @Override
-    public void onBindViewHolder(TracskPreferenceViewHolder holder, int position) {
+    public void onBindViewHolder(TracksPreferenceViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
         String trackName = cursor.getString(trackNameColNdx);
         holder.getTrackName().setText(trackName);
+        String clubName = cursor.getString(trackClubColNdx);
+        holder.getClubName().setText(clubName);
         String checked = cursor.getString(trackIsPrefColNdx);
 
         if(checked.equals("N")) {
@@ -59,6 +61,7 @@ public class TracksPreferenceAdapter extends RecyclerView.Adapter<TracskPreferen
 
         idColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_ROWID);
         trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
+        trackClubColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_CLUB_NAME);
         trackIsPrefColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_IS_PREF);
 
         notifyDataSetChanged();
@@ -73,6 +76,7 @@ public class TracksPreferenceAdapter extends RecyclerView.Adapter<TracskPreferen
 
     private int idColNdx;
     private int trackNameColNdx;
+    private int trackClubColNdx;
     private int trackIsPrefColNdx;
 
     private IItemClickListener itemClickListener;

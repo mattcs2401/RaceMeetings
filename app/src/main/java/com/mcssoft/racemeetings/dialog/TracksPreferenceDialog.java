@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.preference.DialogPreference;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -16,6 +17,7 @@ import com.mcssoft.racemeetings.adapter.TracksPreferenceAdapter;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
+import com.mcssoft.racemeetings.utility.ListingDivider;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ public class TracksPreferenceDialog extends DialogPreference
 
     public TracksPreferenceDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         setDialogLayoutResource(R.layout.dialog_pref_track);
     }
 
@@ -50,15 +53,16 @@ public class TracksPreferenceDialog extends DialogPreference
 
     @Override
     public void onItemClick(View view, int position) {
-        TextView textView = (TextView) view.findViewById(R.id.id_tv_track_row);
-        CheckBox checkBox = (CheckBox) view.findViewById(R.id.id_cb_track_row);
+        TextView track = (TextView) view.findViewById(R.id.id_tv_trackrow_track);
+        TextView club = (TextView) view.findViewById(R.id.id_tv_trackrow_club);
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.id_cb_trackrow);
 
         if(checkBox.isChecked()) {
             checkBox.setChecked(false);
         } else {
             checkBox.setChecked(true);
         }
-        changeList.add(textView.getText().toString());
+        changeList.add(track.getText().toString());
     }
 
     private void initialise(View view) {
@@ -109,6 +113,9 @@ public class TracksPreferenceDialog extends DialogPreference
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         llm.scrollToPosition(0);
         recyclerView.setLayoutManager(llm);
+//        recyclerView.addItemDecoration(new ListingDivider(context, LinearLayoutManager.VERTICAL));
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
     }
 
     private String[] getChangeListAsArray() {
@@ -121,6 +128,7 @@ public class TracksPreferenceDialog extends DialogPreference
     }
 
     private Cursor cursor;
+    private Context context;
     private RecyclerView recyclerView;
     private ArrayList<String> changeList;
     private TracksPreferenceAdapter tracksAdapter;

@@ -7,21 +7,21 @@ import android.widget.TextView;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
-import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 
 
-public class TracskPreferenceViewHolder extends RecyclerView.ViewHolder
+public class TracksPreferenceViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener {
 
-    public TracskPreferenceViewHolder(View view) {
+    public TracksPreferenceViewHolder(View view) {
         super(view);
         // TBA.
     }
 
-    public TracskPreferenceViewHolder(View view, IItemClickListener listener) {
+    public TracksPreferenceViewHolder(View view, IItemClickListener listener) {
         super(view);
-        tvTrackName = (TextView) view.findViewById(R.id.id_tv_track_row);
-        cbTrackName = (CheckBox) view.findViewById(R.id.id_cb_track_row);
+        tvTrackName = (TextView) view.findViewById(R.id.id_tv_trackrow_track);
+        tvClubName = (TextView) view.findViewById(R.id.id_tv_trackrow_club);
+        cbTrackName = (CheckBox) view.findViewById(R.id.id_cb_trackrow);
 
         // Set the listeners.
         itemClickListener = listener;
@@ -39,11 +39,13 @@ public class TracskPreferenceViewHolder extends RecyclerView.ViewHolder
 
     //<editor-fold defaultstate="collapsed" desc="Region: Accessors">
     public TextView getTrackName() { return tvTrackName; }
+    public TextView getClubName() { return tvClubName; }
     public CheckBox getTrackNameCb() { return  cbTrackName; }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Private vars">
     private TextView tvTrackName;
+    private TextView tvClubName;
     private CheckBox cbTrackName;
     private IItemClickListener itemClickListener;
     //</editor-fold> {
