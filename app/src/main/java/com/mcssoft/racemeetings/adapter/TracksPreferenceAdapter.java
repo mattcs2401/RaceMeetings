@@ -13,22 +13,22 @@ import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 /**
  * Adapter for the tracks preferences.
  */
-public class TrackPrefAdapter extends RecyclerView.Adapter<TrackPrefViewHolder> {
+public class TracksPreferenceAdapter extends RecyclerView.Adapter<TracskPreferenceViewHolder> {
 
     @Override
-    public TrackPrefViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TracskPreferenceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Note: don't need to keep a local copy of MeetingViewHolder, framework now supplies.
         if ( parent instanceof RecyclerView ) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dialog_pref_track_row, parent, false);
             view.setFocusable(true);
-            return new TrackPrefViewHolder(view, itemClickListener);
+            return new TracskPreferenceViewHolder(view, itemClickListener);
         } else {
             throw new RuntimeException("Not bound to RecyclerView");
         }
     }
 
     @Override
-    public void onBindViewHolder(TrackPrefViewHolder holder, int position) {
+    public void onBindViewHolder(TracskPreferenceViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
         String trackName = cursor.getString(trackNameColNdx);

@@ -10,15 +10,15 @@ import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 
 
-public class TrackPrefViewHolder extends RecyclerView.ViewHolder
+public class TracskPreferenceViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener {
 
-    public TrackPrefViewHolder(View view) {
+    public TracskPreferenceViewHolder(View view) {
         super(view);
         // TBA.
     }
 
-    public TrackPrefViewHolder(View view, IItemClickListener listener) {
+    public TracskPreferenceViewHolder(View view, IItemClickListener listener) {
         super(view);
         tvTrackName = (TextView) view.findViewById(R.id.id_tv_track_row);
         cbTrackName = (CheckBox) view.findViewById(R.id.id_cb_track_row);
