@@ -14,45 +14,53 @@ import android.widget.DatePicker;
 import com.mcssoft.racemeetings.R;
 
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.zip.Inflater;
 
 public class DateSearchFragment extends DialogFragment
-        implements DialogInterface.OnClickListener,
-        DatePickerDialog.OnDateSetListener {
+        implements DialogInterface.OnClickListener {
 
-    public DateSearchFragment() {
-
-    }
+    public DateSearchFragment() { }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View view = inflater.inflate(R.layout.fragment_search, null);
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.fragment_search, null);
 
-//        AlertDialog.Builder ab = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
-//        ab.setView(R.layout.fragment_search);
-//        return ab.create();
+        datePicker = (DatePicker) view.findViewById(R.id.id_datePicker);
+
+        AlertDialog.Builder ab = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
+        ab.setView(view) //R.layout.fragment_search)
+        .setTitle("Meeting Date Search")
+        .setMessage("Select a date for the meeting")
+        .setNegativeButton("Cancel", this)
+        .setPositiveButton("OK", this);
+        return ab.create();
 
         // Android developers example:
         // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-        // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, this, year, month, day);
+//        final Calendar c = Calendar.getInstance();
+//        int year = c.get(Calendar.YEAR);
+//        int month = c.get(Calendar.MONTH);
+//        int day = c.get(Calendar.DAY_OF_MONTH);
+//
+//        // Create a new instance of DatePickerDialog and return it
+//        return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        String bp = "";
-
+        switch (which) {
+            case AlertDialog.BUTTON_POSITIVE:
+                int[] dateVals = new int[3];
+                dateVals[0] = datePicker.getYear();
+                dateVals[1] = datePicker.getMonth();
+                dateVals[2] = datePicker.getDayOfMonth();
+                break;
+        }
     }
 
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        String bp = "";
-    }
+    private DatePicker datePicker;
 }
 
 /* Example from RaceMeeting
