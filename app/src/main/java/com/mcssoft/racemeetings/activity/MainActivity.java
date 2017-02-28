@@ -18,13 +18,15 @@ import android.view.MenuItem;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.fragment.DateSearchFragment;
+import com.mcssoft.racemeetings.interfaces.IDateSelect;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
 import com.mcssoft.racemeetings.fragment.MainFragment;
 import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.Resources;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+                   IDateSelect {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +104,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch(id) {
             case R.id.id_nav_menu_search:
-                // TBA - new activity, or just fragment, or dialog ?
-                DialogFragment newFragment = new DateSearchFragment();
-                newFragment.show(getFragmentManager(), "datePicker");
+                DialogFragment dateSearchFragment = new DateSearchFragment();
+                dateSearchFragment.show(getFragmentManager(),
+                        Resources.getInstance().getString(R.string.date_search_fragment_tag));
                 break;
             case R.id.id_nav_menu_2:
                 // TBA.
@@ -119,6 +121,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Implement IDateSelect interface.
+     * @param vals The date values; [0] YYYY, [1] MM, [2] DD.
+     */
+    @Override
+    public void iDateValues(int[] vals) {
+        String bp = "";
     }
 
     private void initialiseUI() {

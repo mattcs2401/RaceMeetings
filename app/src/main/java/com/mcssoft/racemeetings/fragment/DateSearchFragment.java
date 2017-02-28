@@ -1,7 +1,7 @@
 package com.mcssoft.racemeetings.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -12,10 +12,7 @@ import android.view.View;
 import android.widget.DatePicker;
 
 import com.mcssoft.racemeetings.R;
-
-import java.util.Calendar;
-import java.util.Locale;
-import java.util.zip.Inflater;
+import com.mcssoft.racemeetings.interfaces.IDateSelect;
 
 public class DateSearchFragment extends DialogFragment
         implements DialogInterface.OnClickListener {
@@ -35,54 +32,33 @@ public class DateSearchFragment extends DialogFragment
         .setMessage("Select a date for the meeting")
         .setNegativeButton("Cancel", this)
         .setPositiveButton("OK", this);
-        return ab.create();
 
-        // Android developers example:
-        // Use the current date as the default date in the picker
-//        final Calendar c = Calendar.getInstance();
-//        int year = c.get(Calendar.YEAR);
-//        int month = c.get(Calendar.MONTH);
-//        int day = c.get(Calendar.DAY_OF_MONTH);
-//
-//        // Create a new instance of DatePickerDialog and return it
-//        return new DatePickerDialog(getActivity(), this, year, month, day);
+        return ab.create();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        iDateSelect = (IDateSelect) activity;
     }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
+        int[] dateVals = null;
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE:
-                int[] dateVals = new int[3];
+                dateVals = new int[3];
                 dateVals[0] = datePicker.getYear();
                 dateVals[1] = datePicker.getMonth();
                 dateVals[2] = datePicker.getDayOfMonth();
                 break;
         }
+        if(dateVals != null) {
+            iDateSelect.iDateValues(dateVals);
+        }
     }
 
     private DatePicker datePicker;
+    public IDateSelect iDateSelect = null;
 }
 
-/* Example from RaceMeeting
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        boolean is24Hour = false;
-        Bundle args = getArguments();
-
-        if(args.getString(MeetingResources.getInstance().getString(R.string.time_format))
-                .equals(MeetingResources.getInstance()
-                        .getString(R.string.time_format_pref_24hr_key))) {
-            is24Hour = true;
-        }
-
-        return new android.app.TimePickerDialog(
-                getActivity(),
-                (OnTimeSetListener) getFragmentManager().findFragmentByTag(MeetingResources
-                        .getInstance().getString(R.string.edit_fragment_tag)),
-                args.getInt(MeetingResources.getInstance().getString(R.string.hour)),
-                args.getInt(MeetingResources.getInstance().getString(R.string.mins)),
-                is24Hour);
-    }
-*/

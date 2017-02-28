@@ -5,11 +5,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 import java.net.URL;
 
-import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
+import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 
 /**
  * Utility class - generic async task used for getting data via http.
- * Results are returned via the IAsyncResponse interface.
+ * Results are returned via the IAsyncResult interface.
  */
 public class DownloadData extends AsyncTask<String,String,String> {
 
@@ -65,7 +65,7 @@ public class DownloadData extends AsyncTask<String,String,String> {
     protected void onPostExecute(String theResult) {
         super.onPostExecute(theResult);
         progressDialog.dismiss();
-        asyncResponse.processFinish(theResult);
+        asyncResult.downloadFinish(theResult);
     }
 
     /**
@@ -80,5 +80,5 @@ public class DownloadData extends AsyncTask<String,String,String> {
     private String message;
     private Context context;
     private ProgressDialog progressDialog;
-    public IAsyncResponse asyncResponse = null;
+    public IAsyncResult asyncResult = null;
 }

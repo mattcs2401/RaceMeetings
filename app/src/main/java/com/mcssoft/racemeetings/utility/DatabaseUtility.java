@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
-import com.mcssoft.racemeetings.interfaces.IAsyncResponse;
+import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 import com.mcssoft.racemeetings.meeting.Club;
 import com.mcssoft.racemeetings.meeting.Region;
 import com.mcssoft.racemeetings.meeting.Track;
@@ -23,7 +23,7 @@ import com.mcssoft.racemeetings.meeting.Track;
 /**
  * Utility class for database operations other than those of the MeetgingProvider/ContentResolver.
  */
-public class DatabaseUtility implements IAsyncResponse {
+public class DatabaseUtility implements IAsyncResult {
 
     public DatabaseUtility(Context context) {
         this.context = context;
@@ -46,7 +46,7 @@ public class DatabaseUtility implements IAsyncResponse {
      * @param theResults The results from the async task.
      */
     @Override
-    public void processFinish(String theResults) {
+    public void downloadFinish(String theResults) {
         XMLParser mxmlp = null;
         InputStream inStream = null;
         dbHelper = new DatabaseHelper(context);
@@ -236,7 +236,7 @@ public class DatabaseUtility implements IAsyncResponse {
         try {
             DownloadData dld = new DownloadData(context, new URL(createRegionsUrl()),
                     Resources.getInstance().getString(R.string.init_regions_data));
-            dld.asyncResponse = this;
+            dld.asyncResult = this;
             dld.execute();
         } catch(Exception ex) {
             String s = ex.getMessage();
@@ -248,7 +248,7 @@ public class DatabaseUtility implements IAsyncResponse {
         try {
             DownloadData dld = new DownloadData(context, new URL(createClubsUrl()),
                     Resources.getInstance().getString(R.string.init_clubs_data));
-            dld.asyncResponse = this;
+            dld.asyncResult = this;
             dld.execute();
         } catch(Exception ex) {
             String s = ex.getMessage();
