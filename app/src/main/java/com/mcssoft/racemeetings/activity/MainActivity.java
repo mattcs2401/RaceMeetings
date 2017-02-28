@@ -99,11 +99,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch(id) {
-            case R.id.id_nav_menu_1:
+            case R.id.id_nav_menu_search:
+                // TBA - new activity, or just fragment, or dialog ?
                 break;
             case R.id.id_nav_menu_2:
+                // TBA.
                 break;
             case R.id.id_nav_menu_3:
+                // TBA.
                 break;
             case R.id.id_nav_menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
