@@ -1,5 +1,6 @@
 package com.mcssoft.racemeetings.activity;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
+import com.mcssoft.racemeetings.fragment.DateSearchFragment;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
 import com.mcssoft.racemeetings.fragment.MainFragment;
 import com.mcssoft.racemeetings.utility.Preferences;
@@ -101,6 +103,8 @@ public class MainActivity extends AppCompatActivity
         switch(id) {
             case R.id.id_nav_menu_search:
                 // TBA - new activity, or just fragment, or dialog ?
+                DialogFragment newFragment = new DateSearchFragment();
+                newFragment.show(getFragmentManager(), "datePicker");
                 break;
             case R.id.id_nav_menu_2:
                 // TBA.
@@ -138,7 +142,7 @@ public class MainActivity extends AppCompatActivity
      * @return True if the Preferences network type is the same as the actual active network type.
      */
     private boolean checkForNetwork() {
-        // TODO - Check for network; what if signed into Wifi and mobile data is on.
+        // TODO - Check for network; what if signed into Wifi and mobile data is on. This needs work.
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
