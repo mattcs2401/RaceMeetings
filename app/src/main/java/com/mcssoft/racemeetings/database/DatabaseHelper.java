@@ -47,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public enum Projection {
-        RegionSchema, ClubSchema, TrackSchema
+        RegionSchema, ClubSchema, TrackSchema, MeetingsSchema
     }
 
     public static String [] getProjection(Projection projection) {
@@ -58,6 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return getClubProjection();
             case TrackSchema:
                 return getTrackProjection();
+            case MeetingsSchema:
+                return getMeetingsProjection();
         }
         return  null;
     }
@@ -85,6 +87,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 SchemaConstants.TRACK_NAME,
                 SchemaConstants.TRACK_CLUB_NAME,
                 SchemaConstants.TRACK_IS_PREF
+        };
+    }
+
+    private  static final String[] getMeetingsProjection() {
+        return new String[] {
+        SchemaConstants.MEETING_ROWID,
+        SchemaConstants.MEETING_ID,
+        SchemaConstants.MEETING_DATE,
+        SchemaConstants.MEETING_TRACK,
+        SchemaConstants.MEETING_CLUB,
+        SchemaConstants.MEETING_STATUS,
+        SchemaConstants.MEETING_NO_RACES,
+        SchemaConstants.MEETING_B_TRIAL
         };
     }
 

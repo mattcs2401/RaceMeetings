@@ -16,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.fragment.DateSearchFragment;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
@@ -57,16 +56,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         Resources.getInstance().destroy();
@@ -81,22 +70,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.listing_toolbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.toolbar_preference_settings:
-//                startActivity(new Intent(this, SettingsActivity.class));
-//                return true;
-//        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -125,11 +98,17 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Implement IDateSelect interface.
-     * @param vals The date values; [0] YYYY, [1] MM, [2] DD.
+     * @param values The date values; [0] YYYY, [1] MM, [2] DD.
      */
     @Override
-    public void iDateValues(String[] vals) {
-        dateSearchValues = vals;
+    public void iDateValues(String[] values) {
+        String searchdate = null;
+        if(values != null && values.length == 3) {
+            searchdate = formatSearchDateValues(values);
+
+        } else {
+
+        }
     }
 
     private void initialiseUI() {
@@ -171,21 +150,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private String formatDateSearchValues() {
-        if(dateSearchValues != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(dateSearchValues[0])
-            .append("-")
-            .append(dateSearchValues[1])
-            .append("-")
-            .append(dateSearchValues[2]);
-            return sb.toString();
-        } else {
-            return null;
-        }
+    private String formatSearchDateValues(String[] values) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(values[0])
+        .append("-")
+        .append(values[1])
+        .append("-")
+        .append(values[2]);
+        return sb.toString();
     }
 
-    private String[] dateSearchValues;    // the values associated with the current search date.
     private boolean netWorkExists;     // flag to indicate if an available network exists.
     private MainFragment mainFragment; //
 }
