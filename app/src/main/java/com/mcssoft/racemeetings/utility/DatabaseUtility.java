@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.ByteArrayInputStream;
@@ -18,6 +19,7 @@ import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 import com.mcssoft.racemeetings.meeting.Club;
+import com.mcssoft.racemeetings.meeting.Meetings;
 import com.mcssoft.racemeetings.meeting.Region;
 import com.mcssoft.racemeetings.meeting.Track;
 
@@ -28,22 +30,18 @@ public class DatabaseUtility implements IAsyncResult {
 
     public DatabaseUtility(Context context) {
         this.context = context;
-        loadClubsTableData = false;
-        loadTracksTableData = false;
         dbHelper = new DatabaseHelper(context);
     }
 
     public void checkClubs() {
         if(!checkTableRowCount(SchemaConstants.CLUBS_TABLE)) {
-            downloadClubsTableData();
-            loadClubsTableData = true;
+            downloadTableData(SchemaConstants.CLUBS_TABLE, null);
         }
     }
 
     public void checkTracks() {
         if(!checkTableRowCount(SchemaConstants.TRACKS_TABLE)) {
-            downloadTracksTableData();
-            loadTracksTableData = true;
+            downloadTableData(SchemaConstants.TRACKS_TABLE, null);
         }
     }
 
@@ -52,26 +50,29 @@ public class DatabaseUtility implements IAsyncResult {
      * @param theResults The results from the async task.
      */
     @Override
-    public void downloadFinish(String theResults) {
-        XMLParser mxmlp = null;
+    public void download(String table, String theResults) {
         InputStream inStream = null;
-        dbHelper = new DatabaseHelper(context);
+        XMLParser mxmlp = null;
 
-        if(loadClubsTableData) {
-            inStream = new ByteArrayInputStream(theResults.getBytes());
-            mxmlp = new XMLParser(inStream);
-
-            ArrayList<Club> clubs = mxmlp.parseClubsXml();
-            insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
-            loadClubsTableData = false;
-
-        } else if(loadTracksTableData) {
-            inStream = context.getResources().openRawResource(R.raw.tracks);
-            mxmlp = new XMLParser(inStream);
-
-            ArrayList<Track> tracks = mxmlp.parseTracksXml();
-            insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
-            loadTracksTableData = false;
+        switch (table) {
+            case SchemaConstants.CLUBS_TABLE:
+                inStream = new ByteArrayInputStream(theResults.getBytes());
+                mxmlp = new XMLParser(inStream);
+                ArrayList<Club> clubs = mxmlp.parseClubsXml();
+                insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
+                break;
+            case SchemaConstants.TRACKS_TABLE:
+                inStream = context.getResources().openRawResource(R.raw.tracks);
+                mxmlp = new XMLParser(inStream);
+                ArrayList<Track> tracks = mxmlp.parseTracksXml();
+                insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
+                break;
+            case SchemaConstants.MEETINGS_TABLE:
+                inStream = new ByteArrayInputStream(theResults.getBytes());
+                mxmlp = new XMLParser(inStream);
+                ArrayList<Meetings> meetings = mxmlp.parseMeetingsXml();
+                insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
+                break;
         }
     }
 
@@ -202,23 +203,30 @@ public class DatabaseUtility implements IAsyncResult {
         }
     }
 
-    private void downloadClubsTableData() {
-        try {
-            DownloadData dld = new DownloadData(context, new URL(createClubsUrl()),
-                    Resources.getInstance().getString(R.string.init_clubs_data));
-            dld.asyncResult = this;
-            dld.execute();
-        } catch(Exception ex) {
-            Log.d("", ex.getMessage());
-        }
-    }
+    private void downloadTableData(String table, @Nullable String queryParam) {
+        URL url = null;
+        String message = null;
+        DownloadData dld;
 
-    private void downloadTracksTableData() {
         try {
-            DownloadData dld = new DownloadData(context, new URL(createTracksUrl()),
-                    Resources.getInstance().getString(R.string.init_tracks_data));
+            switch (table) {
+                case SchemaConstants.CLUBS_TABLE:
+                    url = new URL(createClubsUrl());
+                    message = Resources.getInstance().getString(R.string.init_clubs_data);
+                    break;
+                case SchemaConstants.TRACKS_TABLE:
+                    url = new URL(createTracksUrl());
+                    message = Resources.getInstance().getString(R.string.init_tracks_data);
+                    break;
+                case SchemaConstants.MEETINGS_TABLE:
+                    url = new URL(createMeetingsUrl(queryParam));
+                    message = Resources.getInstance().getString(R.string.init_meetings_data);
+                    break;
+            }
+            dld = new DownloadData(context, url, message, table);
             dld.asyncResult = this;
             dld.execute();
+
         } catch(Exception ex) {
             Log.d("", ex.getMessage());
         }
@@ -228,6 +236,16 @@ public class DatabaseUtility implements IAsyncResult {
         Uri.Builder builder = new Uri.Builder();
         builder.encodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
                 .appendPath(Resources.getInstance().getString(R.string.get_available_clubs));
+        builder.build();
+        return builder.toString();
+    }
+
+    private String createMeetingsUrl(String queryParam) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_meetings))
+               .appendPath(Resources.getInstance().getString(R.string.get_meetings_for_date))
+               .appendQueryParameter(Resources.getInstance().getString(R.string.meeting_date), queryParam);
+
         builder.build();
         return builder.toString();
     }
@@ -248,6 +266,9 @@ public class DatabaseUtility implements IAsyncResult {
             case SchemaConstants.TRACKS_TABLE:
                 projection = dbHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
                 break;
+            case SchemaConstants.MEETINGS_TABLE:
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
+                break;
         }
         return  projection;
     }
@@ -261,8 +282,6 @@ public class DatabaseUtility implements IAsyncResult {
         return cursor;
     }
 
-    private boolean loadClubsTableData;   // flag to check/load clubs data.
-    private boolean loadTracksTableData;  // flag to check/load tracks data.
 
     private Context context;
     private DatabaseHelper dbHelper;

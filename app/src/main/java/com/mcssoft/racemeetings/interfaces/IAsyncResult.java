@@ -5,8 +5,9 @@ package com.mcssoft.racemeetings.interfaces;
  */
 public interface IAsyncResult {
     /**
-     * XML download results as a string.
+     * XML download results as a string
+     * @param table Results relate to this table.
      * @param theResults Results of the download.
      */
-    void downloadFinish(String theResults);
+    void download(String table, String theResults);
 }

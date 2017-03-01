@@ -1,6 +1,7 @@
 package com.mcssoft.racemeetings.utility;
 
 import com.mcssoft.racemeetings.meeting.Club;
+import com.mcssoft.racemeetings.meeting.Meetings;
 import com.mcssoft.racemeetings.meeting.Region;
 import com.mcssoft.racemeetings.meeting.Track;
 
@@ -15,48 +16,6 @@ public class XMLParser {
 
     public XMLParser(InputStream inStream) {
         initialise(inStream);
-    }
-
-    public ArrayList<Region> parseRegionsXml() {
-        ArrayList<Region> regions = null;
-        Region region = null;
-        try {
-            String elementName;
-            int eventType = parser.getEventType();
-            while(eventType != parser.END_DOCUMENT) {
-                switch (eventType) {
-                    case XmlPullParser.START_DOCUMENT:
-                        //regions = new ArrayList<>();
-                        break;
-                    case XmlPullParser.START_TAG:
-                        elementName = parser.getName();
-                        if(elementName.equals("Regions")) {
-                            regions = new ArrayList<>();
-                        }
-                        else if (elementName.equals("Region")) {
-                            region = new Region();
-                            region.setRegionId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
-                        }
-                        else if(elementName.equals("RegionName")) {
-                            region.setRegionName(parser.nextText());
-                        }
-                        else if(elementName.equals("RegionShortName")) {
-                            region.setRegionSName(parser.nextText());
-                        }
-                        break;
-                    case XmlPullParser.END_TAG:
-                        elementName = parser.getName();
-                        if(elementName.equals("Region") && regions != null) {
-                            regions.add(region);
-                        }
-                }
-                eventType = parser.next();
-            }
-        } catch(XmlPullParserException ex) {
-            ex.printStackTrace();
-        } finally {
-            return regions;
-        }
     }
 
     public ArrayList<Club> parseClubsXml() {
@@ -140,6 +99,11 @@ public class XMLParser {
         } finally {
             return tracks;
         }
+    }
+
+    public ArrayList<Meetings> parseMeetingsXml() {
+        // TODO - XMLParser.parseMeetingsXml
+        return null;
     }
 
     private void initialise(InputStream inStream) {

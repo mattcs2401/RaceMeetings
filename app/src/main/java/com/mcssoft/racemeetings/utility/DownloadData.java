@@ -3,6 +3,8 @@ package com.mcssoft.racemeetings.utility;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import java.net.URL;
 
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
@@ -16,23 +18,16 @@ public class DownloadData extends AsyncTask<String,String,String> {
     /**
      * Constructor.
      * @param context The app cpntext.
-     * @param message A message for the progress dialog.
-     */
-    public DownloadData(Context context, String message) {
-        this.context = context;
-        this.message = message;    }
-
-    /**
-     * Constructor.
-     * @param context The app cpntext.
      * @param url The url for the http operation.
      * @param message A message for the progress dialog.
+     * @param output Indicator as to where to direct the results returned.
      */
-    public DownloadData(Context context, URL url, String message) {
-        super();
+    public DownloadData(Context context, URL url, String message, String output) {
+//        super();
         this.context = context;
         this.message = message;
         this.url = url;
+        this.output = output;
     }
 
     @Override
@@ -46,14 +41,13 @@ public class DownloadData extends AsyncTask<String,String,String> {
 
     @Override
     protected String doInBackground(String... params) {
-
         String theResult = null;
         try {
             HttpWrapper sw = new HttpWrapper(url);
             theResult = sw.remoteRequest();
         }
-        catch (Exception exception) {
-           exception.printStackTrace();
+        catch (Exception ex) {
+           Log.d("", ex.getMessage());
         }
         return theResult;
     }
@@ -65,20 +59,15 @@ public class DownloadData extends AsyncTask<String,String,String> {
     protected void onPostExecute(String theResult) {
         super.onPostExecute(theResult);
         progressDialog.dismiss();
-        asyncResult.downloadFinish(theResult);
+        asyncResult.download(output, theResult);
     }
 
-    /**
-     * Set the url for the http operation.
-     * @param url The url for the http operation.
-     */
-    public void setUrl(URL url) {
-        this.url = url;
-    }
+
+    public IAsyncResult asyncResult = null;
 
     private URL url;
     private String message;
+    private String output;  // indicator as to where to direct the results returned.
     private Context context;
     private ProgressDialog progressDialog;
-    public IAsyncResult asyncResult = null;
 }

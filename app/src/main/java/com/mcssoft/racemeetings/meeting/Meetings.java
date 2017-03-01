@@ -13,11 +13,11 @@ package com.mcssoft.racemeetings.meeting;
   </Meeting>
  */
 
-public class MeetingDetails {
+public class Meetings {
 
-    public MeetingDetails() { }
+    public Meetings() { }
 
-    public MeetingDetails(String[] details) {
+    public Meetings(String[] details) {
         // TBA
     }
 
