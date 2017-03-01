@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity
      * @param vals The date values; [0] YYYY, [1] MM, [2] DD.
      */
     @Override
-    public void iDateValues(int[] vals) {
-        String bp = "";
+    public void iDateValues(String[] vals) {
+        dateSearchValues = vals;
     }
 
     private void initialiseUI() {
@@ -171,11 +171,21 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private String formatDateSearchValues() {
+        if(dateSearchValues != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(dateSearchValues[0])
+            .append("-")
+            .append(dateSearchValues[1])
+            .append("-")
+            .append(dateSearchValues[2]);
+            return sb.toString();
+        } else {
+            return null;
+        }
+    }
 
-    private boolean gettingRegions;
-    private boolean gettingClubs;
-    private boolean baseTables;
-    private boolean netWorkExists;
-    private MainFragment mainFragment;
-    private DatabaseHelper databaseHelper;
+    private String[] dateSearchValues;    // the values associated with the current search date.
+    private boolean netWorkExists;     // flag to indicate if an available network exists.
+    private MainFragment mainFragment; //
 }

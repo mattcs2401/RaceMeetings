@@ -8,5 +8,5 @@ public interface IDateSelect {
      * Date values (YYYY-MM-DD).
      * @param values [0] YYYY, [1] MM, [2] DD
      */
-    void iDateValues(int[] values);
+    void iDateValues(String[] values);
 }
