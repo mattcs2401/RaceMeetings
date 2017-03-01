@@ -13,15 +13,15 @@ import android.widget.DatePicker;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
+import com.mcssoft.racemeetings.utility.Resources;
 
 public class DateSearchFragment extends DialogFragment
         implements DialogInterface.OnClickListener {
 
-    public DateSearchFragment() { }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        // Setup the interface.
         iDateSelect = (IDateSelect) activity;
     }
 
@@ -33,9 +33,9 @@ public class DateSearchFragment extends DialogFragment
         datePicker = (DatePicker) view.findViewById(R.id.id_datePicker);
 
         AlertDialog.Builder ab = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_LIGHT);
-        ab.setView(view) //R.layout.fragment_search)
-        .setNegativeButton("Cancel", this)
-        .setPositiveButton("OK", this);
+        ab.setView(view)
+        .setNegativeButton(Resources.getInstance().getString(R.string.button_cancel_text), this)
+        .setPositiveButton(Resources.getInstance().getString(R.string.button_ok_text), this);
 
         return ab.create();
     }

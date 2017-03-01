@@ -21,4 +21,7 @@
     <!-- Navigation drawer. -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- Button texts. -->
+    <string name="button_cancel_text">Cancel</string>
+    <string name="button_ok_text">OK</string>
 </resources>
