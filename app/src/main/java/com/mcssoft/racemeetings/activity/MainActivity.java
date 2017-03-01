@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
@@ -35,8 +34,10 @@ public class MainActivity extends AppCompatActivity
         Preferences.getInstance(this);      // setup preferences access.
 
         netWorkExists = checkForNetwork();  // does an active network exist?
+
         DatabaseUtility dbUtil = new DatabaseUtility(this);
-        dbUtil.databaseCheck();             // sanity check on database.
+        dbUtil.checkClubs();
+        dbUtil.checkTracks();
 
         initialiseUI();                     // initialise UI components.
 

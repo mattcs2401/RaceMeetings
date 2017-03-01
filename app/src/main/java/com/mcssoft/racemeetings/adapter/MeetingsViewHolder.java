@@ -10,12 +10,11 @@ import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 
 
 public class MeetingsViewHolder  extends RecyclerView.ViewHolder
-        implements View.OnClickListener,
-        View.OnLongClickListener {
+        implements View.OnClickListener, View.OnLongClickListener {
 
     public MeetingsViewHolder(View view) {
         super(view);
-        tvEmptyView = (TextView) view.findViewById(R.id.id_tvEmptyView);
+        tvEmptyView = (TextView) view.findViewById(R.id.id_tv_nothingToShow);
     }
 
     public MeetingsViewHolder(View view, IItemClickListener listener, IItemLongClickListener longListener) {

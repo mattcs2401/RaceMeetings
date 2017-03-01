@@ -21,12 +21,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.beginTransaction();
         try {
-            db.execSQL(SchemaConstants.DROP_REGIONS_TABLE);
             db.execSQL(SchemaConstants.DROP_CLUBS_TABLE);
             db.execSQL(SchemaConstants.DROP_TRACKS_TABLE);
-            db.execSQL(SchemaConstants.CREATE_REGIONS_TABLE);
+            db.execSQL(SchemaConstants.DROP_MEETINGS_TABLE);
             db.execSQL(SchemaConstants.CREATE_CLUBS_TABLE);
             db.execSQL(SchemaConstants.CREATE_TRACKS_TABLE);
+            db.execSQL(SchemaConstants.CREATE_MEETINGS_TABLE);
             db.setTransactionSuccessful();
         } catch(SQLException sqle) {
             Log.d("Exception dB create: ", sqle.getMessage());
@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.REGIONS_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.MEETINGS_TABLE + ";");
         db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.CLUBS_TABLE + ";");
         db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.TRACKS_TABLE + ";");
     }
@@ -47,13 +47,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public enum Projection {
-        RegionSchema, ClubSchema, TrackSchema, MeetingsSchema
+        ClubSchema, TrackSchema, MeetingsSchema
     }
 
     public static String [] getProjection(Projection projection) {
         switch (projection) {
-            case RegionSchema:
-                return getRegionProjection();
             case ClubSchema:
                 return getClubProjection();
             case TrackSchema:
@@ -62,15 +60,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return getMeetingsProjection();
         }
         return  null;
-    }
-
-    private static final String[] getRegionProjection() {
-        return new String[] {
-            SchemaConstants.REGION_ROWID,
-            SchemaConstants.REGION_ID,
-            SchemaConstants.REGION_NAME,
-            SchemaConstants.REGION_S_NAME
-        };
     }
 
     private static final String[] getClubProjection() {
@@ -99,7 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SchemaConstants.MEETING_CLUB,
         SchemaConstants.MEETING_STATUS,
         SchemaConstants.MEETING_NO_RACES,
-        SchemaConstants.MEETING_B_TRIAL
+        SchemaConstants.MEETING_IS_TRIAL
         };
     }
 

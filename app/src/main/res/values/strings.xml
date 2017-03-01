@@ -8,7 +8,7 @@
     <string name="no_meetings_to_show">No meetings to show</string>
     <!-- -->
     <string name="base_path_calendar">http://www.racingqueensland.com.au/opendatawebservices/calendar.asmx</string>
-    <string name="get_available_regions">GetAvailableRegions</string>
+    <string name="base_path_meetings">http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx</string>
     <string name="get_available_clubs">GetAvailableClubs</string>
     <!-- generic connectivity messages. -->
     <string name="network_type_name_wifi">WIFI</string>
@@ -16,7 +16,7 @@
     <string name="lost_connection">Connection has been lost.</string>
     <!-- Progress dialog -->
     <string name="init_clubs_data">Initialising Clubs data.</string>
-    <string name="init_regions_data">Initialising Regions data.</string>
+    <string name="init_tracks_data">Initialising Tracks data.</string>
     <!-- Preference keys. -->
     <!-- Network access preference. -->
     <string name="pref_network_access_button_id_key">pref_network_access_id_key</string>

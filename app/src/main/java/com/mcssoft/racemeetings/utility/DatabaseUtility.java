@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -27,17 +28,22 @@ public class DatabaseUtility implements IAsyncResult {
 
     public DatabaseUtility(Context context) {
         this.context = context;
-        checkTracks = false;
+        loadClubsTableData = false;
+        loadTracksTableData = false;
         dbHelper = new DatabaseHelper(context);
     }
 
-    /**
-     * Sanity check that database base tables have values (rows data).
-     */
-    public void databaseCheck() {
-        // If REGIONS data doesn't exist. Note: it's likely CLUBS data won't exist either.
-        if(!checkTableRowCount(SchemaConstants.REGIONS_TABLE)) {
-            loadRegionsTableData();
+    public void checkClubs() {
+        if(!checkTableRowCount(SchemaConstants.CLUBS_TABLE)) {
+            downloadClubsTableData();
+            loadClubsTableData = true;
+        }
+    }
+
+    public void checkTracks() {
+        if(!checkTableRowCount(SchemaConstants.TRACKS_TABLE)) {
+            downloadTracksTableData();
+            loadTracksTableData = true;
         }
     }
 
@@ -51,30 +57,21 @@ public class DatabaseUtility implements IAsyncResult {
         InputStream inStream = null;
         dbHelper = new DatabaseHelper(context);
 
-        if(!checkTracks) {
-            // Sort of work around as Track data is from raw resource.
+        if(loadClubsTableData) {
+            inStream = new ByteArrayInputStream(theResults.getBytes());
+            mxmlp = new XMLParser(inStream);
+
+            ArrayList<Club> clubs = mxmlp.parseClubsXml();
+            insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
+            loadClubsTableData = false;
+
+        } else if(loadTracksTableData) {
             inStream = context.getResources().openRawResource(R.raw.tracks);
             mxmlp = new XMLParser(inStream);
 
             ArrayList<Track> tracks = mxmlp.parseTracksXml();
             insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
-            checkTracks = true;
-        }
-
-        inStream = new ByteArrayInputStream(theResults.getBytes());
-        mxmlp = new XMLParser(inStream);
-
-        if(regions) {
-            ArrayList<Region> regions = mxmlp.parseRegionsXml();
-            insertFromList(SchemaConstants.REGIONS_TABLE, regions);
-
-            // If REGIONS data doesn't exist then it's likely CLUBS data won't exist either.
-            if(!checkTableRowCount(SchemaConstants.CLUBS_TABLE)) {
-                loadClubsTableData();
-            }
-        } else if (clubs) {
-            ArrayList<Club> clubs = mxmlp.parseClubsXml();
-            insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
+            loadTracksTableData = false;
         }
     }
 
@@ -89,9 +86,6 @@ public class DatabaseUtility implements IAsyncResult {
 
     public void insertFromList(String tableName, ArrayList theList) {
         switch (tableName) {
-            case SchemaConstants.REGIONS_TABLE:
-                insertFromListRegions(theList);
-                break;
             case SchemaConstants.CLUBS_TABLE:
                 insertFromListClubs(theList);
                 break;
@@ -163,29 +157,6 @@ public class DatabaseUtility implements IAsyncResult {
         return sb.toString();
     }
     
-    private void insertFromListRegions(ArrayList theList) {
-        ContentValues cv;
-        SQLiteDatabase db = dbHelper.getDatabase();
-
-        for (Object object : theList) {
-            Region region = (Region) object;
-            cv = new ContentValues();
-            cv.put(SchemaConstants.REGION_ID, region.getRegionId());
-            cv.put(SchemaConstants.REGION_NAME, region.getRegionName());
-            cv.put(SchemaConstants.REGION_S_NAME, region.getRegionSName());
-
-            try {
-                db.beginTransaction();
-                db.insertOrThrow(SchemaConstants.REGIONS_TABLE, null, cv);
-                db.setTransactionSuccessful();
-            } catch(SQLException ex) {
-                ex.printStackTrace();
-            } finally {
-                db.endTransaction();
-            }
-        }
-    }
-
     private void insertFromListClubs(ArrayList theList) {
         ContentValues cv;
         SQLiteDatabase db = dbHelper.getDatabase();
@@ -231,36 +202,26 @@ public class DatabaseUtility implements IAsyncResult {
         }
     }
 
-    private void loadRegionsTableData() {
-        regions = true; clubs = false;
-        try {
-            DownloadData dld = new DownloadData(context, new URL(createRegionsUrl()),
-                    Resources.getInstance().getString(R.string.init_regions_data));
-            dld.asyncResult = this;
-            dld.execute();
-        } catch(Exception ex) {
-            String s = ex.getMessage();
-        }
-    }
-
-    private void loadClubsTableData() {
-        regions = false; clubs = true;
+    private void downloadClubsTableData() {
         try {
             DownloadData dld = new DownloadData(context, new URL(createClubsUrl()),
                     Resources.getInstance().getString(R.string.init_clubs_data));
             dld.asyncResult = this;
             dld.execute();
         } catch(Exception ex) {
-            String s = ex.getMessage();
+            Log.d("", ex.getMessage());
         }
     }
 
-    private String createRegionsUrl() {
-        Uri.Builder builder = new Uri.Builder();
-        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
-                .appendPath(Resources.getInstance().getString(R.string.get_available_regions));
-        builder.build();
-        return builder.toString();
+    private void downloadTracksTableData() {
+        try {
+            DownloadData dld = new DownloadData(context, new URL(createTracksUrl()),
+                    Resources.getInstance().getString(R.string.init_tracks_data));
+            dld.asyncResult = this;
+            dld.execute();
+        } catch(Exception ex) {
+            Log.d("", ex.getMessage());
+        }
     }
 
     private String createClubsUrl() {
@@ -271,12 +232,16 @@ public class DatabaseUtility implements IAsyncResult {
         return builder.toString();
     }
 
+    private String createTracksUrl() {
+        Uri.Builder builder = new Uri.Builder();
+        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_meetings));
+        builder.build();
+        return builder.toString();
+    }
+
     private String[] getProjection(String tableName) {
         String[] projection = {};
         switch (tableName) {
-            case SchemaConstants.REGIONS_TABLE:
-                projection = dbHelper.getProjection(DatabaseHelper.Projection.RegionSchema);
-                break;
             case SchemaConstants.CLUBS_TABLE:
                 projection = dbHelper.getProjection(DatabaseHelper.Projection.ClubSchema);
                 break;
@@ -296,9 +261,8 @@ public class DatabaseUtility implements IAsyncResult {
         return cursor;
     }
 
-    private boolean clubs;        // flag to indicate async results are for CLUBS
-    private boolean regions;      // flag to indicate async results are for REGIONS
-    private boolean checkTracks;  // flag to indicate load TRACKS from raw resource.
+    private boolean loadClubsTableData;   // flag to check/load clubs data.
+    private boolean loadTracksTableData;  // flag to check/load tracks data.
 
     private Context context;
     private DatabaseHelper dbHelper;
