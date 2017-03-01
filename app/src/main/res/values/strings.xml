@@ -3,6 +3,9 @@
     <!-- Fragment tags. -->
     <string name="main_fragment_tag">main_fragment_tag</string>
     <string name="date_search_fragment_tag">date_search_fragment_tag</string>
+    <!-- Fragment text. -->
+    <string name="nothing_to_show">Nothing to show yet</string>
+    <string name="no_meetings_to_show">No meetings to show</string>
     <!-- -->
     <string name="base_path_calendar">http://www.racingqueensland.com.au/opendatawebservices/calendar.asmx</string>
     <string name="get_available_regions">GetAvailableRegions</string>

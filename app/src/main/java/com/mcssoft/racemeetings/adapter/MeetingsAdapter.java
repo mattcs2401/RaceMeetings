@@ -1,8 +1,6 @@
 package com.mcssoft.racemeetings.adapter;
 
-import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +21,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
                 // don't need to keep a local copy, framework now supplies.
                 return new MeetingsViewHolder(view, itemClickListener, itemLongClickListener);
             } else {
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_empty, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meetings_empty, parent, false);
                 return new MeetingsViewHolder(view);
             }
         } else {
