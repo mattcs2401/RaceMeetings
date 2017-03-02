@@ -34,10 +34,15 @@ public class MainActivity extends AppCompatActivity
         Preferences.getInstance(this);      // setup preferences access.
 
         netWorkExists = checkForNetwork();  // does an active network exist?
-
-        DatabaseUtility dbUtil = new DatabaseUtility(this);
-        dbUtil.checkClubs();
-        dbUtil.checkTracks();
+        if(netWorkExists) {
+            // data check.
+            DatabaseUtility dbUtil = new DatabaseUtility(this);
+            dbUtil.checkClubs();
+            dbUtil.checkTracks();
+        } else {
+            // no active network connection exists.
+            // TODO - no active network connection on app start.
+        }
 
         initialiseUI();                     // initialise UI components.
 
@@ -106,7 +111,8 @@ public class MainActivity extends AppCompatActivity
         String searchdate = null;
         if(values != null && values.length == 3) {
             searchdate = formatSearchDateValues(values);
-
+            DatabaseUtility dbUtil = new DatabaseUtility(this);
+            dbUtil.checkMeetingsBydate(searchdate);
         } else {
 
         }
@@ -133,22 +139,10 @@ public class MainActivity extends AppCompatActivity
      * @return True if the Preferences network type is the same as the actual active network type.
      */
     private boolean checkForNetwork() {
-        // TODO - Check for network; what if signed into Wifi and mobile data is on. This needs work.
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
-
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-        if(networkInfo != null) {
-            String prefNetworkType = Preferences.getInstance().getNetworkPrefTag();
-            String networkType = networkInfo.getTypeName();
-
-            // this may return false as well.
-            return (prefNetworkType.equals(networkType) && networkInfo.isConnected());
-
-        } else {
-            return false;
-        }
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
     private String formatSearchDateValues(String[] values) {

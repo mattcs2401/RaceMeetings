@@ -44,6 +44,11 @@ public class DatabaseUtility implements IAsyncResult {
         }
     }
 
+    public void checkMeetingsBydate(String searchDate) {
+        if(!checkTableRowCount(SchemaConstants.MEETINGS_TABLE)) {
+            downloadTableData(SchemaConstants.MEETINGS_TABLE, searchDate);
+        }
+    }
     /**
      * Async task results end up here.
      * @param results The results from the async task.
@@ -297,7 +302,7 @@ public class DatabaseUtility implements IAsyncResult {
                 projection = dbHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
                 break;
             case SchemaConstants.MEETINGS_TABLE:
-                projection = dbHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.MeetingsSchema);
                 break;
         }
         return  projection;

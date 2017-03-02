@@ -143,7 +143,7 @@ public class XMLParser {
                         break;
                     case XmlPullParser.END_TAG:
                         elementName = parser.getName();
-                        if(elementName.equals("Track") && meeting != null) {
+                        if(elementName.equals("Meeting") && meeting != null) {
                             meetings.add(meeting);
                         }
                 }

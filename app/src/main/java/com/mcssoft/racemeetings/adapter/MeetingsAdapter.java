@@ -69,11 +69,13 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
         cursor.moveToFirst();
 
         idColNdx = cursor.getColumnIndex(SchemaConstants.MEETING_ROWID);
-        meetingId = cursor.getColumnIndex(SchemaConstants.MEETING_ID);
-
-//        trackNameColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_NAME);
-//        trackClubColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_CLUB_NAME);
-//        trackIsPrefColNdx = cursor.getColumnIndex(SchemaConstants.TRACK_IS_PREF);
+        meetingIdNdx = cursor.getColumnIndex(SchemaConstants.MEETING_ID);
+        meetingDateNdx = cursor.getColumnIndex(SchemaConstants.MEETING_DATE);
+        trackNameNdx = cursor.getColumnIndex(SchemaConstants.MEETING_TRACK);
+        clubNameNdx = cursor.getColumnIndex(SchemaConstants.MEETING_CLUB);
+        racingStatusNdx = cursor.getColumnIndex(SchemaConstants.MEETING_STATUS);
+        numRacesNdx = cursor.getColumnIndex(SchemaConstants.MEETING_NO_RACES);
+        bariierTrialNdx = cursor.getColumnIndex(SchemaConstants.MEETING_IS_TRIAL);
 
         notifyDataSetChanged();
     }
@@ -87,7 +89,15 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
     }
 
     private void adapaterOnBindViewHolder(MeetingsViewHolder holder, int position) {
+        cursor.moveToPosition(position);
 
+        holder.getMeetingId().setText(cursor.getString(meetingIdNdx));
+        holder.getTvMeetingDate().setText(cursor.getString(meetingDateNdx));
+        holder.getTrackName().setText(cursor.getString(trackNameNdx));
+        holder.getClubName().setText(cursor.getString(clubNameNdx));
+        holder.getRacingStatus().setText(cursor.getString(racingStatusNdx));
+        holder.getNumRaces().setText(cursor.getString(numRacesNdx));
+        holder.getBarrierTrial().setText(cursor.getString(bariierTrialNdx));
     }
 
     private View view;
@@ -95,8 +105,25 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
     private boolean emptyView;
 
     private int idColNdx;
-    private int meetingId;
+    private int meetingIdNdx;
+    private int meetingDateNdx;
+    private int trackNameNdx;
+    private int clubNameNdx;
+    private int racingStatusNdx;
+    private int numRacesNdx;
+    private int bariierTrialNdx;
 
     private IItemClickListener itemClickListener;
     private IItemLongClickListener itemLongClickListener;
 }
+/*
+
+  <Meeting Id="88788">
+    <MeetingDate>2017-02-18</MeetingDate>
+    <TrackName>Gold Coast</TrackName>
+    <ClubName>Gold Coast Turf Club</ClubName>
+    <RacingStatus>Provincial</RacingStatus>
+    <NumberOfRaces>8</NumberOfRaces>
+    <IsBarrierTrial>false</IsBarrierTrial>
+  </Meeting>
+ */

@@ -19,8 +19,18 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
 
     public MeetingsViewHolder(View view, IItemClickListener listener, IItemLongClickListener longListener) {
         super(view);
-        // Set the ViewHolder components.
+//        tvMeetingId = (TextView) view.findViewById(R.id)
+//        tvMeetingDate = (TextView) view.findViewById(R.id)
+//        tvTrackName = (TextView) view.findViewById(R.id)
+//        tvClubName = (TextView) view.findViewById(R.id)
+//        tvRacingStatus = (TextView) view.findViewById(R.id)
+//        tvNumRaces = (TextView) view.findViewById(R.id)
+//        tvBarrierTrial = (TextView) view.findViewById(R.id)
 
+        itemClickListener = listener;
+        itemLongClickListener = longListener;
+        view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Region: Listeners">
@@ -42,12 +52,26 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Accessors">
-
+    public TextView getMeetingId() { return tvMeetingId;  }
+    public TextView getTvMeetingDate() { return tvMeetingDate; }
+    public TextView getTrackName() { return tvTrackName; }
+    public TextView getClubName() { return tvClubName; }
+    public TextView getRacingStatus() { return tvRacingStatus; }
+    public TextView getNumRaces() { return tvNumRaces; }
+    public TextView getBarrierTrial() { return tvBarrierTrial; }
 
     public TextView getEmptyText() { return tvEmptyView; }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Private vars">
+    private TextView tvMeetingId;
+    private TextView tvMeetingDate;
+    private TextView tvTrackName;
+    private TextView tvClubName;
+    private TextView tvRacingStatus;
+    private TextView tvNumRaces;
+    private TextView tvBarrierTrial;
+
     private TextView tvEmptyView;
 
     private IItemClickListener itemClickListener;
