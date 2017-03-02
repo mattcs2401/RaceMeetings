@@ -31,7 +31,6 @@ public class TracksPreferenceDialog extends DialogPreference
 
     public TracksPreferenceDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
         setDialogLayoutResource(R.layout.dialog_pref_track);
     }
 
@@ -128,7 +127,6 @@ public class TracksPreferenceDialog extends DialogPreference
     }
 
     private Cursor cursor;
-    private Context context;
     private RecyclerView recyclerView;
     private ArrayList<String> changeList;
     private TracksPreferenceAdapter tracksAdapter;
