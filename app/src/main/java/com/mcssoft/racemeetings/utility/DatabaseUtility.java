@@ -19,8 +19,7 @@ import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 import com.mcssoft.racemeetings.meeting.Club;
-import com.mcssoft.racemeetings.meeting.Meetings;
-import com.mcssoft.racemeetings.meeting.Region;
+import com.mcssoft.racemeetings.meeting.Meeting;
 import com.mcssoft.racemeetings.meeting.Track;
 
 /**
@@ -47,16 +46,16 @@ public class DatabaseUtility implements IAsyncResult {
 
     /**
      * Async task results end up here.
-     * @param theResults The results from the async task.
+     * @param results The results from the async task.
      */
     @Override
-    public void download(String table, String theResults) {
+    public void result(String table, String results) {
         InputStream inStream = null;
         XMLParser mxmlp = null;
 
         switch (table) {
             case SchemaConstants.CLUBS_TABLE:
-                inStream = new ByteArrayInputStream(theResults.getBytes());
+                inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Club> clubs = mxmlp.parseClubsXml();
                 insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
@@ -68,9 +67,9 @@ public class DatabaseUtility implements IAsyncResult {
                 insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
                 break;
             case SchemaConstants.MEETINGS_TABLE:
-                inStream = new ByteArrayInputStream(theResults.getBytes());
+                inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
-                ArrayList<Meetings> meetings = mxmlp.parseMeetingsXml();
+                ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
                 insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
                 break;
         }
@@ -92,6 +91,10 @@ public class DatabaseUtility implements IAsyncResult {
                 break;
             case SchemaConstants.TRACKS_TABLE:
                 insertFromListTracks(theList);
+                break;
+            case SchemaConstants.MEETINGS_TABLE:
+                checkAndDeleteOld(tableName);    // meetings data doesn't persist.
+                insertFromListMeetings(theList);
                 break;
         }
     }
@@ -203,6 +206,33 @@ public class DatabaseUtility implements IAsyncResult {
         }
     }
 
+    private void insertFromListMeetings(ArrayList theList) {
+        ContentValues cv;
+        SQLiteDatabase db = dbHelper.getDatabase();
+
+        for (Object object : theList) {
+            Meeting meeting = (Meeting) object;
+            cv = new ContentValues();
+            cv.put(SchemaConstants.MEETING_ID, meeting.getMeetingId());
+            cv.put(SchemaConstants.MEETING_DATE, meeting.getMeetingDate());
+            cv.put(SchemaConstants.MEETING_TRACK, meeting.getTrackName());
+            cv.put(SchemaConstants.MEETING_CLUB, meeting.getClubName());
+            cv.put(SchemaConstants.MEETING_STATUS, meeting.getRacingStatus());
+            cv.put(SchemaConstants.MEETING_NO_RACES, meeting.getNumberOfRaces());
+            cv.put(SchemaConstants.MEETING_IS_TRIAL, meeting.getIsBarrierTrial());
+
+            try {
+                db.beginTransaction();
+                db.insertOrThrow(SchemaConstants.MEETINGS_TABLE, null, cv);
+                db.setTransactionSuccessful();
+            } catch(SQLException ex) {
+                Log.d("", ex.getMessage());
+            } finally {
+                db.endTransaction();
+            }
+        }
+    }
+
     private void downloadTableData(String table, @Nullable String queryParam) {
         URL url = null;
         String message = null;
@@ -282,6 +312,14 @@ public class DatabaseUtility implements IAsyncResult {
         return cursor;
     }
 
+    private void checkAndDeleteOld(String tableName) {
+        if(checkTableRowCount(tableName)) {
+            SQLiteDatabase db = dbHelper.getDatabase();
+            db.beginTransaction();
+            db.delete(tableName, null, null);
+            db.endTransaction();
+        }
+    }
 
     private Context context;
     private DatabaseHelper dbHelper;

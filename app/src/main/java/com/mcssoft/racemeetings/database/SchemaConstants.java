@@ -56,7 +56,7 @@ public class SchemaConstants {
             + TRACK_CLUB_NAME + " TEXT NOT NULL, "
             + TRACK_IS_PREF   + " TEXT NOT NULL)";
 
-    // Meetings table create.
+    // Meeting table create.
     public static final String CREATE_MEETINGS_TABLE = "CREATE TABLE "
             + MEETINGS_TABLE   + " ("
             + MEETING_ROWID    + " INTEGER PRIMARY KEY AUTOINCREMENT, "

@@ -2,7 +2,7 @@ package com.mcssoft.racemeetings.meeting;
 
 /*
  * Utility class to model:
-<Meetings>
+<Meeting>
   <Meeting Id="88788">
     <MeetingDate>2017-02-18</MeetingDate>
     <TrackName>Gold Coast</TrackName>
@@ -13,19 +13,19 @@ package com.mcssoft.racemeetings.meeting;
   </Meeting>
  */
 
-public class Meetings {
+public class Meeting {
 
-    public Meetings() { }
+    public Meeting() { }
 
-    public Meetings(String[] details) {
+    public Meeting(String[] details) {
         // TBA
     }
 
-    public String getMeetingId() {
+    public int getMeetingId() {
         return meetingId;
     }
 
-    public void setMeetingId(String meetingId) {
+    public void setMeetingId(int meetingId) {
         this.meetingId = meetingId;
     }
 
@@ -77,7 +77,7 @@ public class Meetings {
         this.isBarrierTrial = isBarrierTrial;
     }
 
-    private String meetingId;
+    private int meetingId;
     private String meetingDate;
     private String trackName;
     private String clubName;

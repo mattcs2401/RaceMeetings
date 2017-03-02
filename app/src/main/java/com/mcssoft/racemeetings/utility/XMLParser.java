@@ -1,8 +1,9 @@
 package com.mcssoft.racemeetings.utility;
 
+import android.util.Log;
+
 import com.mcssoft.racemeetings.meeting.Club;
-import com.mcssoft.racemeetings.meeting.Meetings;
-import com.mcssoft.racemeetings.meeting.Region;
+import com.mcssoft.racemeetings.meeting.Meeting;
 import com.mcssoft.racemeetings.meeting.Track;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -51,7 +52,7 @@ public class XMLParser {
                 eventType = parser.next();
             }
         } catch(XmlPullParserException ex) {
-            ex.printStackTrace();
+            Log.d("", ex.getMessage());
         } finally {
             return clubs;
         }
@@ -95,15 +96,64 @@ public class XMLParser {
                 eventType = parser.next();
             }
         } catch(XmlPullParserException ex) {
-            ex.printStackTrace();
+            Log.d("", ex.getMessage());
         } finally {
             return tracks;
         }
     }
 
-    public ArrayList<Meetings> parseMeetingsXml() {
-        // TODO - XMLParser.parseMeetingsXml
-        return null;
+    public ArrayList<Meeting> parseMeetingsXml() {
+        ArrayList<Meeting> meetings = null;
+        Meeting meeting = null;
+        try {
+            String elementName;
+            int eventType = parser.getEventType();
+            while(eventType != parser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        //regions = new ArrayList<>();
+                        break;
+                    case XmlPullParser.START_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Meetings")) {
+                            meetings = new ArrayList<>();
+                        }
+                        else if (elementName.equals("Meeting")) {
+                            meeting = new Meeting();
+                            meeting.setMeetingId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
+                        }
+                        else if(elementName.equals("MeetingDate")) {
+                            meeting.setMeetingDate(parser.nextText());
+                        }
+                        else if(elementName.equals("TrackName")) {
+                            meeting.setTrackName(parser.nextText());
+                        }
+                        else if(elementName.equals("ClubName")) {
+                            meeting.setClubName(parser.nextText());
+                        }
+                        else if(elementName.equals("RacingStatus")) {
+                            meeting.setRacingStatus(parser.nextText());
+                        }
+                        else if(elementName.equals("NumberOfRaces")) {
+                            meeting.setNumberOfRaces(parser.nextText());
+                        }
+                        else if(elementName.equals("IsBarrierTrial")) {
+                            meeting.setIsBarrierTrial(parser.nextText());
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Track") && meeting != null) {
+                            meetings.add(meeting);
+                        }
+                }
+                eventType = parser.next();
+            }
+        } catch(XmlPullParserException ex) {
+            Log.d("", ex.getMessage());
+        } finally {
+            return meetings;
+        }
     }
 
     private void initialise(InputStream inStream) {
