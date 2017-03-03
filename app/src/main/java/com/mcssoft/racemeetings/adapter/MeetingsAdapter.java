@@ -91,8 +91,9 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
     private void adapaterOnBindViewHolder(MeetingsViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
-        holder.getMeetingId().setText(cursor.getString(meetingIdNdx));
-        holder.getTvMeetingDate().setText(cursor.getString(meetingDateNdx));
+//        holder.getMeetingId().setText(cursor.getString(meetingIdNdx));
+//        holder.getTvMeetingDate().setText(cursor.getString(meetingDateNdx));
+
         holder.getTrackName().setText(cursor.getString(trackNameNdx));
         holder.getClubName().setText(cursor.getString(clubNameNdx));
         holder.getRacingStatus().setText(cursor.getString(racingStatusNdx));

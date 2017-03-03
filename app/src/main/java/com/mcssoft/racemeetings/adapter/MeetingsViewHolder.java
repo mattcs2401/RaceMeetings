@@ -20,16 +20,17 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
     public MeetingsViewHolder(View view, IItemClickListener listener, IItemLongClickListener longListener) {
         super(view);
 //        tvMeetingId = (TextView) view.findViewById(R.id)
-//        tvMeetingDate = (TextView) view.findViewById(R.id)
-//        tvTrackName = (TextView) view.findViewById(R.id)
-//        tvClubName = (TextView) view.findViewById(R.id)
-//        tvRacingStatus = (TextView) view.findViewById(R.id)
-//        tvNumRaces = (TextView) view.findViewById(R.id)
-//        tvBarrierTrial = (TextView) view.findViewById(R.id)
+        tvMeetingDateDDMM = (TextView) view.findViewById(R.id.id_tv_dd_mm);
+        tvMeetingDateYYYY = (TextView) view.findViewById(R.id.id_tv_yyyy);
+        tvTrackName = (TextView) view.findViewById(R.id.id_tv_track_name);
+        tvClubName = (TextView) view.findViewById(R.id.id_tv_club_name);
+        tvRacingStatus = (TextView) view.findViewById(R.id.id_tv_racing_status);
+        tvNumRaces = (TextView) view.findViewById(R.id.id_tv_num_races);
+        tvBarrierTrial = (TextView) view.findViewById(R.id.id_tv_barrier_trial_YN);
 
         itemClickListener = listener;
-        itemLongClickListener = longListener;
         view.setOnClickListener(this);
+        itemLongClickListener = longListener;
         view.setOnLongClickListener(this);
     }
 
@@ -53,7 +54,8 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
 
     //<editor-fold defaultstate="collapsed" desc="Region: Accessors">
     public TextView getMeetingId() { return tvMeetingId;  }
-    public TextView getTvMeetingDate() { return tvMeetingDate; }
+    public TextView getTvMeetingDateMMDD() { return tvMeetingDateDDMM; }
+    public TextView getTvMeetingDateYYYY() { return tvMeetingDateYYYY; }
     public TextView getTrackName() { return tvTrackName; }
     public TextView getClubName() { return tvClubName; }
     public TextView getRacingStatus() { return tvRacingStatus; }
@@ -65,7 +67,8 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
 
     //<editor-fold defaultstate="collapsed" desc="Region: Private vars">
     private TextView tvMeetingId;
-    private TextView tvMeetingDate;
+    private TextView tvMeetingDateDDMM;
+    private TextView tvMeetingDateYYYY;
     private TextView tvTrackName;
     private TextView tvClubName;
     private TextView tvRacingStatus;

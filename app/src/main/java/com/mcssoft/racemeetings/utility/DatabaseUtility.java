@@ -45,9 +45,9 @@ public class DatabaseUtility implements IAsyncResult {
     }
 
     public void checkMeetingsBydate(String searchDate) {
-        if(!checkTableRowCount(SchemaConstants.MEETINGS_TABLE)) {
+//        if(!checkTableRowCount(SchemaConstants.MEETINGS_TABLE)) {
             downloadTableData(SchemaConstants.MEETINGS_TABLE, searchDate);
-        }
+//        }
     }
     /**
      * Async task results end up here.
@@ -321,7 +321,8 @@ public class DatabaseUtility implements IAsyncResult {
         if(checkTableRowCount(tableName)) {
             SQLiteDatabase db = dbHelper.getDatabase();
             db.beginTransaction();
-            db.delete(tableName, null, null);
+            int count = db.delete(tableName, null, null);
+            db.setTransactionSuccessful();
             db.endTransaction();
         }
     }

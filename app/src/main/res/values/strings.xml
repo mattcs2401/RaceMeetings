@@ -2,6 +2,7 @@
     <string name="app_name">RaceMeetings</string>
     <!-- Fragment tags. -->
     <string name="main_fragment_tag">main_fragment_tag</string>
+    <string name="meetings_details_fragment_tag">meetings_details_fragment_tag</string>
     <string name="date_search_fragment_tag">date_search_fragment_tag</string>
     <!-- Fragment text. -->
     <string name="nothing_to_show">Nothing to show yet</string>

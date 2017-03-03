@@ -15,7 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
+import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.fragment.DateSearchFragment;
+import com.mcssoft.racemeetings.fragment.MeetingsDetailsFragment;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
 import com.mcssoft.racemeetings.fragment.MainFragment;
@@ -109,13 +111,25 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void iDateValues(String[] values) {
         String searchdate = null;
-        if(values != null && values.length == 3) {
-            searchdate = formatSearchDateValues(values);
-            DatabaseUtility dbUtil = new DatabaseUtility(this);
-            dbUtil.checkMeetingsBydate(searchdate);
-        } else {
+        searchdate = formatSearchDateValues(values);
 
+        DatabaseUtility dbUtil = new DatabaseUtility(this);
+        dbUtil.checkMeetingsBydate(searchdate);
+
+        if (dbUtil.checkTableRowCount(SchemaConstants.MEETINGS_TABLE)) {
+            loadMeetingsDetails();
+        } else {
+            // TODO - what if no data was written to the database, i.e. no meetings for that day or some other issue.
         }
+    }
+
+    private void loadMeetingsDetails() {
+        String fragment_tag = Resources.getInstance().getString(R.string.meetings_details_fragment_tag);
+        meetingsDetailsFragment = new MeetingsDetailsFragment();
+        getFragmentManager().beginTransaction()
+                    .replace(R.id.content_main, meetingsDetailsFragment, fragment_tag)
+                    .addToBackStack(fragment_tag)
+                    .commit();
     }
 
     private void initialiseUI() {
@@ -157,4 +171,5 @@ public class MainActivity extends AppCompatActivity
 
     private boolean netWorkExists;     // flag to indicate if an available network exists.
     private MainFragment mainFragment; //
+    private MeetingsDetailsFragment meetingsDetailsFragment;
 }
