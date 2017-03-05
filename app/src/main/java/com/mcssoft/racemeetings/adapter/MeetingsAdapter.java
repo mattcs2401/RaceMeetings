@@ -10,6 +10,8 @@ import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.*;
 
+import java.util.Calendar;
+
 /**
  * Utility class that lists the Meetings for a particular (user selected) date.
  */
@@ -93,12 +95,23 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
 
 //        holder.getMeetingId().setText(cursor.getString(meetingIdNdx));
 //        holder.getTvMeetingDate().setText(cursor.getString(meetingDateNdx));
+        String date = cursor.getString(meetingDateNdx);
+        String[] strArr = date.split("-");
+        
+        Calendar calendar = Calendar.getInstance();
+
 
         holder.getTrackName().setText(cursor.getString(trackNameNdx));
         holder.getClubName().setText(cursor.getString(clubNameNdx));
         holder.getRacingStatus().setText(cursor.getString(racingStatusNdx));
         holder.getNumRaces().setText(cursor.getString(numRacesNdx));
-        holder.getBarrierTrial().setText(cursor.getString(bariierTrialNdx));
+
+        String isTrial = cursor.getString(bariierTrialNdx);
+        if(isTrial.equals("false")) {
+            holder.getBarrierTrial().setText("N");
+        } else {
+            holder.getBarrierTrial().setText("Y");
+        }
     }
 
     private View view;
