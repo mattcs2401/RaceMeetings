@@ -18,22 +18,4 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         android:gravity="center" />
 
-    <!--    <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <include layout="@layout/toolbar_base"
-                android:id="@+id/id_toolbar_frag_main"/>
-
-        </android.support.design.widget.AppBarLayout>
-    -->
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/id_recyclerview_listing"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
-
-    <!--<include layout="@layout/meeting_row" />-->
-
 </android.support.design.widget.CoordinatorLayout>

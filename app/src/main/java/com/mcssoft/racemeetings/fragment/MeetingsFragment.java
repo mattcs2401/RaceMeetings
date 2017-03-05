@@ -3,7 +3,6 @@ package com.mcssoft.racemeetings.fragment;
 import android.app.Fragment;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,18 +15,17 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
-import com.mcssoft.racemeetings.utility.ListingDivider;
 
 /**
  * Fragment to display the details of meetings (results returned by a search by meeting date).
  */
-public class MeetingsDetailsFragment extends Fragment
+public class MeetingsFragment extends Fragment
         implements IItemClickListener, IItemLongClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        Log.d(LOG_TAG, "onCreateView");
-        rootView = inflater.inflate(R.layout.fragment_meetings_details, container, false);
+        rootView = inflater.inflate(R.layout.fragment_meetings, container, false);
         return rootView;
     }
 

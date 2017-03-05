@@ -17,7 +17,7 @@ import android.view.MenuItem;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.fragment.DateSearchFragment;
-import com.mcssoft.racemeetings.fragment.MeetingsDetailsFragment;
+import com.mcssoft.racemeetings.fragment.MeetingsFragment;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
 import com.mcssoft.racemeetings.fragment.MainFragment;
@@ -125,15 +125,15 @@ public class MainActivity extends AppCompatActivity
 
     private void loadMeetingsDetails() {
         String fragment_tag = Resources.getInstance().getString(R.string.meetings_details_fragment_tag);
-        meetingsDetailsFragment = new MeetingsDetailsFragment();
+        meetingsFragment = new MeetingsFragment();
         getFragmentManager().beginTransaction()
-                    .replace(R.id.content_main, meetingsDetailsFragment, fragment_tag)
+                    .replace(R.id.content_main, meetingsFragment, fragment_tag)
                     .addToBackStack(fragment_tag)
                     .commit();
     }
 
     private void initialiseUI() {
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_view_main_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
         setSupportActionBar(toolbar);
@@ -171,5 +171,5 @@ public class MainActivity extends AppCompatActivity
 
     private boolean netWorkExists;     // flag to indicate if an available network exists.
     private MainFragment mainFragment; //
-    private MeetingsDetailsFragment meetingsDetailsFragment;
+    private MeetingsFragment meetingsFragment;
 }

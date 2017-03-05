@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MeetingsDetailsActivity"
+        <activity android:name=".activity.MeetingsActivity"
                   android:parentActivityName=".activity.MainActivity" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
