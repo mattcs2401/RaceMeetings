@@ -3,6 +3,7 @@ package com.mcssoft.racemeetings.fragment;
 import android.app.Fragment;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
+import com.mcssoft.racemeetings.utility.ListingDivider;
 import com.mcssoft.racemeetings.utility.Resources;
 
 /**
@@ -69,8 +71,8 @@ public class MeetingsFragment extends Fragment
         llm.scrollToPosition(0);
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
-//        recyclerView.addItemDecoration(new ListingDivider(getActivity(), LinearLayoutManager.VERTICAL));
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new ListingDivider(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(meetingsAdapter);
     }
 

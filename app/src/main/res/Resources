@@ -1,7 +1,7 @@
 -------
 Issues:
 -------
--> REGIONS, CLUBS and TRACKS schema references are hard coded (is there a way around this ?
+-> CLUBS and TRACKS schema references are hard coded (is there a way around this ?
    maybe external config files) ?.
 
 
@@ -10,6 +10,7 @@ To Do:
 ------
 -> No active connection and 1st time app run:
    - do nothing, display message.
+   - No active connection any time.
 
 -> What do we want this app to do ?
    - Display a list of meetings based on track preferences.
@@ -17,6 +18,7 @@ To Do:
      - Enter date.
        - So, get date and show potential options based on that date (WRT to track preferences).
          - Show list of meetings (tracks) for that date.
+         - Show message if track preferences filter out the meetings in the list.
          - Categorise meetings by track name if more than one meeting on that date.
    - For a particular meeting, list race details.
    - For a particular race, list horse, jockey, trainer details.

@@ -55,11 +55,11 @@ public class DatabaseUtility implements IAsyncResult {
      * @param results The results from the async task.
      */
     @Override
-    public void result(String table, String results) {
+    public void result(String tableName, String results) {
         InputStream inStream;
         XMLParser mxmlp;
 
-        switch (table) {
+        switch (tableName) {
             case SchemaConstants.CLUBS_TABLE:
                 inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
@@ -76,10 +76,13 @@ public class DatabaseUtility implements IAsyncResult {
                 inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
-                if(meetings.size() > 0) {
+                if(meetings != null && meetings.size() > 0) {
+                    checkAndDeleteOld(tableName);
                     insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
+                } else {
+                    checkAndDeleteOld(tableName);
                 }
-                // Have to put it here because of interprocess issues.
+                // Have to put it here because of inter process issues.
                 Intent intent = new Intent(context, MeetingsActivity.class);
                 context.startActivity(intent);
                 break;
@@ -166,7 +169,6 @@ public class DatabaseUtility implements IAsyncResult {
                 insertFromListTracks(theList);
                 break;
             case SchemaConstants.MEETINGS_TABLE:
-                checkAndDeleteOld(tableName);    // meetings data doesn't persist.
                 insertFromListMeetings(theList);
                 break;
         }
@@ -267,7 +269,7 @@ public class DatabaseUtility implements IAsyncResult {
                     break;
                 case SchemaConstants.MEETINGS_TABLE:
                     url = new URL(createMeetingsUrl(queryParam));
-                    message = Resources.getInstance().getString(R.string.init_meetings_data);
+                    message = Resources.getInstance().getString(R.string.get_meetings_data);
                     break;
             }
             dld = new DownloadData(context, url, message, table);
