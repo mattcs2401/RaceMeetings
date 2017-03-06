@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.fragment.DateSearchFragment;
 import com.mcssoft.racemeetings.fragment.MeetingsFragment;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
@@ -23,6 +22,10 @@ import com.mcssoft.racemeetings.utility.DatabaseUtility;
 import com.mcssoft.racemeetings.fragment.MainFragment;
 import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.Resources;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity
 
         // Setup main fragment.
         String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
-        mainFragment = new MainFragment();
+        MainFragment mainFragment = new MainFragment();
         if(savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.content_main, mainFragment, fragment_tag)
@@ -89,11 +92,8 @@ public class MainActivity extends AppCompatActivity
                 dateSearchFragment.show(getFragmentManager(),
                         Resources.getInstance().getString(R.string.date_search_fragment_tag));
                 break;
-            case R.id.id_nav_menu_2:
-                // TBA.
-                break;
-            case R.id.id_nav_menu_3:
-                // TBA.
+            case R.id.id_nav_menu_meetings_today:
+                loadMeetingsActivityByProxy(getDate());
                 break;
             case R.id.id_nav_menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -110,26 +110,15 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void iDateValues(String[] values) {
-        String searchdate = null;
-        searchdate = formatSearchDateValues(values);
-
-        DatabaseUtility dbUtil = new DatabaseUtility(this);
-        dbUtil.checkMeetingsBydate(searchdate);
-
-        if (dbUtil.checkTableRowCount(SchemaConstants.MEETINGS_TABLE)) {
-            loadMeetingsDetails();
-        } else {
-            // TODO - what if no data was written to the database, i.e. no meetings for that day or some other issue.
-        }
+        String searchdate = formatSearchDateValues(values);;
+        loadMeetingsActivityByProxy(searchdate);
     }
 
-    private void loadMeetingsDetails() {
-        String fragment_tag = Resources.getInstance().getString(R.string.meetings_details_fragment_tag);
-        meetingsFragment = new MeetingsFragment();
-        getFragmentManager().beginTransaction()
-                    .replace(R.id.content_main, meetingsFragment, fragment_tag)
-                    .addToBackStack(fragment_tag)
-                    .commit();
+    private void loadMeetingsActivityByProxy(String searchDate) {
+        DatabaseUtility dbUtil = new DatabaseUtility(this);
+
+        // Note: MeetingsActivity is launched as a result of this.
+        dbUtil.getMeetingsBydate(searchDate);
     }
 
     private void initialiseUI() {
@@ -169,7 +158,11 @@ public class MainActivity extends AppCompatActivity
         return sb.toString();
     }
 
-    private boolean netWorkExists;     // flag to indicate if an available network exists.
-    private MainFragment mainFragment; //
-    private MeetingsFragment meetingsFragment;
+    private String getDate() {
+        return new SimpleDateFormat(Resources.getInstance()
+                .getString(R.string.date_format_yyyyMMdd), Locale.getDefault()).format(new Date());
+    }
+
+    private boolean netWorkExists;          // flag to indicate if an available network exists.
+
 }

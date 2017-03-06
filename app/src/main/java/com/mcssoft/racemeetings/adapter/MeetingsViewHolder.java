@@ -23,8 +23,8 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
         tvMeetingDateDDMM = (TextView) view.findViewById(R.id.id_tv_dd_mm);
         tvMeetingDateYYYY = (TextView) view.findViewById(R.id.id_tv_yyyy);
         tvTrackName = (TextView) view.findViewById(R.id.id_tv_track_name);
-        tvClubName = (TextView) view.findViewById(R.id.id_tv_club_name);
-        tvRacingStatus = (TextView) view.findViewById(R.id.id_tv_racing_status);
+//        tvClubName = (TextView) view.findViewById(R.id.id_tv_club_name);
+//        tvRacingStatus = (TextView) view.findViewById(R.id.id_tv_racing_status);
         tvNumRaces = (TextView) view.findViewById(R.id.id_tv_num_races);
         tvBarrierTrial = (TextView) view.findViewById(R.id.id_tv_barrier_trial_YN);
 
@@ -47,18 +47,19 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
         if(itemLongClickListener != null){
             itemLongClickListener.onItemLongClick(view, getAdapterPosition());
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Accessors">
     public TextView getMeetingId() { return tvMeetingId;  }
-    public TextView getTvMeetingDateMMDD() { return tvMeetingDateDDMM; }
-    public TextView getTvMeetingDateYYYY() { return tvMeetingDateYYYY; }
+//    public TextView getTvMeetingDateMMDD() { return tvMeetingDateDDMM; }
+//    public TextView getTvMeetingDateYYYY() { return tvMeetingDateYYYY; }
     public TextView getTrackName() { return tvTrackName; }
-    public TextView getClubName() { return tvClubName; }
-    public TextView getRacingStatus() { return tvRacingStatus; }
+//    public TextView getClubName() { return tvClubName; }
+//    public TextView getRacingStatus() { return tvRacingStatus; }
     public TextView getNumRaces() { return tvNumRaces; }
     public TextView getBarrierTrial() { return tvBarrierTrial; }
 

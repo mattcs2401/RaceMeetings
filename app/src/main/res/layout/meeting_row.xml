@@ -27,7 +27,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_dd_mm" />
 
     <TextView
-        android:text="Gold Coast"
+        android:text="Blackall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/id_tv_track_name"
@@ -35,28 +35,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/id_tv_dd_mm"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/id_tv_club_name"
-        app:layout_constraintVertical_bias="0.42000002"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_marginLeft="8dp" />
 
-    <TextView
-        android:text="Gold Coast Turf Club"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/id_tv_club_name"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_track_name"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_track_name" />
+    <!--<TextView-->
+        <!--android:id="@+id/id_tv_club_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Barcoo Amateur Race Club Inc"-->
+        <!--android:textAppearance="@android:style/TextAppearance.Material.Small"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/id_tv_track_name"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/id_tv_track_name" />-->
 
-    <TextView
-        android:text="Metropolitan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/id_tv_racing_status"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_track_name"
-        android:textAppearance="@android:style/TextAppearance.Material.Small" />
+    <!--<TextView-->
+        <!--android:text="Metropolitan"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/id_tv_racing_status"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/id_tv_track_name"-->
+        <!--android:textAppearance="@android:style/TextAppearance.Material.Small"-->
+        <!--android:layout_marginLeft="8dp" />-->
 
     <TextView
         android:text="Races"
@@ -65,8 +65,9 @@
         android:id="@+id/id_tv_races"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_racing_status"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_track_name"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:text="Trial"
@@ -76,7 +77,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/id_tv_races"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium" />
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:text="10"

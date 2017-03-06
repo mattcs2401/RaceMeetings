@@ -7,13 +7,9 @@
             android:icon="@drawable/ic_search_black_24"
             android:title="Search For Meetings" />
         <item
-            android:id="@+id/id_nav_menu_2"
-            android:icon="@drawable/ic_bookmark_border_black_24"
-            android:title="Menu Option 2" />
-        <item
-            android:id="@+id/id_nav_menu_3"
-            android:icon="@drawable/ic_bookmark_border_black_24"
-            android:title="Menu Option 3" />
+            android:id="@+id/id_nav_menu_meetings_today"
+            android:icon="@drawable/ic_binoculars_24"
+            android:title="Meetings For Today" />
         <item
             android:id="@+id/id_nav_menu_settings"
             android:icon="@drawable/ic_wrench_black_24"

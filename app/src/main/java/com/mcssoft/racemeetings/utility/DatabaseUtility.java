@@ -2,6 +2,7 @@ package com.mcssoft.racemeetings.utility;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import com.mcssoft.racemeetings.R;
+import com.mcssoft.racemeetings.activity.MeetingsActivity;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
@@ -44,19 +46,18 @@ public class DatabaseUtility implements IAsyncResult {
         }
     }
 
-    public void checkMeetingsBydate(String searchDate) {
-//        if(!checkTableRowCount(SchemaConstants.MEETINGS_TABLE)) {
-            downloadTableData(SchemaConstants.MEETINGS_TABLE, searchDate);
-//        }
+    public void getMeetingsBydate(String searchDate) {
+        downloadTableData(SchemaConstants.MEETINGS_TABLE, searchDate);
     }
+
     /**
      * Async task results end up here.
      * @param results The results from the async task.
      */
     @Override
     public void result(String table, String results) {
-        InputStream inStream = null;
-        XMLParser mxmlp = null;
+        InputStream inStream;
+        XMLParser mxmlp;
 
         switch (table) {
             case SchemaConstants.CLUBS_TABLE:
@@ -75,31 +76,12 @@ public class DatabaseUtility implements IAsyncResult {
                 inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
-                insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
-                break;
-        }
-    }
-
-    /**
-     * Utility method to see if rows exist in the given table.
-     * @param tableName The table to check.
-     * @return True if the row count > 0.
-     */
-    public boolean checkTableRowCount(String tableName) {
-        return (getAllFromTable(tableName).getCount() > 0);
-    }
-
-    public void insertFromList(String tableName, ArrayList theList) {
-        switch (tableName) {
-            case SchemaConstants.CLUBS_TABLE:
-                insertFromListClubs(theList);
-                break;
-            case SchemaConstants.TRACKS_TABLE:
-                insertFromListTracks(theList);
-                break;
-            case SchemaConstants.MEETINGS_TABLE:
-                checkAndDeleteOld(tableName);    // meetings data doesn't persist.
-                insertFromListMeetings(theList);
+                if(meetings.size() > 0) {
+                    insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
+                }
+                // Have to put it here because of interprocess issues.
+                Intent intent = new Intent(context, MeetingsActivity.class);
+                context.startActivity(intent);
                 break;
         }
     }
@@ -165,75 +147,105 @@ public class DatabaseUtility implements IAsyncResult {
         sb.append(")");
         return sb.toString();
     }
-    
+
+    /**
+     * Utility method to see if rows exist in the given table.
+     * @param tableName The table to check.
+     * @return True if the row count > 0.
+     */
+    private boolean checkTableRowCount(String tableName) {
+        return (getAllFromTable(tableName).getCount() > 0);
+    }
+
+    private void insertFromList(String tableName, ArrayList theList) {
+        switch (tableName) {
+            case SchemaConstants.CLUBS_TABLE:
+                insertFromListClubs(theList);
+                break;
+            case SchemaConstants.TRACKS_TABLE:
+                insertFromListTracks(theList);
+                break;
+            case SchemaConstants.MEETINGS_TABLE:
+                checkAndDeleteOld(tableName);    // meetings data doesn't persist.
+                insertFromListMeetings(theList);
+                break;
+        }
+    }
+
     private void insertFromListClubs(ArrayList theList) {
-        ContentValues cv;
-        SQLiteDatabase db = dbHelper.getDatabase();
+        if(theList.size() > 0) {
+            ContentValues cv;
+            SQLiteDatabase db = dbHelper.getDatabase();
 
-        for (Object object : theList) {
-            Club club = (Club) object;
-            cv = new ContentValues();
-            cv.put(SchemaConstants.CLUB_ID, club.getClubId());
-            cv.put(SchemaConstants.CLUB_NAME, club.getClubName());
+            for (Object object : theList) {
+                Club club = (Club) object;
+                cv = new ContentValues();
+                cv.put(SchemaConstants.CLUB_ID, club.getClubId());
+                cv.put(SchemaConstants.CLUB_NAME, club.getClubName());
 
-            try {
-                db.beginTransaction();
-                db.insertOrThrow(SchemaConstants.CLUBS_TABLE, null, cv);
-                db.setTransactionSuccessful();
-            } catch(SQLException ex) {
-                ex.printStackTrace();
-            } finally {
-                db.endTransaction();
+                try {
+                    db.beginTransaction();
+                    db.insertOrThrow(SchemaConstants.CLUBS_TABLE, null, cv);
+                    db.setTransactionSuccessful();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } finally {
+                    db.endTransaction();
+                }
             }
         }
     }
 
     private void insertFromListTracks(ArrayList theList) {
-        ContentValues cv;
-        SQLiteDatabase db = dbHelper.getDatabase();
+        if(theList.size() > 0) {
+            ContentValues cv;
+            SQLiteDatabase db = dbHelper.getDatabase();
 
-        for (Object object : theList) {
-            Track track = (Track) object;
-            cv = new ContentValues();
-            cv.put(SchemaConstants.TRACK_NAME, track.getTrackName());
-            cv.put(SchemaConstants.TRACK_CLUB_NAME, track.getTrackClubName());
-            cv.put(SchemaConstants.TRACK_IS_PREF, track.getTrackisPref());
+            for (Object object : theList) {
+                Track track = (Track) object;
+                cv = new ContentValues();
+                cv.put(SchemaConstants.TRACK_NAME, track.getTrackName());
+                cv.put(SchemaConstants.TRACK_CLUB_NAME, track.getTrackClubName());
+                cv.put(SchemaConstants.TRACK_IS_PREF, track.getTrackisPref());
 
-            try {
-                db.beginTransaction();
-                db.insertOrThrow(SchemaConstants.TRACKS_TABLE, null, cv);
-                db.setTransactionSuccessful();
-            } catch(SQLException ex) {
-                ex.printStackTrace();
-            } finally {
-                db.endTransaction();
+                try {
+                    db.beginTransaction();
+                    db.insertOrThrow(SchemaConstants.TRACKS_TABLE, null, cv);
+                    db.setTransactionSuccessful();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } finally {
+                    db.endTransaction();
+                }
             }
         }
     }
 
     private void insertFromListMeetings(ArrayList theList) {
-        ContentValues cv;
-        SQLiteDatabase db = dbHelper.getDatabase();
+        if(theList.size() > 0) {
+            ContentValues cv;
+            SQLiteDatabase db = dbHelper.getDatabase();
 
-        for (Object object : theList) {
-            Meeting meeting = (Meeting) object;
-            cv = new ContentValues();
-            cv.put(SchemaConstants.MEETING_ID, meeting.getMeetingId());
-            cv.put(SchemaConstants.MEETING_DATE, meeting.getMeetingDate());
-            cv.put(SchemaConstants.MEETING_TRACK, meeting.getTrackName());
-            cv.put(SchemaConstants.MEETING_CLUB, meeting.getClubName());
-            cv.put(SchemaConstants.MEETING_STATUS, meeting.getRacingStatus());
-            cv.put(SchemaConstants.MEETING_NO_RACES, meeting.getNumberOfRaces());
-            cv.put(SchemaConstants.MEETING_IS_TRIAL, meeting.getIsBarrierTrial());
+            for (Object object : theList) {
+                Meeting meeting = (Meeting) object;
+                cv = new ContentValues();
+                cv.put(SchemaConstants.MEETING_ID, meeting.getMeetingId());
+                cv.put(SchemaConstants.MEETING_DATE, meeting.getMeetingDate());
+                cv.put(SchemaConstants.MEETING_TRACK, meeting.getTrackName());
+                cv.put(SchemaConstants.MEETING_CLUB, meeting.getClubName());
+                cv.put(SchemaConstants.MEETING_STATUS, meeting.getRacingStatus());
+                cv.put(SchemaConstants.MEETING_NO_RACES, meeting.getNumberOfRaces());
+                cv.put(SchemaConstants.MEETING_IS_TRIAL, meeting.getIsBarrierTrial());
 
-            try {
-                db.beginTransaction();
-                db.insertOrThrow(SchemaConstants.MEETINGS_TABLE, null, cv);
-                db.setTransactionSuccessful();
-            } catch(SQLException ex) {
-                Log.d("", ex.getMessage());
-            } finally {
-                db.endTransaction();
+                try {
+                    db.beginTransaction();
+                    db.insertOrThrow(SchemaConstants.MEETINGS_TABLE, null, cv);
+                    db.setTransactionSuccessful();
+                } catch (SQLException ex) {
+                    Log.d("", ex.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
             }
         }
     }
@@ -327,6 +339,8 @@ public class DatabaseUtility implements IAsyncResult {
         }
     }
 
+
     private Context context;
     private DatabaseHelper dbHelper;
+
 }

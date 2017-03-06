@@ -7,6 +7,7 @@ import android.util.Log;
 
 import java.net.URL;
 
+import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 
 /**

@@ -7,6 +7,10 @@
     <!-- Fragment text. -->
     <string name="nothing_to_show">Nothing to show yet</string>
     <string name="no_meetings_to_show">No meetings to show</string>
+    <!-- Other fragment. -->
+    <string name="bundle_meetings_fragment_date_key">bundle_meetings_fragment_date_key</string>
+    <!-- Date. -->
+    <string name="date_format_yyyyMMdd">yyyy-MM-dd</string>
     <!-- -->
     <string name="base_path_calendar">http://www.racingqueensland.com.au/opendatawebservices/calendar.asmx</string>
     <string name="base_path_meetings">http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx</string>

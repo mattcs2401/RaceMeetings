@@ -21,7 +21,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
     @Override
     public MeetingsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        Log.d(LOG_TAG, "onCreateViewHolder");
-        // Note: don't need to keep a local copy of MeetingViewHolder, framework now supplies.
+        // Note: don't need to keep a local copy of MeetingsViewHolder, framework now supplies.
         if ( parent instanceof RecyclerView ) {
             if(!emptyView) {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_row, parent, false);
@@ -90,20 +90,20 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
         this.itemLongClickListener = listener;
     }
 
+    public void setEmptyView(boolean emptyView) {
+        this.emptyView = emptyView;
+    }
+
     private void adapaterOnBindViewHolder(MeetingsViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
 //        holder.getMeetingId().setText(cursor.getString(meetingIdNdx));
 //        holder.getTvMeetingDate().setText(cursor.getString(meetingDateNdx));
-        String date = cursor.getString(meetingDateNdx);
-        String[] strArr = date.split("-");
-        
-        Calendar calendar = Calendar.getInstance();
-
+        String[] strArr = cursor.getString(meetingDateNdx).split("-");
 
         holder.getTrackName().setText(cursor.getString(trackNameNdx));
-        holder.getClubName().setText(cursor.getString(clubNameNdx));
-        holder.getRacingStatus().setText(cursor.getString(racingStatusNdx));
+//        holder.getClubName().setText(cursor.getString(clubNameNdx));
+//        holder.getRacingStatus().setText(cursor.getString(racingStatusNdx));
         holder.getNumRaces().setText(cursor.getString(numRacesNdx));
 
         String isTrial = cursor.getString(bariierTrialNdx);
