@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
-import com.mcssoft.racemeetings.meeting.Club;
-import com.mcssoft.racemeetings.meeting.Meeting;
-import com.mcssoft.racemeetings.meeting.Track;
+import com.mcssoft.racemeetings.model.Club;
+import com.mcssoft.racemeetings.model.Meeting;
+import com.mcssoft.racemeetings.model.Track;
 
 /**
  * Utility class for database operations other than those of the MeetgingProvider/ContentResolver.

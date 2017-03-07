@@ -10,8 +10,8 @@ import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.activity.MeetingsActivity;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
-import com.mcssoft.racemeetings.meeting.Club;
-import com.mcssoft.racemeetings.meeting.Meeting;
+import com.mcssoft.racemeetings.model.Club;
+import com.mcssoft.racemeetings.model.Meeting;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

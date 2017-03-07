@@ -1,4 +1,4 @@
-package com.mcssoft.racemeetings.meeting;
+package com.mcssoft.racemeetings.model;
 
 /*
  * Utility class to model:

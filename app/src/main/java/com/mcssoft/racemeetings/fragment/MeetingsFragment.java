@@ -20,7 +20,7 @@ import com.mcssoft.racemeetings.utility.ListingDivider;
 import com.mcssoft.racemeetings.utility.Resources;
 
 /**
- * Fragment to display the details of meetings (results returned by a search by meeting date).
+ * Fragment to display the details of meetings (results returned by a search by model date).
  */
 public class MeetingsFragment extends Fragment
         implements IItemClickListener, IItemLongClickListener {
@@ -54,7 +54,7 @@ public class MeetingsFragment extends Fragment
 
     @Override
     public void onItemClick(View view, int position) {
-        // TODO - implement a view showing all the available details for the meeting selected.
+        // TODO - implement a view showing all the available details for the model selected.
         String bp = "";
     }
 

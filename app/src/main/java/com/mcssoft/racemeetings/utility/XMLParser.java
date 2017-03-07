@@ -2,9 +2,9 @@ package com.mcssoft.racemeetings.utility;
 
 import android.util.Log;
 
-import com.mcssoft.racemeetings.meeting.Club;
-import com.mcssoft.racemeetings.meeting.Meeting;
-import com.mcssoft.racemeetings.meeting.Track;
+import com.mcssoft.racemeetings.model.Club;
+import com.mcssoft.racemeetings.model.Meeting;
+import com.mcssoft.racemeetings.model.Track;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

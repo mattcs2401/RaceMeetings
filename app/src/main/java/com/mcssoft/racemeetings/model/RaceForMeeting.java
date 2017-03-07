@@ -1,4 +1,4 @@
-package com.mcssoft.racemeetings.meeting;
+package com.mcssoft.racemeetings.model;
 
 /*
  <Race Id="438883">
@@ -21,7 +21,7 @@ package com.mcssoft.racemeetings.meeting;
  */
 
 /**
- * Utility class to model a single race meeting.
+ * Utility class to model a single race model.
  */
 public class RaceForMeeting {
 
