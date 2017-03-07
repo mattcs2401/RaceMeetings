@@ -1,6 +1,7 @@
 package com.mcssoft.racemeetings.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -18,6 +19,8 @@ public class MeetingsActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Load the fragment.
         String fragment_tag = Resources.getInstance().getString(R.string.meetings_details_fragment_tag);
