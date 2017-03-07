@@ -1,4 +1,4 @@
-package com.mcssoft.racemeetings.utility;
+package com.mcssoft.racemeetings.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,13 +16,15 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.model.Club;
 import com.mcssoft.racemeetings.model.Meeting;
 import com.mcssoft.racemeetings.model.Track;
+import com.mcssoft.racemeetings.utility.DownloadHelper;
+import com.mcssoft.racemeetings.utility.XMLParser;
 
 /**
- * Utility class for database operations other than those of the MeetgingProvider/ContentResolver.
+ * Utility class for database operations.
  */
-public class DatabaseUtility {
+public class DatabaseOperations {
 
-    public DatabaseUtility(Context context) {
+    public DatabaseOperations(Context context) {
         this.context = context;
         dbHelper = new DatabaseHelper(context);
     }

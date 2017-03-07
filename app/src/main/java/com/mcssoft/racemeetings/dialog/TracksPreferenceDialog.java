@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.preference.DialogPreference;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -16,8 +15,7 @@ import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.adapter.TracksPreferenceAdapter;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
-import com.mcssoft.racemeetings.utility.DatabaseUtility;
-import com.mcssoft.racemeetings.utility.ListingDivider;
+import com.mcssoft.racemeetings.database.DatabaseOperations;
 
 import java.util.ArrayList;
 
@@ -67,7 +65,7 @@ public class TracksPreferenceDialog extends DialogPreference
     private void initialise(View view) {
         changeList = new ArrayList<String>();
 
-        DatabaseUtility dbUtil = new DatabaseUtility(this.getContext());
+        DatabaseOperations dbUtil = new DatabaseOperations(this.getContext());
         cursor = dbUtil.getAllFromTable(SchemaConstants.TRACKS_TABLE);
 
         setTracksAdapter();
@@ -76,7 +74,7 @@ public class TracksPreferenceDialog extends DialogPreference
 
     private void saveTracksPreferences() {
         // Process the change list, anything checked is unchecked and vice vesa.
-        DatabaseUtility dbUtil = new DatabaseUtility(this.getContext());
+        DatabaseOperations dbUtil = new DatabaseOperations(this.getContext());
         cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE,
                 SchemaConstants.TRACK_NAME + dbUtil.createWhereIN(changeList.size()),
                 getChangeListAsArray());

@@ -15,9 +15,8 @@ import com.mcssoft.racemeetings.adapter.MeetingsAdapter;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
-import com.mcssoft.racemeetings.utility.DatabaseUtility;
+import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.utility.ListingDivider;
-import com.mcssoft.racemeetings.utility.Resources;
 
 /**
  * Fragment to display the details of meetings (results returned by a search by model date).
@@ -34,7 +33,7 @@ public class MeetingsFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        DatabaseUtility dbUtil = new DatabaseUtility(getActivity());
+        DatabaseOperations dbUtil = new DatabaseOperations(getActivity());
         cursor = dbUtil.getAllFromTable(SchemaConstants.MEETINGS_TABLE);
 
         setMeetingAdapter();

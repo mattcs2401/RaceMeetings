@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.activity.MeetingsActivity;
+import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 import com.mcssoft.racemeetings.model.Club;
@@ -32,7 +33,7 @@ public class DownloadHelper implements IAsyncResult {
     public void result(String tableName, String results) {
         InputStream inStream;
         XMLParser mxmlp;
-        DatabaseUtility dbUtil = new DatabaseUtility(context);
+        DatabaseOperations dbUtil = new DatabaseOperations(context);
 
         switch (tableName) {
             case SchemaConstants.CLUBS_TABLE:

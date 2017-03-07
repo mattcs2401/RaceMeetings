@@ -16,9 +16,8 @@ import android.view.MenuItem;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.fragment.DateSearchFragment;
-import com.mcssoft.racemeetings.fragment.MeetingsFragment;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
-import com.mcssoft.racemeetings.utility.DatabaseUtility;
+import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.fragment.MainFragment;
 import com.mcssoft.racemeetings.utility.DownloadHelper;
 import com.mcssoft.racemeetings.utility.Preferences;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         netWorkExists = checkForNetwork();  // does an active network exist?
         if(netWorkExists) {
             // data check.
-            DatabaseUtility dbUtil = new DatabaseUtility(this);
+            DatabaseOperations dbUtil = new DatabaseOperations(this);
             dbUtil.checkClubs();
             dbUtil.checkTracks();
         } else {
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadMeetingsActivityByProxy(String searchDate) {
-        DatabaseUtility dbUtil = new DatabaseUtility(this);
+        DatabaseOperations dbUtil = new DatabaseOperations(this);
 
         // Note: MeetingsActivity is launched as a result of this.
         DownloadHelper downloadHelper = new DownloadHelper(this);
