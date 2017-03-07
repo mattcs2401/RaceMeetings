@@ -26,7 +26,7 @@ public class MeetingsFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_meetings, container, false);
+        rootView = inflater.inflate(R.layout.meetings_fragment, container, false);
         return rootView;
     }
 

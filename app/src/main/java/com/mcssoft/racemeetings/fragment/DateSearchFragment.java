@@ -28,7 +28,7 @@ public class DateSearchFragment extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.fragment_search, null);
+        View view = inflater.inflate(R.layout.search_fragment, null);
 
         datePicker = (DatePicker) view.findViewById(R.id.id_datePicker);
 

@@ -16,13 +16,13 @@
         </activity>
         <activity android:name=".activity.SettingsActivity"
                   android:parentActivityName=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.MeetingsActivity"
                   android:parentActivityName=".activity.MainActivity" />
+        <activity android:name=".activity.MeetingDetailActivity"
+                  android:parentActivityName=".activity.MeetingsActivity" />
+        <activity android:name=".activity.MeetingRacesActivity"
+                  android:parentActivityName=".activity.MeetingsActivity" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
