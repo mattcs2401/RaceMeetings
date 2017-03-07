@@ -53,7 +53,7 @@ public class MeetingsFragment extends Fragment
 
     @Override
     public void onItemClick(View view, int position) {
-        // TODO - implement a view showing all the available details for the model selected.
+        // TODO - implement a context menu showing meeting details or, associated meering races.
         String bp = "";
     }
 
