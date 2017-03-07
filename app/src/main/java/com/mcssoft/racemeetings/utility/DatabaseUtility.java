@@ -42,7 +42,10 @@ public class DatabaseUtility implements IAsyncResult {
 
     public void checkTracks() {
         if(!checkTableRowCount(SchemaConstants.TRACKS_TABLE)) {
-            downloadTableData(SchemaConstants.TRACKS_TABLE, null);
+            InputStream inStream = context.getResources().openRawResource(R.raw.tracks);
+            XMLParser mxmlp = new XMLParser(inStream);
+            ArrayList<Track> tracks = mxmlp.parseTracksXml();
+            insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
         }
     }
 
@@ -65,12 +68,6 @@ public class DatabaseUtility implements IAsyncResult {
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Club> clubs = mxmlp.parseClubsXml();
                 insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
-                break;
-            case SchemaConstants.TRACKS_TABLE:
-                inStream = context.getResources().openRawResource(R.raw.tracks);
-                mxmlp = new XMLParser(inStream);
-                ArrayList<Track> tracks = mxmlp.parseTracksXml();
-                insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
                 break;
             case SchemaConstants.MEETINGS_TABLE:
                 inStream = new ByteArrayInputStream(results.getBytes());
@@ -263,10 +260,6 @@ public class DatabaseUtility implements IAsyncResult {
                     url = new URL(createClubsUrl());
                     message = Resources.getInstance().getString(R.string.init_clubs_data);
                     break;
-                case SchemaConstants.TRACKS_TABLE:
-                    url = new URL(createTracksUrl());
-                    message = Resources.getInstance().getString(R.string.init_tracks_data);
-                    break;
                 case SchemaConstants.MEETINGS_TABLE:
                     url = new URL(createMeetingsUrl(queryParam));
                     message = Resources.getInstance().getString(R.string.get_meetings_data);
@@ -295,13 +288,6 @@ public class DatabaseUtility implements IAsyncResult {
                .appendPath(Resources.getInstance().getString(R.string.get_meetings_for_date))
                .appendQueryParameter(Resources.getInstance().getString(R.string.meeting_date), queryParam);
 
-        builder.build();
-        return builder.toString();
-    }
-
-    private String createTracksUrl() {
-        Uri.Builder builder = new Uri.Builder();
-        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_meetings));
         builder.build();
         return builder.toString();
     }
