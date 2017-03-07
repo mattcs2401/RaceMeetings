@@ -14,7 +14,7 @@ import com.mcssoft.racemeetings.interfaces.IAsyncResult;
  * Utility class - generic async task used for getting data via http.
  * Results are returned via the IAsyncResult interface.
  */
-public class DownloadData extends AsyncTask<String,String,String> {
+public class DownloadData extends AsyncTask<String,Void,String> {
 
     /**
      * Constructor.
@@ -24,7 +24,6 @@ public class DownloadData extends AsyncTask<String,String,String> {
      * @param output Indicator as to where to direct the results returned.
      */
     public DownloadData(Context context, URL url, String message, String output) {
-//        super();
         this.context = context;
         this.message = message;
         this.url = url;
