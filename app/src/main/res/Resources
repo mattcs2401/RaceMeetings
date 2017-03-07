@@ -14,10 +14,6 @@ To Do:
    - do nothing, display message.
    - No active connection any time.
 
--> Move the result of the async download task out of the DatabaseUtility.
-   - DatabaseUtility just does database stuff.
-   - Need a sort of "download controller".
-
 -> Remove shadow of 1st checkbox on tracks listing.
 
 -> A MeetingDetails form that gives more information about a particular meeting.

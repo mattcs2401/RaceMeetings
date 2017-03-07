@@ -20,6 +20,7 @@ import com.mcssoft.racemeetings.fragment.MeetingsFragment;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
 import com.mcssoft.racemeetings.utility.DatabaseUtility;
 import com.mcssoft.racemeetings.fragment.MainFragment;
+import com.mcssoft.racemeetings.utility.DownloadHelper;
 import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.Resources;
 
@@ -118,7 +119,8 @@ public class MainActivity extends AppCompatActivity
         DatabaseUtility dbUtil = new DatabaseUtility(this);
 
         // Note: MeetingsActivity is launched as a result of this.
-        dbUtil.getMeetingsBydate(searchDate);
+        DownloadHelper downloadHelper = new DownloadHelper(this);
+        downloadHelper.getMeetingsBydate(searchDate);
     }
 
     private void initialiseUI() {

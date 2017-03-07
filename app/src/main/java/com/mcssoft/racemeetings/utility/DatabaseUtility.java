@@ -2,24 +2,17 @@ package com.mcssoft.racemeetings.utility;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.activity.MeetingsActivity;
 import com.mcssoft.racemeetings.database.DatabaseHelper;
 import com.mcssoft.racemeetings.database.SchemaConstants;
-import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 import com.mcssoft.racemeetings.meeting.Club;
 import com.mcssoft.racemeetings.meeting.Meeting;
 import com.mcssoft.racemeetings.meeting.Track;
@@ -27,7 +20,7 @@ import com.mcssoft.racemeetings.meeting.Track;
 /**
  * Utility class for database operations other than those of the MeetgingProvider/ContentResolver.
  */
-public class DatabaseUtility implements IAsyncResult {
+public class DatabaseUtility {
 
     public DatabaseUtility(Context context) {
         this.context = context;
@@ -36,7 +29,8 @@ public class DatabaseUtility implements IAsyncResult {
 
     public void checkClubs() {
         if(!checkTableRowCount(SchemaConstants.CLUBS_TABLE)) {
-            downloadTableData(SchemaConstants.CLUBS_TABLE, null);
+            DownloadHelper downloadHelper = new DownloadHelper(context);
+            downloadHelper.downloadTableData(SchemaConstants.CLUBS_TABLE, null);
         }
     }
 
@@ -46,43 +40,6 @@ public class DatabaseUtility implements IAsyncResult {
             XMLParser mxmlp = new XMLParser(inStream);
             ArrayList<Track> tracks = mxmlp.parseTracksXml();
             insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
-        }
-    }
-
-    public void getMeetingsBydate(String searchDate) {
-        downloadTableData(SchemaConstants.MEETINGS_TABLE, searchDate);
-    }
-
-    /**
-     * Async task results end up here.
-     * @param results The results from the async task.
-     */
-    @Override
-    public void result(String tableName, String results) {
-        InputStream inStream;
-        XMLParser mxmlp;
-
-        switch (tableName) {
-            case SchemaConstants.CLUBS_TABLE:
-                inStream = new ByteArrayInputStream(results.getBytes());
-                mxmlp = new XMLParser(inStream);
-                ArrayList<Club> clubs = mxmlp.parseClubsXml();
-                insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
-                break;
-            case SchemaConstants.MEETINGS_TABLE:
-                inStream = new ByteArrayInputStream(results.getBytes());
-                mxmlp = new XMLParser(inStream);
-                ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
-                if(meetings != null && meetings.size() > 0) {
-                    checkAndDeleteOld(tableName);
-                    insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
-                } else {
-                    checkAndDeleteOld(tableName);
-                }
-                // Have to put it here because of inter process issues.
-                Intent intent = new Intent(context, MeetingsActivity.class);
-                context.startActivity(intent);
-                break;
         }
     }
 
@@ -148,16 +105,7 @@ public class DatabaseUtility implements IAsyncResult {
         return sb.toString();
     }
 
-    /**
-     * Utility method to see if rows exist in the given table.
-     * @param tableName The table to check.
-     * @return True if the row count > 0.
-     */
-    private boolean checkTableRowCount(String tableName) {
-        return (getAllFromTable(tableName).getCount() > 0);
-    }
-
-    private void insertFromList(String tableName, ArrayList theList) {
+    public void insertFromList(String tableName, ArrayList theList) {
         switch (tableName) {
             case SchemaConstants.CLUBS_TABLE:
                 insertFromListClubs(theList);
@@ -169,6 +117,25 @@ public class DatabaseUtility implements IAsyncResult {
                 insertFromListMeetings(theList);
                 break;
         }
+    }
+
+    public void checkAndDeleteOld(String tableName) {
+        if(checkTableRowCount(tableName)) {
+            SQLiteDatabase db = dbHelper.getDatabase();
+            db.beginTransaction();
+            int count = db.delete(tableName, null, null);
+            db.setTransactionSuccessful();
+            db.endTransaction();
+        }
+    }
+
+    /**
+     * Utility method to see if rows exist in the given table.
+     * @param tableName The table to check.
+     * @return True if the row count > 0.
+     */
+    private boolean checkTableRowCount(String tableName) {
+        return (getAllFromTable(tableName).getCount() > 0);
     }
 
     private void insertFromListClubs(ArrayList theList) {
@@ -249,49 +216,6 @@ public class DatabaseUtility implements IAsyncResult {
         }
     }
 
-    private void downloadTableData(String table, @Nullable String queryParam) {
-        URL url = null;
-        String message = null;
-        DownloadData dld;
-
-        try {
-            switch (table) {
-                case SchemaConstants.CLUBS_TABLE:
-                    url = new URL(createClubsUrl());
-                    message = Resources.getInstance().getString(R.string.init_clubs_data);
-                    break;
-                case SchemaConstants.MEETINGS_TABLE:
-                    url = new URL(createMeetingsUrl(queryParam));
-                    message = Resources.getInstance().getString(R.string.get_meetings_data);
-                    break;
-            }
-            dld = new DownloadData(context, url, message, table);
-            dld.asyncResult = this;
-            dld.execute();
-
-        } catch(Exception ex) {
-            Log.d("", ex.getMessage());
-        }
-    }
-
-    private String createClubsUrl() {
-        Uri.Builder builder = new Uri.Builder();
-        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_calendar))
-                .appendPath(Resources.getInstance().getString(R.string.get_available_clubs));
-        builder.build();
-        return builder.toString();
-    }
-
-    private String createMeetingsUrl(String queryParam) {
-        Uri.Builder builder = new Uri.Builder();
-        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_meetings))
-               .appendPath(Resources.getInstance().getString(R.string.get_meetings_for_date))
-               .appendQueryParameter(Resources.getInstance().getString(R.string.meeting_date), queryParam);
-
-        builder.build();
-        return builder.toString();
-    }
-
     private String[] getProjection(String tableName) {
         String[] projection = {};
         switch (tableName) {
@@ -316,17 +240,6 @@ public class DatabaseUtility implements IAsyncResult {
         db.endTransaction();
         return cursor;
     }
-
-    private void checkAndDeleteOld(String tableName) {
-        if(checkTableRowCount(tableName)) {
-            SQLiteDatabase db = dbHelper.getDatabase();
-            db.beginTransaction();
-            int count = db.delete(tableName, null, null);
-            db.setTransactionSuccessful();
-            db.endTransaction();
-        }
-    }
-
 
     private Context context;
     private DatabaseHelper dbHelper;
