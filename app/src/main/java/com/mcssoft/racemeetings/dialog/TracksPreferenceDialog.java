@@ -75,7 +75,7 @@ public class TracksPreferenceDialog extends DialogPreference
     private void saveTracksPreferences() {
         // Process the change list, anything checked is unchecked and vice vesa.
         DatabaseOperations dbUtil = new DatabaseOperations(this.getContext());
-        cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE,
+        cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE, null,
                 SchemaConstants.TRACK_NAME + dbUtil.createWhereIN(changeList.size()),
                 getChangeListAsArray());
 

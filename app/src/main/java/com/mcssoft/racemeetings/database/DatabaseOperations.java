@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.InputStream;
@@ -46,11 +47,9 @@ public class DatabaseOperations {
     }
 
     public Cursor getAllFromTable(String tableName) {
-        String[] projection = getProjection(tableName);
-
         SQLiteDatabase db = dbHelper.getDatabase();
         db.beginTransaction();
-        Cursor cursor = db.query(tableName, projection, null, null, null, null, null);
+        Cursor cursor = db.query(tableName, getProjection(tableName), null, null, null, null, null);
         db.endTransaction();
 
         return cursor;
@@ -59,13 +58,22 @@ public class DatabaseOperations {
     /**
      * Utility wrapper method to query the database.
      * @param tableName The table name.
+     * @param columnNames The table columns required (Null equals all columns).
      * @param whereClause Where clause (without the "where").
      * @param whereVals Where clause values
      * @return A cursor over the result set.
      * Note: Returns all columns.
      */
-    public Cursor getSelectionFromTable(String tableName, String whereClause, String[] whereVals) {
-        return basicQuery(tableName, whereClause, whereVals);
+    public Cursor getSelectionFromTable(String tableName, @Nullable String[] columnNames, String whereClause, String[] whereVals) {
+        if(columnNames == null) {
+            columnNames = getProjection(tableName);
+        }
+        SQLiteDatabase db = dbHelper.getDatabase();
+        db.beginTransaction();
+        Cursor cursor =  db.query(tableName, columnNames, whereClause, whereVals,
+                null, null, null);
+        db.endTransaction();
+        return cursor;
     }
 
     /**
@@ -234,14 +242,6 @@ public class DatabaseOperations {
         return  projection;
     }
 
-    private Cursor basicQuery(String tableName, String whereClause, String[] whereVals) {
-        SQLiteDatabase db = dbHelper.getDatabase();
-        db.beginTransaction();
-        Cursor cursor =  db.query(tableName, getProjection(tableName), whereClause, whereVals,
-                null, null, null);
-        db.endTransaction();
-        return cursor;
-    }
 
     private Context context;
     private DatabaseHelper dbHelper;
