@@ -94,6 +94,8 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
         this.emptyView = emptyView;
     }
 
+    public Cursor getCursor() { return cursor; }
+
     private void adapaterOnBindViewHolder(MeetingsViewHolder holder, int position) {
         cursor.moveToPosition(position);
 

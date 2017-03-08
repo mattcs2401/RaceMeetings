@@ -1,16 +1,21 @@
 package com.mcssoft.racemeetings.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mcssoft.racemeetings.R;
+import com.mcssoft.racemeetings.activity.MeetingDetailActivity;
+import com.mcssoft.racemeetings.activity.MeetingRacesActivity;
 import com.mcssoft.racemeetings.adapter.MeetingsAdapter;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
@@ -22,7 +27,9 @@ import com.mcssoft.racemeetings.utility.ListingDivider;
  * Fragment to display the details of meetings (results returned by a search by model date).
  */
 public class MeetingsFragment extends Fragment
-        implements IItemClickListener, IItemLongClickListener {
+        implements IItemClickListener,
+                   IItemLongClickListener,
+                   PopupMenu.OnMenuItemClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,8 +60,27 @@ public class MeetingsFragment extends Fragment
 
     @Override
     public void onItemClick(View view, int position) {
-        // TODO - implement a context menu showing meeting details or, associated meering races.
-        String bp = "";
+        this.position = position;
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        popupMenu.inflate(R.menu.meetings_context_menu);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()) {
+            case R.id.meetings_context_menu_races:
+                intent = new Intent(getActivity(), MeetingRacesActivity.class);
+                break;
+            case R.id.meetings_context_menu_detail:
+                intent = new Intent(getActivity(), MeetingDetailActivity.class);
+                break;
+        }
+        intent.putExtra("meetings_key", getDbRowId(position));
+        startActivity(intent);
+        return false;
     }
 
     @Override
@@ -87,6 +113,13 @@ public class MeetingsFragment extends Fragment
         }
     }
 
+    private int getDbRowId(int position) {
+        meetingsAdapter.getItemId(position);
+        Cursor cursor = meetingsAdapter.getCursor();
+        return cursor.getInt(cursor.getColumnIndex(SchemaConstants.MEETING_ROWID));
+    }
+
+    private int position;
     private View rootView;
     private Cursor cursor;
     private MeetingsAdapter meetingsAdapter;

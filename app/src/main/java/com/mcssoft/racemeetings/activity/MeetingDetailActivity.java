@@ -20,6 +20,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(Resources.getInstance().getString(R.string.appbar_title_meeting_details));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Load the fragment.

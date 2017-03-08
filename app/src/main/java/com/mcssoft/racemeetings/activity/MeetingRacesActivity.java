@@ -20,6 +20,7 @@ public class MeetingRacesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(Resources.getInstance().getString(R.string.appbar_title_meeting_races));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Load the fragment.

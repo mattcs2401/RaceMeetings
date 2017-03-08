@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">RaceMeetings</string>
+    <!-- Activity App Bar Titles. -->
+    <string name="appbar_title_meetings">Meetings</string>
+    <string name="appbar_title_meeting_details">Meeting Details</string>
+    <string name="appbar_title_meeting_races">Meeting Races</string>
     <!-- Fragment tags. -->
     <string name="main_fragment_tag">main_fragment_tag</string>
     <string name="meetings_details_fragment_tag">meetings_details_fragment_tag</string>

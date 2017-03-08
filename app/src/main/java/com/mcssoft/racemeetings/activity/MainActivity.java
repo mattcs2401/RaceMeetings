@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
+        return (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected());
     }
 
     private String formatSearchDateValues(String[] values) {
