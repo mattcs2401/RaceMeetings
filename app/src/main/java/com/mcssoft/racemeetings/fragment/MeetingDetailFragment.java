@@ -15,6 +15,7 @@ import com.mcssoft.racemeetings.utility.Resources;
 
 public class MeetingDetailFragment extends Fragment {
 
+    //<editor-fold defaultstate="collapsed" desc="Region: Lifecycle">
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.meeting_detail_fragment, container, false);
@@ -26,11 +27,13 @@ public class MeetingDetailFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initialiseUI();
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Region: Utility">
     private void initialiseUI() {
-        initialiseComponents();
-        getFromDatabase();
-        setComponentValues();
+        initialiseComponents();   // instantiate the TextViews.
+        getFromDatabase();        // get the meeting details into a local cursor.
+        setComponentValues();     // set the values for the TextViews from the local cursor.
     }
 
     private void initialiseComponents() {
@@ -48,7 +51,7 @@ public class MeetingDetailFragment extends Fragment {
                 Resources.getInstance().getInteger(R.integer.init_default));
         DatabaseOperations dbOper = new DatabaseOperations(getActivity());
         cursor = dbOper.getSelectionFromTable(SchemaConstants.MEETINGS_TABLE,
-                null, //SchemaConstants.MEETING_COLUMNS,
+                null,
                 SchemaConstants.WHERE_FOR_GET_MEETING,
                 new String[] {Integer.toString(rowId)});
     }
@@ -63,7 +66,9 @@ public class MeetingDetailFragment extends Fragment {
         tvNumRaces.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_NO_RACES)));
         tvBarrierTrial.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_IS_TRIAL)));
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Region: Local variables">
     private View rootView;
     private Cursor cursor;
 
@@ -74,6 +79,7 @@ public class MeetingDetailFragment extends Fragment {
     private TextView tvRacingStatus;
     private TextView tvNumRaces;
     private TextView tvBarrierTrial;
+    //</editor-fold>
 }
 /*
 <Meeting Id="88788">
