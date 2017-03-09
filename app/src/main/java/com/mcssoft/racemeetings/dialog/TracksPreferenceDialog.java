@@ -74,9 +74,9 @@ public class TracksPreferenceDialog extends DialogPreference
 
     private void saveTracksPreferences() {
         // Process the change list, anything checked is unchecked and vice vesa.
-        DatabaseOperations dbUtil = new DatabaseOperations(this.getContext());
-        cursor = dbUtil.getSelectionFromTable(SchemaConstants.TRACKS_TABLE, null,
-                SchemaConstants.TRACK_NAME + dbUtil.createWhereIN(changeList.size()),
+        DatabaseOperations dbOper = new DatabaseOperations(this.getContext());
+        cursor = dbOper.getSelectionFromTable(SchemaConstants.TRACKS_TABLE, null,
+                SchemaConstants.TRACK_NAME + dbOper.createWhereIN(changeList.size()),
                 getChangeListAsArray());
 
         int rowId;
@@ -91,7 +91,7 @@ public class TracksPreferenceDialog extends DialogPreference
 
             if(isPref.equals("Y")) { isPref = "N"; } else { isPref = "Y"; }
 
-            dbUtil.updateTableByRowId(SchemaConstants.TRACKS_TABLE,
+            dbOper.updateTableByRowId(SchemaConstants.TRACKS_TABLE,
                     SchemaConstants.WHERE_FOR_TRACK_UPDATE, rowId, SchemaConstants.TRACK_IS_PREF, isPref);
         }
     }

@@ -25,7 +25,7 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
         tvTrackName = (TextView) view.findViewById(R.id.id_tv_track_name);
 //        tvClubName = (TextView) view.findViewById(R.id.id_tv_club_name);
 //        tvRacingStatus = (TextView) view.findViewById(R.id.id_tv_racing_status);
-        tvNumRaces = (TextView) view.findViewById(R.id.id_tv_num_races_Val);
+        tvNumRaces = (TextView) view.findViewById(R.id.id_tv_numRaces_val);
         tvBarrierTrial = (TextView) view.findViewById(R.id.id_tv_barrier_trial_YN);
 
         itemClickListener = listener;

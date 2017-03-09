@@ -79,5 +79,6 @@ public class SchemaConstants {
     public static final String SELECT_ALL_MEETINGS = "SELECT * FROM " + MEETINGS_TABLE;
 
     public static final String WHERE_FOR_TRACK_UPDATE = SchemaConstants.TRACK_ROWID + " = ?;";
+
     public static final String WHERE_FOR_GET_MEETING = SchemaConstants.MEETING_ROWID + " = ?;";
 }

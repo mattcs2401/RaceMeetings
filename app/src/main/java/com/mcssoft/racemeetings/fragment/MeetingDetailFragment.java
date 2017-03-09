@@ -46,16 +46,22 @@ public class MeetingDetailFragment extends Fragment {
     private void getFromDatabase() {
         int rowId = getActivity().getIntent().getIntExtra(Resources.getInstance().getString(R.string.meetings_rowid_key),
                 Resources.getInstance().getInteger(R.integer.init_default));
-
         DatabaseOperations dbOper = new DatabaseOperations(getActivity());
         cursor = dbOper.getSelectionFromTable(SchemaConstants.MEETINGS_TABLE,
-                null,
+                null, //SchemaConstants.MEETING_COLUMNS,
                 SchemaConstants.WHERE_FOR_GET_MEETING,
                 new String[] {Integer.toString(rowId)});
     }
 
     private void setComponentValues() {
-
+        cursor.moveToFirst();
+        tvMeetingId.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_ID)));
+        tvMeetingDate.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_DATE)));
+        tvTrackName.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_TRACK)));
+        tvClubName.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_CLUB)));
+        tvRacingStatus.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_STATUS)));
+        tvNumRaces.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_NO_RACES)));
+        tvBarrierTrial.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.MEETING_IS_TRIAL)));
     }
 
     private View rootView;

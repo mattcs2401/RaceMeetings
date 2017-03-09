@@ -120,7 +120,7 @@
         app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingDate_val" />
 
     <TextView
-        android:id="@+id/id_tv-clubName_val"
+        android:id="@+id/id_tv_clubName_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -136,10 +136,10 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv-clubName_val"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_clubName_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv-clubName_val" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_clubName_val" />
 
     <TextView
         android:id="@+id/id_tv_numRaces_val"

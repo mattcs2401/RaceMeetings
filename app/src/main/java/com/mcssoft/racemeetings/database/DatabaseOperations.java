@@ -51,7 +51,6 @@ public class DatabaseOperations {
         db.beginTransaction();
         Cursor cursor = db.query(tableName, getProjection(tableName), null, null, null, null, null);
         db.endTransaction();
-
         return cursor;
     }
 
@@ -72,6 +71,7 @@ public class DatabaseOperations {
         db.beginTransaction();
         Cursor cursor =  db.query(tableName, columnNames, whereClause, whereVals,
                 null, null, null);
+//        db.setTransactionSuccessful();
         db.endTransaction();
         return cursor;
     }
