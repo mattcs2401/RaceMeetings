@@ -22,6 +22,7 @@ import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.utility.ListingDivider;
+import com.mcssoft.racemeetings.utility.Resources;
 
 /**
  * Fragment to display the details of meetings (results returned by a search by model date).
@@ -78,7 +79,7 @@ public class MeetingsFragment extends Fragment
                 intent = new Intent(getActivity(), MeetingDetailActivity.class);
                 break;
         }
-        intent.putExtra("meetings_key", getDbRowId(position));
+        intent.putExtra(Resources.getInstance().getString(R.string.meetings_rowid_key), getDbRowId(position));
         startActivity(intent);
         return false;
     }

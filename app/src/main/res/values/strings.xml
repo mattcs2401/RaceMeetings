@@ -31,6 +31,8 @@
     <string name="init_clubs_data">Initialising Clubs data.</string>
     <string name="init_tracks_data">Initialising Tracks data.</string>
     <string name="get_meetings_data">Retrieving Meetings data.</string>
+    <!-- Generic keys. -->
+    <string name="meetings_rowid_key">meetings_rowid_key</string>
     <!-- Preference keys. -->
     <!-- Network access preference. -->
     <string name="pref_network_access_button_id_key">pref_network_access_id_key</string>

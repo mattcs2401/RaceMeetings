@@ -34,11 +34,12 @@
         android:id="@+id/id_tv_trackName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:text="Track Name"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintRight_toRightOf="@+id/id_tv_meetingDate"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingDate" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingDate"
+        android:layout_marginRight="0dp" />
 
     <TextView
         android:id="@+id/id_tv_clubName"
@@ -54,11 +55,12 @@
         android:id="@+id/id_tv_racingStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:text="Racing Status"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintRight_toRightOf="@+id/id_tv_clubName"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_clubName" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_clubName"
+        android:layout_marginRight="0dp" />
 
     <TextView
         android:id="@+id/id_tv_numRaces"
@@ -74,11 +76,12 @@
         android:id="@+id/id_tv_barrierTrial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="8dp"
         android:text="Barrier Trial"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintRight_toRightOf="@+id/id_tv_numRaces"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_numRaces" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_numRaces"
+        android:layout_marginRight="0dp" />
 
     <!-- TextView values.-->
 
@@ -101,7 +104,9 @@
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_meetingdId_val"
-        tools:layout_editor_absoluteY="62dp" />
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingdId_val" />
 
     <TextView
         android:id="@+id/id_tv_trackName_val"
@@ -110,7 +115,9 @@
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_meetingDate_val"
-        tools:layout_editor_absoluteY="89dp" />
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingDate_val" />
 
     <TextView
         android:id="@+id/id_tv-clubName_val"
@@ -119,7 +126,9 @@
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_trackName_val"
-        tools:layout_editor_absoluteY="119dp" />
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_trackName_val" />
 
     <TextView
         android:id="@+id/id_tv_racingStatus_val"
@@ -128,25 +137,31 @@
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv-clubName_val"
-        tools:layout_editor_absoluteY="145dp" />
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv-clubName_val" />
 
     <TextView
-        android:id="@+id/id_tv_num_races-Val"
+        android:id="@+id/id_tv_numRaces_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_racingStatus_val"
-        tools:layout_editor_absoluteY="175dp" />
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_racingStatus_val" />
 
     <TextView
-        android:id="@+id/id_tv_barrierTraila_val"
+        android:id="@+id/id_tv_barrierTrail_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_num_races-Val"
-        tools:layout_editor_absoluteY="203dp" />
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_numRaces_val"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_numRaces_val" />
 
 </android.support.constraint.ConstraintLayout>
 
