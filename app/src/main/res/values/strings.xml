@@ -23,16 +23,15 @@
     <string name="get_available_clubs">GetAvailableClubs</string>
     <string name="get_meetings_for_date">GetMeetingsForDate</string>
     <string name="meeting_date">meetingDate</string>
-    <!-- generic connectivity messages. -->
-    <string name="network_type_name_wifi">WIFI</string>
-    <string name="network_type_name_any">MOBILE</string>
-    <string name="lost_connection">Connection has been lost.</string>
     <!-- Progress dialog -->
     <string name="init_clubs_data">Initialising Clubs data.</string>
     <string name="init_tracks_data">Initialising Tracks data.</string>
     <string name="get_meetings_data">Retrieving Meetings data.</string>
     <!-- Generic keys. -->
+    <string name="no_network_key">no_network_key</string>
+    <string name="no_network">no_network</string>
     <string name="meetings_rowid_key">meetings_rowid_key</string>
+    <string name="CR_LF">\r\n</string>
     <!-- Preference keys. -->
     <!-- Tracks preference. -->
     <string name="pref_tracks_filter_key">pref_tracks_filter_key</string>

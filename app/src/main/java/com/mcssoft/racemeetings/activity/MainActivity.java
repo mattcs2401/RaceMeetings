@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle args = null;
         Resources.getInstance(this);        // setup resources access.
         Preferences.getInstance(this);      // setup preferences access.
 
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity
             dbUtil.checkTracks();
         } else {
             // no active network connection exists.
-            // TODO - no active network connection on app start.
+            args = new Bundle();
+            args.putString("no_network_key","no_network");
         }
 
         initialiseUI();                     // initialise UI components.
@@ -54,6 +56,10 @@ public class MainActivity extends AppCompatActivity
         // Setup main fragment.
         String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
         MainFragment mainFragment = new MainFragment();
+        if(args != null) {
+            mainFragment.setArguments(args);
+        }
+
         if(savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.content_main, mainFragment, fragment_tag)
