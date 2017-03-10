@@ -85,4 +85,10 @@
         <TrackClubName>Townsville Turf Club</TrackClubName>
         <TrackIsPref>N</TrackIsPref>
     </Track>
+    <Track>
+        <TrackName>Charters Towers</TrackName>
+        <TrackClubName>Towers Jockey Club</TrackClubName>
+        <TrackIsPref>N</TrackIsPref>
+    </Track>
+
 </Tracks>

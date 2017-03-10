@@ -41,6 +41,9 @@
     <string name="pref_meetings_show_today_key">pref_meetings_show_today_key</string>
     <string name="pref_meetings_show_today_title">Show Meetings For Today</string>
     <string name="pref_meetings_show_today_summary">Show today\'s meetings on application start.</string>
+    <string name="pref_meetings_exclude_BT_key">pref_meetings_exclude_BT_key</string>
+    <string name="pref_meetings_exclude_BT_title">Exclude Barrier Trial</string>
+    <string name="pref_meetings_exclude_BT_summary">Don\'t show Barrier Trial meetings.</string>
     <!-- Navigation drawer. -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

@@ -10,6 +10,12 @@
             android:summary="@string/pref_meetings_show_today_summary"
             android:defaultValue="true"/>
 
+        <CheckBoxPreference
+            android:key="@string/pref_meetings_exclude_BT_key"
+            android:title="@string/pref_meetings_exclude_BT_title"
+            android:summary="@string/pref_meetings_exclude_BT_summary"
+            android:defaultValue="true"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
