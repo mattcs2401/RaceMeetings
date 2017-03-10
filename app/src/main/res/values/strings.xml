@@ -34,9 +34,14 @@
     <!-- Generic keys. -->
     <string name="meetings_rowid_key">meetings_rowid_key</string>
     <!-- Preference keys. -->
-    <!-- Network access preference. -->
-    <string name="pref_network_access_button_id_key">pref_network_access_id_key</string>
-    <string name="pref_network_access_tag_key">pref_network_access_tag_key</string>
+    <!-- Tracks preference. -->
+    <string name="pref_tracks_filter_key">pref_tracks_filter_key</string>
+    <string name="pref_tracks_filter_title">Filter Meeting Tracks</string>
+    <string name="pref_tracks_filter_summary">Only show meeting tracks selected in the Track Preferences.</string>
+    <!-- Meetings General preference. -->
+    <string name="pref_meetings_show_today_key">pref_meetings_show_today_key</string>
+    <string name="pref_meetings_show_today_title">Show Meetings For Today</string>
+    <string name="pref_meetings_show_today_summary">Show today\'s meetings on application start.</string>
     <!-- Navigation drawer. -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

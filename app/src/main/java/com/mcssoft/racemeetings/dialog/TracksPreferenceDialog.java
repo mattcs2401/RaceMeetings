@@ -29,7 +29,7 @@ public class TracksPreferenceDialog extends DialogPreference
 
     public TracksPreferenceDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setDialogLayoutResource(R.layout.dialog_pref_track);
+        setDialogLayoutResource(R.layout.dialog_pref_tracks);
     }
 
     @Override

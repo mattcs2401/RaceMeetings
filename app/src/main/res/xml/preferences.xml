@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.mcssoft.racemeetings.dialog.TracksPreferenceDialog
-        android:title="Track Preferences"
-        android:summary="Set the Track preferences."/>
-    <com.mcssoft.racemeetings.dialog.MeetingsPreferenceDialog
-        android:title="Meetings Preferences"
-        android:summary="Set the preferences for all Meetings." />
+    <PreferenceCategory
+        android:title="Meetings General">
+
+        <CheckBoxPreference
+            android:key="@string/pref_meetings_show_today_key"
+            android:title="@string/pref_meetings_show_today_title"
+            android:summary="@string/pref_meetings_show_today_summary"
+            android:defaultValue="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Meeting Tracks">
+
+        <CheckBoxPreference
+            android:key="@string/pref_tracks_filter_key"
+            android:title="@string/pref_tracks_filter_title"
+            android:summary="@string/pref_tracks_filter_summary"
+            android:defaultValue="true"/>
+
+        <com.mcssoft.racemeetings.dialog.TracksPreferenceDialog
+            android:title="Track Preferences"
+            android:summary="Set the Track preferences."/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
