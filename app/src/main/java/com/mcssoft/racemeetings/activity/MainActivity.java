@@ -95,8 +95,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadMeetingsActivityByProxy(String searchDate) {
-//        DatabaseOperations dbUtil = new DatabaseOperations(this);
-
         // Note: MeetingsActivity is launched as a result of this.
         DownloadHelper downloadHelper = new DownloadHelper(this);
         downloadHelper.getMeetingsBydate(searchDate);

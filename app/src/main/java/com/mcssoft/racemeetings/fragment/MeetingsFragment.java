@@ -91,7 +91,7 @@ public class MeetingsFragment extends Fragment
     }
 
     private void setRecyclerView(View view) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_meetings_details__listing);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_meetings_details_listing);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         llm.scrollToPosition(0);
