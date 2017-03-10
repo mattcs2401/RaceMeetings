@@ -35,41 +35,15 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle args = null;
+        Bundle arguments = null;
         Resources.getInstance(this);        // setup resources access.
         Preferences.getInstance(this);      // setup preferences access.
 
-        netWorkExists = checkForNetwork();  // does an active network exist?
-        if(netWorkExists) {
-            // data check.
-            DatabaseOperations dbUtil = new DatabaseOperations(this);
-            dbUtil.checkClubs();
-            dbUtil.checkTracks();
-        } else {
-            // no active network connection exists.
-            args = new Bundle();
-            args.putString("no_network_key","no_network");
-        }
+        arguments = networkAndDatabaseCheck();
 
-        initialiseUI();                     // initialise UI components.
+        initialiseBaseUI();                     // initialise UI components.
 
-        // Setup main fragment.
-        String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
-        MainFragment mainFragment = new MainFragment();
-        if(args != null) {
-            mainFragment.setArguments(args);
-        }
-
-        if(savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.content_main, mainFragment, fragment_tag)
-                    .addToBackStack(null)
-                    .commit();
-        } else {
-            // TBA ...
-            mainFragment = (MainFragment) getFragmentManager()
-                    .getFragment(savedInstanceState, fragment_tag);
-        }
+        loadFragment(savedInstanceState, arguments);
     }
 
     @Override
@@ -121,14 +95,29 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadMeetingsActivityByProxy(String searchDate) {
-        DatabaseOperations dbUtil = new DatabaseOperations(this);
+//        DatabaseOperations dbUtil = new DatabaseOperations(this);
 
         // Note: MeetingsActivity is launched as a result of this.
         DownloadHelper downloadHelper = new DownloadHelper(this);
         downloadHelper.getMeetingsBydate(searchDate);
     }
 
-    private void initialiseUI() {
+    private Bundle networkAndDatabaseCheck() {
+        Bundle arguments = null;
+        if(checkForNetwork()) {
+            // data check.
+            DatabaseOperations dbOper = new DatabaseOperations(this);
+            dbOper.checkClubs();
+            dbOper.checkTracks();
+        } else {
+            // no active network connection exists.
+            arguments = new Bundle();
+            arguments.putString("no_network_key","no_network");
+        }
+        return arguments;
+    }
+
+    private void initialiseBaseUI() {
         setContentView(R.layout.content_view_main_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
@@ -142,6 +131,25 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void loadFragment(Bundle savedInstanceState, Bundle args) {
+        String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
+        MainFragment mainFragment = new MainFragment();
+        if(args != null) {
+            mainFragment.setArguments(args);
+        }
+
+        if(savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.content_main, mainFragment, fragment_tag)
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            // TBA ...
+            mainFragment = (MainFragment) getFragmentManager()
+                    .getFragment(savedInstanceState, fragment_tag);
+        }
     }
 
     /**
@@ -169,7 +177,5 @@ public class MainActivity extends AppCompatActivity
         return new SimpleDateFormat(Resources.getInstance()
                 .getString(R.string.date_format_yyyyMMdd), Locale.getDefault()).format(new Date());
     }
-
-    private boolean netWorkExists;          // flag to indicate if an available network exists.
 
 }
