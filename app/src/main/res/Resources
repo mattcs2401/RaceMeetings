@@ -92,7 +92,10 @@ Example: http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/Ge
     <IsBarrierTrial>false</IsBarrierTrial>
   </Meeting>
 
-(2) GetRacesForMeeting - use meeting Id (from above).
+
+(2) GetRacesForMeeting - use meeting Id (from above) as query param.
+
+Example: http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/GetRacesForMeeting?meetingId=88859
 
 <Races>
   <Race Id="439963">
@@ -110,6 +113,7 @@ Example: http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/Ge
     <StartersFee>$173.00</StartersFee>
     <AcceptanceFee>$0.00</AcceptanceFee>
   </Race>
+
 
 (3) GetHorsesForRace - use race Id (from above).
 
