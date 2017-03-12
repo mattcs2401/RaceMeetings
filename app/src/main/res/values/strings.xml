@@ -23,10 +23,13 @@
     <string name="get_available_clubs">GetAvailableClubs</string>
     <string name="get_meetings_for_date">GetMeetingsForDate</string>
     <string name="meeting_date">meetingDate</string>
+    <string name="get_races_for_meeting">GetRacesForMeeting</string>
+    <string name="meeting_id">meetingId</string>
     <!-- Progress dialog -->
     <string name="init_clubs_data">Initialising Clubs data.</string>
     <string name="init_tracks_data">Initialising Tracks data.</string>
-    <string name="get_meetings_data">Retrieving Meetings data.</string>
+    <string name="get_meetings_details">Retrieving Meeting details.</string>
+    <string name="get_races_details">Retrieving Race details.</string>
     <!-- Generic keys. -->
     <string name="no_network_key">no_network_key</string>
     <string name="no_network">no_network</string>

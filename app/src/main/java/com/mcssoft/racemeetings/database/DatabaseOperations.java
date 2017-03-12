@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.model.Club;
 import com.mcssoft.racemeetings.model.Meeting;
+import com.mcssoft.racemeetings.model.Race;
 import com.mcssoft.racemeetings.model.Track;
 import com.mcssoft.racemeetings.utility.DownloadHelper;
 import com.mcssoft.racemeetings.utility.XMLParser;
@@ -124,6 +125,9 @@ public class DatabaseOperations {
             case SchemaConstants.MEETINGS_TABLE:
                 insertFromListMeetings(theList);
                 break;
+            case SchemaConstants.RACES_TABLE:
+                insertFromListRaces(theList);
+                break;
         }
     }
 
@@ -196,6 +200,7 @@ public class DatabaseOperations {
     }
 
     private void insertFromListMeetings(ArrayList theList) {
+        // Note: MEETINGS table values are regenerated every time the list of meetings changes.
         if(theList.size() > 0) {
             ContentValues cv;
             SQLiteDatabase db = dbHelper.getDatabase();
@@ -224,6 +229,46 @@ public class DatabaseOperations {
         }
     }
 
+    private void insertFromListRaces(ArrayList theList) {
+        if(theList.size() > 0) {
+            ContentValues cv;
+            db = dbHelper.getDatabase();
+
+            for (Object object : theList) {
+                Race race = (Race) object;
+                int raceId = race.getRaceId();
+
+                if(!raceIdExists(raceId)) {  // only insert new races.
+                    cv = new ContentValues();
+                    cv.put(SchemaConstants.RACE_ID, raceId);
+                    cv.put(SchemaConstants.RACE_NO, race.getRaceNumber());
+                    cv.put(SchemaConstants.RACE_NAME, race.getRaceName());
+                    cv.put(SchemaConstants.RACE_TIME, race.getRaceTime());
+                    cv.put(SchemaConstants.RACE_CLASS, race.getRaceClass());
+                    cv.put(SchemaConstants.RACE_DISTANCE, race.getRaceDistance());
+                    cv.put(SchemaConstants.RACE_TRACK_RATING, race.getRaceTrackRating());
+                    cv.put(SchemaConstants.RACE_PRIZE_TOTAL, race.getRacePrizeTotal());
+                    cv.put(SchemaConstants.RACE_AGE_COND, race.getRaceAgeCondition());
+                    cv.put(SchemaConstants.RACE_SEX_COND, race.getRaceSexCondtion());
+                    cv.put(SchemaConstants.RACE_WEIGHT_COND, race.getRaceWeightCondition());
+                    cv.put(SchemaConstants.RACE_APP_CLAIM, race.getRaceApprenticeClaim());
+                    cv.put(SchemaConstants.RACE_START_FEE, race.getRaceStartersFee());
+                    cv.put(SchemaConstants.RACE_ACCEPT_FEE, race.getRaceAcceptanceFee());
+
+                    try {
+                        db.beginTransaction();
+                        db.insertOrThrow(SchemaConstants.RACES_TABLE, null, cv);
+                        db.setTransactionSuccessful();
+                    } catch (SQLException ex) {
+                        Log.d("", ex.getMessage());
+                    } finally {
+                        db.endTransaction();
+                    }
+                }
+            }
+        }
+    }
+
     private String[] getProjection(String tableName) {
         String[] projection = {};
         switch (tableName) {
@@ -240,8 +285,18 @@ public class DatabaseOperations {
         return  projection;
     }
 
+    private boolean raceIdExists(int raceId) {
+        boolean retVal = false;
+        Cursor cursor = getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
+                SchemaConstants.WHERE_FOR_GET_RACE, new String[] { Integer.toString(raceId)});
+        if(cursor.getCount() > 0) {
+            retVal = true;
+        }
+        return retVal;
+    }
 
     private Context context;
+    private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
 
 }

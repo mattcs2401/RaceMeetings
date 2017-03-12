@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.mcssoft.racemeetings.model.Club;
 import com.mcssoft.racemeetings.model.Meeting;
+import com.mcssoft.racemeetings.model.Race;
 import com.mcssoft.racemeetings.model.Track;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -153,6 +154,81 @@ public class XMLParser {
             Log.d("", ex.getMessage());
         } finally {
             return meetings;
+        }
+    }
+
+    public ArrayList<Race> parseRacesXml() {
+        ArrayList<Race> races = null;
+        Race race = null;
+        try {
+            String elementName;
+            int eventType = parser.getEventType();
+            while(eventType != parser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        //regions = new ArrayList<>();
+                        break;
+                    case XmlPullParser.START_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Races")) {
+                            races = new ArrayList<>();
+                        }
+                        else if (elementName.equals("Race")) {
+                            race = new Race();
+                            race.setRaceId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
+                        }
+                        else if(elementName.equals("RaceNumber")) {
+                            race.setRaceNumber(Integer.parseInt(parser.nextText()));
+                        }
+                        else if(elementName.equals("RaceName")) {
+                            race.setRaceName(parser.nextText());
+                        }
+                        else if(elementName.equals("RaceTime")) {
+                            race.setRaceTime(parser.nextText());
+                        }
+                        else if(elementName.equals("Class")) {
+                            race.setRaceClass(parser.nextText());
+                        }
+                        else if(elementName.equals("Distance")) {
+                            race.setRaceDistance(parser.nextText());
+                        }
+                        else if(elementName.equals("TrackRating")) {
+                            race.setRaceTrackRating(parser.nextText());
+                        }
+                        else if(elementName.equals("PrizeTotal")) {
+                            race.setRacePrizeTotal(parser.nextText());
+                        }
+                        else if(elementName.equals("AgeCondition")) {
+                            race.setRaceAgeCondition(parser.nextText());
+                        }
+                        else if(elementName.equals("SexCondition")) {
+                            race.setRaceSexCondtion(parser.nextText());
+                        }
+                        else if(elementName.equals("WeightCondition")) {
+                            race.setRaceWeightCondition(parser.nextText());
+                        }
+                        else if(elementName.equals("ApprenticeClaim")) {
+                            race.setRaceApprenticeClaim(parser.nextText());
+                        }
+                        else if(elementName.equals("StartersFee")) {
+                            race.setRaceStartersFee(parser.nextText());
+                        }
+                        else if(elementName.equals("AcceptanceFee")) {
+                            race.setRaceAcceptanceFee(parser.nextText());
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Race") && race != null) {
+                            races.add(race);
+                        }
+                }
+                eventType = parser.next();
+            }
+        } catch(XmlPullParserException ex) {
+            Log.d("", ex.getMessage());
+        } finally {
+            return races;
         }
     }
 

@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mcssoft.racemeetings.R;
+import com.mcssoft.racemeetings.activity.MeetingRacesActivity;
 import com.mcssoft.racemeetings.activity.MeetingsActivity;
 import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 import com.mcssoft.racemeetings.model.Club;
 import com.mcssoft.racemeetings.model.Meeting;
+import com.mcssoft.racemeetings.model.Race;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -31,29 +33,44 @@ public class DownloadHelper implements IAsyncResult {
      */
     @Override
     public void result(String tableName, String results) {
-        InputStream inStream;
+        Intent intent;
         XMLParser mxmlp;
-        DatabaseOperations dbUtil = new DatabaseOperations(context);
+        InputStream inStream;
+        DatabaseOperations dbOper = new DatabaseOperations(context);
 
         switch (tableName) {
             case SchemaConstants.CLUBS_TABLE:
                 inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Club> clubs = mxmlp.parseClubsXml();
-                dbUtil.insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
+                dbOper.insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
                 break;
             case SchemaConstants.MEETINGS_TABLE:
                 inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
                 if(meetings != null && meetings.size() > 0) {
-                    dbUtil.checkAndDeleteOld(tableName);
-                    dbUtil.insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
+                    dbOper.checkAndDeleteOld(tableName);
+                    dbOper.insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
                 } else {
-                    dbUtil.checkAndDeleteOld(tableName);
+                    dbOper.checkAndDeleteOld(tableName);
                 }
                 // Have to put it here because of inter process issues.
-                Intent intent = new Intent(context, MeetingsActivity.class);
+                intent = new Intent(context, MeetingsActivity.class);
+                context.startActivity(intent);
+                break;
+            case SchemaConstants.RACES_TABLE:
+                inStream = new ByteArrayInputStream(results.getBytes());
+                mxmlp = new XMLParser(inStream);
+                ArrayList<Race> races = mxmlp.parseRacesXml();
+                if(races != null && races.size() > 0) {
+//                    dbUtil.checkAndDeleteOld(tableName);
+                    dbOper.insertFromList(SchemaConstants.RACES_TABLE, races);
+                } else {
+//                    dbUtil.checkAndDeleteOld(tableName);
+                }
+                // Have to put it here because of inter process issues.
+                intent = new Intent(context, MeetingRacesActivity.class);
                 context.startActivity(intent);
                 break;
         }
@@ -64,6 +81,10 @@ public class DownloadHelper implements IAsyncResult {
         downloadHelper.downloadTableData(SchemaConstants.MEETINGS_TABLE, searchDate);
     }
 
+    public void getRacesForMeeting(String meetingId) {
+        DownloadHelper downloadHelper = new DownloadHelper(context);
+        downloadHelper.downloadTableData(SchemaConstants.RACES_TABLE, meetingId);
+    }
 
     public void downloadTableData(String table, @Nullable String queryParam) {
         URL url = null;
@@ -78,7 +99,11 @@ public class DownloadHelper implements IAsyncResult {
                     break;
                 case SchemaConstants.MEETINGS_TABLE:
                     url = new URL(createMeetingsUrl(queryParam));
-                    message = Resources.getInstance().getString(R.string.get_meetings_data);
+                    message = Resources.getInstance().getString(R.string.get_meetings_details);
+                    break;
+                case SchemaConstants.RACES_TABLE:
+                    url = new URL(createRacesUrl(queryParam));
+                    message = Resources.getInstance().getString(R.string.get_races_details);
                     break;
             }
             dld = new DownloadData(context, url, message, table);
@@ -108,6 +133,15 @@ public class DownloadHelper implements IAsyncResult {
         return builder.toString();
     }
 
+    private String createRacesUrl(String queryParam) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_meetings))
+                .appendPath(Resources.getInstance().getString(R.string.get_races_for_meeting))
+                .appendQueryParameter(Resources.getInstance().getString(R.string.meeting_id), queryParam);
+
+        builder.build();
+        return builder.toString();
+    }
 
     private Context context;
 }
