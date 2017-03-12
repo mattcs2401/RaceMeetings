@@ -15,22 +15,22 @@ import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
  * Utility class that lists the Meetings for a particular (user selected) date.
  */
 
-public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
+public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHolder> {
 
     @Override
-    public MeetingsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MeetingRacesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if ( parent instanceof RecyclerView ) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_race_row, parent, false);
             view.setFocusable(true);
             // don't need to keep a local copy, framework now supplies.
-            return new MeetingsViewHolder(view, itemClickListener, itemLongClickListener);
+            return new MeetingRacesViewHolder(view, itemClickListener, itemLongClickListener);
         } else {
             throw new RuntimeException("Not bound to RecyclerView");
         }
     }
 
     @Override
-    public void onBindViewHolder(MeetingsViewHolder holder, int position) {
+    public void onBindViewHolder(MeetingRacesViewHolder holder, int position) {
         adapaterOnBindViewHolder(holder, position);
     }
 
@@ -79,7 +79,11 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingsViewHolder
 
     public Cursor getCursor() { return cursor; }
 
-    private void adapaterOnBindViewHolder(MeetingsViewHolder holder, int position) {
+    public void setEmptyView(boolean emptyView) {
+        this.emptyView = emptyView;
+    }
+
+    private void adapaterOnBindViewHolder(MeetingRacesViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
 //        holder.getMeetingId().setText(cursor.getString(meetingIdNdx));
@@ -94,6 +98,7 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingsViewHolder
 
     private View view;
     private Cursor cursor;
+    private boolean emptyView;
 
     private int idColNdx;
 //    private int meetingIdNdx;

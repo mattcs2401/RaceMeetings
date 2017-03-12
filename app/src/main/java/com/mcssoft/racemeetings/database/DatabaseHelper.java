@@ -115,6 +115,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SchemaConstants.RACE_ACCEPT_FEE
         };
     }
-    
+
     private SQLiteDatabase db;
 }

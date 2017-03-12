@@ -117,25 +117,7 @@ public class SchemaConstants {
     public static final String SELECT_ALL_MEETINGS = "SELECT * FROM " + MEETINGS_TABLE;
 
     public static final String WHERE_FOR_TRACK_UPDATE = SchemaConstants.TRACK_ROWID + " = ?;";
-
     public static final String WHERE_FOR_GET_MEETING = SchemaConstants.MEETING_ROWID + " = ?;";
+    public static final String WHERE_FOR_GET_RACE = SchemaConstants.RACE_ROWID + " = ?;";
 
 }
-/*
-<Races>
-  <Race Id="439963">
-    <RaceNumber>1</RaceNumber>
-    <RaceName>APEX - BUILDING BETTER COMMUNITIES C,G&E Class 1 Handicap</RaceName>
-    <RaceTime>12:52PM</RaceTime>
-    <Class>Class 1</Class>
-    <Distance>1400 metres</Distance>
-    <TrackRating>Good</TrackRating>
-    <PrizeTotal>$14,000.00</PrizeTotal>
-    <AgeCondition>No age restriction</AgeCondition>
-    <SexCondition>Colts, Geldings and Entires</SexCondition>
-    <WeightCondition>Handicap</WeightCondition>
-    <ApprenticeClaim>true</ApprenticeClaim>
-    <StartersFee>$173.00</StartersFee>
-    <AcceptanceFee>$0.00</AcceptanceFee>
-  </Race>
-*/
