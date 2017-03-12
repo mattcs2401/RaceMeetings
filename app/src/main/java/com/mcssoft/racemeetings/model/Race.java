@@ -10,11 +10,11 @@ public class Race {
         this.raceId = raceId;
     }
 
-    public String getRaceNumber() {
+    public int getRaceNumber() {
         return raceNumber;
     }
 
-    public void setRaceNumber(String raceNumber) {
+    public void setRaceNumber(int raceNumber) {
         this.raceNumber = raceNumber;
     }
 
@@ -115,7 +115,7 @@ public class Race {
     }
 
     private int raceId;
-    private String raceNumber;
+    private int raceNumber;
     private String raceName;
     private String raceTime;
     private String raceClass;

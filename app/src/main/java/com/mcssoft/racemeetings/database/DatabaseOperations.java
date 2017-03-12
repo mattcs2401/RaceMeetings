@@ -12,8 +12,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.database.DatabaseHelper;
-import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.model.Club;
 import com.mcssoft.racemeetings.model.Meeting;
 import com.mcssoft.racemeetings.model.Track;
@@ -236,7 +234,7 @@ public class DatabaseOperations {
                 projection = dbHelper.getProjection(DatabaseHelper.Projection.TrackSchema);
                 break;
             case SchemaConstants.MEETINGS_TABLE:
-                projection = dbHelper.getProjection(DatabaseHelper.Projection.MeetingsSchema);
+                projection = dbHelper.getProjection(DatabaseHelper.Projection.MeetingSchema);
                 break;
         }
         return  projection;
