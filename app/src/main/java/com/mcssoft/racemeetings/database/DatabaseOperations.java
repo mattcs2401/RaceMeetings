@@ -234,13 +234,13 @@ public class DatabaseOperations {
             ContentValues cv;
             db = dbHelper.getDatabase();
 
-            for (Object object : theList) {
-                Race race = (Race) object;
-                int raceId = race.getRaceId();
+            if(!meetingIdExists(meetingId)) {  // only insert new races.
 
-                if(!raceIdExists(raceId)) {  // only insert new races.
+                for (Object object : theList) {
+                    Race race = (Race) object;
+
                     cv = new ContentValues();
-                    cv.put(SchemaConstants.RACE_ID, raceId);
+                    cv.put(SchemaConstants.RACE_ID, race.getRaceId());
                     cv.put(SchemaConstants.RACE_MEETING_ID, meetingId);
                     cv.put(SchemaConstants.RACE_NO, race.getRaceNumber());
                     cv.put(SchemaConstants.RACE_NAME, race.getRaceName());
@@ -286,10 +286,10 @@ public class DatabaseOperations {
         return  projection;
     }
 
-    private boolean raceIdExists(int raceId) {
+    private boolean meetingIdExists(int meetingId) {
         boolean retVal = false;
         Cursor cursor = getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
-                SchemaConstants.WHERE_FOR_GET_RACE_RACEID, new String[] { Integer.toString(raceId)});
+                SchemaConstants.WHERE_FOR_GET_RACE_MEETINGID, new String[] { Integer.toString(meetingId)});
         if(cursor.getCount() > 0) {
             retVal = true;
         }

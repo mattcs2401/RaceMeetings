@@ -33,12 +33,11 @@ public class MeetingRacesActivity extends AppCompatActivity {
         cursor.moveToFirst();
         int meetingId = cursor.getInt(cursor.getColumnIndex(SchemaConstants.MEETING_ID));
 
-        DownloadHelper downloadHelper = new DownloadHelper(this);
-        downloadHelper.getRacesForMeeting(Integer.toString(meetingId));
+//        DownloadHelper downloadHelper = new DownloadHelper(this);
+//        downloadHelper.getRacesForMeeting(Integer.toString(meetingId));
 
-        getIntent().getExtras().clear();
-        getIntent().getExtras()
-                .putInt(Resources.getInstance().getString(R.string.meetings_rowid_key), meetingId);
+//        getIntent().getExtras().clear();
+        getIntent().getExtras().putInt("meeting_id_key", meetingId);
     }
 
     private void loadFragment() {

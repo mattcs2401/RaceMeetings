@@ -37,7 +37,7 @@ public class MeetingRacesFragment extends Fragment
             super.onActivityCreated(savedInstanceState);
             DatabaseOperations dbOper = new DatabaseOperations(getActivity());
             int meetingId = getActivity().getIntent().getExtras()
-                    .getInt(Resources.getInstance().getString(R.string.meetings_rowid_key));
+                    .getInt("meeting_id_key");
             cursor = dbOper.getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
                     SchemaConstants.WHERE_FOR_GET_RACE_MEETINGID, new String[] {Integer.toString(meetingId)});
 
