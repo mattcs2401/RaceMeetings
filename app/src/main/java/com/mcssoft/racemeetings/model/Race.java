@@ -10,6 +10,10 @@ public class Race {
         this.raceId = raceId;
     }
 
+    public int getMeetingId() { return meetingId; }
+
+    public void setMeetingId(int meetingId) { this.meetingId = meetingId; }
+
     public int getRaceNumber() {
         return raceNumber;
     }
@@ -115,6 +119,7 @@ public class Race {
     }
 
     private int raceId;
+    private int meetingId;
     private int raceNumber;
     private String raceName;
     private String raceTime;

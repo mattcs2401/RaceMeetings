@@ -43,7 +43,7 @@ public class DownloadHelper implements IAsyncResult {
                 inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Club> clubs = mxmlp.parseClubsXml();
-                dbOper.insertFromList(SchemaConstants.CLUBS_TABLE, clubs);
+                dbOper.insertFromList(SchemaConstants.CLUBS_TABLE, clubs, 0);
                 break;
             case SchemaConstants.MEETINGS_TABLE:
                 inStream = new ByteArrayInputStream(results.getBytes());
@@ -51,7 +51,7 @@ public class DownloadHelper implements IAsyncResult {
                 ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
                 if(meetings != null && meetings.size() > 0) {
                     dbOper.checkAndDeleteOld(tableName);
-                    dbOper.insertFromList(SchemaConstants.MEETINGS_TABLE, meetings);
+                    dbOper.insertFromList(SchemaConstants.MEETINGS_TABLE, meetings, 0);
                 } else {
                     dbOper.checkAndDeleteOld(tableName);
                 }
@@ -65,7 +65,7 @@ public class DownloadHelper implements IAsyncResult {
                 ArrayList<Race> races = mxmlp.parseRacesXml();
                 if(races != null && races.size() > 0) {
 //                    dbUtil.checkAndDeleteOld(tableName);
-                    dbOper.insertFromList(SchemaConstants.RACES_TABLE, races);
+                    dbOper.insertFromList(SchemaConstants.RACES_TABLE, races, Integer.parseInt(queryParam));
                 } else {
 //                    dbUtil.checkAndDeleteOld(tableName);
                 }
@@ -76,14 +76,14 @@ public class DownloadHelper implements IAsyncResult {
         }
     }
 
-    public void getMeetingsBydate(String searchDate) {
-        DownloadHelper downloadHelper = new DownloadHelper(context);
-        downloadHelper.downloadTableData(SchemaConstants.MEETINGS_TABLE, searchDate);
+    public void getMeetingsByDate(String searchDate) {
+        queryParam = searchDate;
+        downloadTableData(SchemaConstants.MEETINGS_TABLE, searchDate);
     }
 
     public void getRacesForMeeting(String meetingId) {
-        DownloadHelper downloadHelper = new DownloadHelper(context);
-        downloadHelper.downloadTableData(SchemaConstants.RACES_TABLE, meetingId);
+        queryParam = meetingId;
+        downloadTableData(SchemaConstants.RACES_TABLE, meetingId);
     }
 
     public void downloadTableData(String table, @Nullable String queryParam) {
@@ -144,4 +144,5 @@ public class DownloadHelper implements IAsyncResult {
     }
 
     private Context context;
+    private String queryParam;
 }

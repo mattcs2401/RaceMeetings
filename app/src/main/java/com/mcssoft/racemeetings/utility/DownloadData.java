@@ -49,7 +49,9 @@ public class DownloadData extends AsyncTask<String,Void,String> {
         catch (Exception ex) {
            Log.d("", ex.getMessage());
         }
-        return theResult;
+        finally {
+            return theResult;
+        }
     }
 
     /*
@@ -61,7 +63,6 @@ public class DownloadData extends AsyncTask<String,Void,String> {
         progressDialog.dismiss();
         asyncResult.result(output, theResult);
     }
-
 
     public IAsyncResult asyncResult = null;
 

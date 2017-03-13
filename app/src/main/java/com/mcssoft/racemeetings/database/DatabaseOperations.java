@@ -41,7 +41,7 @@ public class DatabaseOperations {
             InputStream inStream = context.getResources().openRawResource(R.raw.tracks);
             XMLParser mxmlp = new XMLParser(inStream);
             ArrayList<Track> tracks = mxmlp.parseTracksXml();
-            insertFromList(SchemaConstants.TRACKS_TABLE, tracks);
+            insertFromList(SchemaConstants.TRACKS_TABLE, tracks, 0);
         }
     }
 
@@ -114,7 +114,7 @@ public class DatabaseOperations {
         return sb.toString();
     }
 
-    public void insertFromList(String tableName, ArrayList theList) {
+    public void insertFromList(String tableName, ArrayList theList, int identifier) {
         switch (tableName) {
             case SchemaConstants.CLUBS_TABLE:
                 insertFromListClubs(theList);
@@ -126,7 +126,7 @@ public class DatabaseOperations {
                 insertFromListMeetings(theList);
                 break;
             case SchemaConstants.RACES_TABLE:
-                insertFromListRaces(theList);
+                insertFromListRaces(theList, identifier);
                 break;
         }
     }
@@ -229,7 +229,7 @@ public class DatabaseOperations {
         }
     }
 
-    private void insertFromListRaces(ArrayList theList) {
+    private void insertFromListRaces(ArrayList theList, int meetingId) {
         if(theList.size() > 0) {
             ContentValues cv;
             db = dbHelper.getDatabase();
@@ -241,6 +241,7 @@ public class DatabaseOperations {
                 if(!raceIdExists(raceId)) {  // only insert new races.
                     cv = new ContentValues();
                     cv.put(SchemaConstants.RACE_ID, raceId);
+                    cv.put(SchemaConstants.RACE_MEETING_ID, meetingId);
                     cv.put(SchemaConstants.RACE_NO, race.getRaceNumber());
                     cv.put(SchemaConstants.RACE_NAME, race.getRaceName());
                     cv.put(SchemaConstants.RACE_TIME, race.getRaceTime());
@@ -288,7 +289,7 @@ public class DatabaseOperations {
     private boolean raceIdExists(int raceId) {
         boolean retVal = false;
         Cursor cursor = getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
-                SchemaConstants.WHERE_FOR_GET_RACE, new String[] { Integer.toString(raceId)});
+                SchemaConstants.WHERE_FOR_GET_RACE_RACEID, new String[] { Integer.toString(raceId)});
         if(cursor.getCount() > 0) {
             retVal = true;
         }

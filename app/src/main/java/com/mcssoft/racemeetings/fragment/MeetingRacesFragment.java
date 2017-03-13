@@ -20,6 +20,7 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 import com.mcssoft.racemeetings.utility.ListingDivider;
+import com.mcssoft.racemeetings.utility.Resources;
 
 public class MeetingRacesFragment extends Fragment
             implements IItemClickListener,
@@ -34,11 +35,15 @@ public class MeetingRacesFragment extends Fragment
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            DatabaseOperations dbUtil = new DatabaseOperations(getActivity());
-            cursor = dbUtil.getAllFromTable(SchemaConstants.RACES_TABLE);
+            DatabaseOperations dbOper = new DatabaseOperations(getActivity());
+            int meetingId = getActivity().getIntent().getExtras()
+                    .getInt(Resources.getInstance().getString(R.string.meetings_rowid_key));
+            cursor = dbOper.getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
+                    SchemaConstants.WHERE_FOR_GET_RACE_MEETINGID, new String[] {Integer.toString(meetingId)});
 
-            setMeetingAdapter();
-            setRecyclerView(rootView);
+            String bp = "" ;
+//            setMeetingAdapter();
+//            setRecyclerView(rootView);
         }
 
 //        @Override

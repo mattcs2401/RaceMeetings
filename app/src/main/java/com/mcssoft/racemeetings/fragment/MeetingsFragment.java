@@ -41,8 +41,8 @@ public class MeetingsFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        DatabaseOperations dbUtil = new DatabaseOperations(getActivity());
-        cursor = dbUtil.getAllFromTable(SchemaConstants.MEETINGS_TABLE);
+        DatabaseOperations dbOper = new DatabaseOperations(getActivity());
+        cursor = dbOper.getAllFromTable(SchemaConstants.MEETINGS_TABLE);
 
         setMeetingAdapter();
         setRecyclerView(rootView);

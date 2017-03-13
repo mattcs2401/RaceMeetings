@@ -100,6 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return new String[] {
             SchemaConstants.RACE_ROWID,
             SchemaConstants.RACE_ID,
+            SchemaConstants.RACE_MEETING_ID,
             SchemaConstants.RACE_NO,
             SchemaConstants.RACE_NAME,
             SchemaConstants.RACE_TIME,

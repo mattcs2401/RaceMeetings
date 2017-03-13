@@ -45,6 +45,7 @@ public class SchemaConstants {
     // Database columns RACES table.
     public static final String RACE_ROWID = "_id";
     public static final String RACE_ID = "RACE_ID";
+    public static final String RACE_MEETING_ID = "RACE_MEETING_ID";
     public static final String RACE_NO = "RACE_NO";
     public static final String RACE_NAME = "RACE_NAME";
     public static final String RACE_TIME = "RACE_TIME";
@@ -92,6 +93,7 @@ public class SchemaConstants {
             + RACES_TABLE       + " ("
             + RACE_ROWID        + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + RACE_ID           + " INTEGER NOT NULL, "
+            + RACE_MEETING_ID   + " INTEGER NOT NULL, "
             + RACE_NO           + " INTEGER NOT NULL, "
             + RACE_NAME         + " TEXT NOT NULL, "
             + RACE_TIME         + " TEXT NOT NULL, "
@@ -112,12 +114,13 @@ public class SchemaConstants {
     public  static final String DROP_RACES_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + RACES_TABLE + ";";
 
     // marries with DatabaseHelper.getMeetingListItemProjection.
-    public static final String SELECT_ALL_CLUBS = "SELECT * FROM " + CLUBS_TABLE;
-    public static final String SELECT_ALL_TRACKS = "SELECT * FROM " + TRACKS_TABLE;
-    public static final String SELECT_ALL_MEETINGS = "SELECT * FROM " + MEETINGS_TABLE;
+//    public static final String SELECT_ALL_CLUBS = "SELECT * FROM " + CLUBS_TABLE;
+//    public static final String SELECT_ALL_TRACKS = "SELECT * FROM " + TRACKS_TABLE;
+//    public static final String SELECT_ALL_MEETINGS = "SELECT * FROM " + MEETINGS_TABLE;
 
     public static final String WHERE_FOR_TRACK_UPDATE = SchemaConstants.TRACK_ROWID + " = ?;";
     public static final String WHERE_FOR_GET_MEETING = SchemaConstants.MEETING_ROWID + " = ?;";
-    public static final String WHERE_FOR_GET_RACE = SchemaConstants.RACE_ROWID + " = ?;";
+    public static final String WHERE_FOR_GET_RACE_RACEID = SchemaConstants.RACE_ROWID + " = ?;";
+    public static final String WHERE_FOR_GET_RACE_MEETINGID = SchemaConstants.RACE_MEETING_ID + " = ?;";
 
 }
