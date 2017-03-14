@@ -20,7 +20,7 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
     public MeetingsViewHolder(View view, IItemClickListener listener, IItemLongClickListener longListener) {
         super(view);
 //        tvMeetingId = (TextView) view.findViewById(R.id)
-        tvMeetingDateDDMM = (TextView) view.findViewById(R.id.id_tv_dd_mm);
+        tvMeetingDateDDMM = (TextView) view.findViewById(R.id.id_tv_race_no);
         tvMeetingDateYYYY = (TextView) view.findViewById(R.id.id_tv_yyyy);
         tvTrackName = (TextView) view.findViewById(R.id.id_tv_track_name);
 //        tvClubName = (TextView) view.findViewById(R.id.id_tv_club_name);

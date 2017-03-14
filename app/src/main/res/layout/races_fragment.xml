@@ -13,6 +13,6 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginTop="64dp"/>
 
-    <include layout="@layout/race_row" />
+    <include layout="@layout/meeting_race_row" />
 
 </android.support.design.widget.CoordinatorLayout>
