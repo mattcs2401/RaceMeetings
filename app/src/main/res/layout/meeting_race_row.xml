@@ -32,7 +32,7 @@
         android:id="@+id/id_tv_race_dist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:text="Dist"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
@@ -66,7 +66,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="10"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_no"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_no" />
@@ -77,7 +76,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        android:text="15:59"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_time"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_time" />
 
@@ -87,7 +85,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        android:text="2400"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_dist"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_dist" />
@@ -98,7 +95,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        android:text="Heavy"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_rating"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_rating" />
@@ -109,7 +105,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        android:text="Class 1"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_class"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_class" />
@@ -119,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Name"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_no_val"
@@ -131,7 +126,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        android:text="APEX - BUILDING BETTER COMMUNITIES C,GE Class 1 Handicap"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_name"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name" />
@@ -153,7 +147,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        android:text="$99,999.00"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_prize"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_prize" />

@@ -10,28 +10,28 @@ import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 
 
 public class MeetingRacesViewHolder extends RecyclerView.ViewHolder
-        implements View.OnClickListener, View.OnLongClickListener {
+        implements View.OnClickListener { //}, View.OnLongClickListener {
 
     public MeetingRacesViewHolder(View view) {
         super(view);
-//        tvEmptyView = (TextView) view.findViewById(R.id.id_tv_nothingToShow);
+        tvEmptyView = (TextView) view.findViewById(R.id.id_tv_nothingToShow);
     }
 
-    public MeetingRacesViewHolder(View view, IItemClickListener listener, IItemLongClickListener longListener) {
+    public MeetingRacesViewHolder(View view, IItemClickListener listener) { //, IItemLongClickListener longListener) {
         super(view);
-//        tvMeetingId = (TextView) view.findViewById(R.id)
-//        tvMeetingDateDDMM = (TextView) view.findViewById(R.id.id_tv_dd_mm);
-//        tvMeetingDateYYYY = (TextView) view.findViewById(R.id.id_tv_yyyy);
-//        tvTrackName = (TextView) view.findViewById(R.id.id_tv_track_name);
-//        tvClubName = (TextView) view.findViewById(R.id.id_tv_club_name);
-//        tvRacingStatus = (TextView) view.findViewById(R.id.id_tv_racing_status);
-//        tvNumRaces = (TextView) view.findViewById(R.id.id_tv_numRaces_val);
-//        tvBarrierTrial = (TextView) view.findViewById(R.id.id_tv_barrier_trial_YN);
+//        tvRaceId = (TextView) view.findViewById(R.id.id_tv_)
+        tvRaceNo = (TextView) view.findViewById(R.id.id_tv_race_no_val);
+        tvRaceName = (TextView) view.findViewById(R.id.id_tv_race_name_val);
+        tvRaceTime = (TextView) view.findViewById(R.id.id_tv_race_time_val);
+        tvRaceClass = (TextView) view.findViewById(R.id.id_tv_race_class_val);
+        tvRaceDistance = (TextView) view.findViewById(R.id.id_tv_race_dist_val);
+        tvRaceRating = (TextView) view.findViewById(R.id.id_tv_race_rating_val);
+        tvRacePrize = (TextView) view.findViewById(R.id.id_tv_race_prize_val);
 
         itemClickListener = listener;
         view.setOnClickListener(this);
-        itemLongClickListener = longListener;
-        view.setOnLongClickListener(this);
+//        itemLongClickListener = longListener;
+//        view.setOnLongClickListener(this);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Region: Listeners">
@@ -42,43 +42,43 @@ public class MeetingRacesViewHolder extends RecyclerView.ViewHolder
         }
     }
 
-    @Override
-    public boolean onLongClick(View view) {
-        if(itemLongClickListener != null){
-            itemLongClickListener.onItemLongClick(view, getAdapterPosition());
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    @Override
+//    public boolean onLongClick(View view) {
+//        if(itemLongClickListener != null){
+//            itemLongClickListener.onItemLongClick(view, getAdapterPosition());
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Accessors">
-//    public TextView getMeetingId() { return tvMeetingId;  }
-//    public TextView getTvMeetingDateMMDD() { return tvMeetingDateDDMM; }
-//    public TextView getTvMeetingDateYYYY() { return tvMeetingDateYYYY; }
-//    public TextView getTrackName() { return tvTrackName; }
-//    public TextView getClubName() { return tvClubName; }
-//    public TextView getRacingStatus() { return tvRacingStatus; }
-//    public TextView getNumRaces() { return tvNumRaces; }
-//    public TextView getBarrierTrial() { return tvBarrierTrial; }
+//    public TextView getTvRaceId() { return tvRaceId;  }
+    public TextView getRaceNo() { return tvRaceNo; }
+    public TextView getRaceName() { return tvRaceName; }
+    public TextView getRaceTime() { return tvRaceTime; }
+    public TextView getRaceClass() { return tvRaceClass; }
+    public TextView getRaceDistanave() { return tvRaceDistance; }
+    public TextView getRaceRating() { return tvRaceRating; }
+    public TextView getRacePrize() { return tvRacePrize; }
 
-//    public TextView getEmptyText() { return tvEmptyView; }
+    public TextView getEmptyText() { return tvEmptyView; }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Private vars">
-//    private TextView tvMeetingId;
-//    private TextView tvMeetingDateDDMM;
-//    private TextView tvMeetingDateYYYY;
-//    private TextView tvTrackName;
-//    private TextView tvClubName;
-//    private TextView tvRacingStatus;
-//    private TextView tvNumRaces;
-//    private TextView tvBarrierTrial;
-//
-//    private TextView tvEmptyView;
+    private TextView tvRaceId;
+    private TextView tvRaceNo;
+    private TextView tvRaceName;
+    private TextView tvRaceTime;
+    private TextView tvRaceClass;
+    private TextView tvRaceDistance;
+    private TextView tvRaceRating;
+    private TextView tvRacePrize;
+
+    private TextView tvEmptyView;
 
     private IItemClickListener itemClickListener;
-    private IItemLongClickListener itemLongClickListener;
+//    private IItemLongClickListener itemLongClickListener;
     //</editor-fold> {
 }

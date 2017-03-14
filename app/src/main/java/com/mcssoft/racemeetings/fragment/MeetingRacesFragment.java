@@ -41,7 +41,7 @@ public class MeetingRacesFragment extends Fragment
             cursor.moveToFirst();
 
             setMeetingAdapter();
-//            setRecyclerView(rootView);
+            setRecyclerView(rootView);
         }
 
         @Override
@@ -66,7 +66,7 @@ public class MeetingRacesFragment extends Fragment
 //        }
 
     private void setRecyclerView(View view) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_meetings_details_listing);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_races_details_listing);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         llm.scrollToPosition(0);

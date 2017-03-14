@@ -23,7 +23,7 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_race_row, parent, false);
             view.setFocusable(true);
             // don't need to keep a local copy, framework now supplies.
-            return new MeetingRacesViewHolder(view, itemClickListener, itemLongClickListener);
+            return new MeetingRacesViewHolder(view, itemClickListener); //, itemLongClickListener);
         } else {
             throw new RuntimeException("Not bound to RecyclerView");
         }
@@ -60,12 +60,12 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
         idColNdx = cursor.getColumnIndex(SchemaConstants.RACE_ROWID);
         raceIdNdx = cursor.getColumnIndex(SchemaConstants.RACE_ID);
         raceNoNdx = cursor.getColumnIndex(SchemaConstants.RACE_NO);
-// /        meetingDateNdx = cursor.getColumnIndex(SchemaConstants.MEETING_DATE);
-//        trackNameNdx = cursor.getColumnIndex(SchemaConstants.MEETING_TRACK);
-//        clubNameNdx = cursor.getColumnIndex(SchemaConstants.MEETING_CLUB);
-//        racingStatusNdx = cursor.getColumnIndex(SchemaConstants.MEETING_STATUS);
-//        numRacesNdx = cursor.getColumnIndex(SchemaConstants.MEETING_NO_RACES);
-//        bariierTrialNdx = cursor.getColumnIndex(SchemaConstants.MEETING_IS_TRIAL);
+        raceNameNdx = cursor.getColumnIndex(SchemaConstants.RACE_NAME);
+        raceTimeNdx = cursor.getColumnIndex(SchemaConstants.RACE_TIME);
+        raceClassNdx = cursor.getColumnIndex(SchemaConstants.RACE_CLASS);
+        raceDistNdx = cursor.getColumnIndex(SchemaConstants.RACE_DISTANCE);
+        raceRatingNdx = cursor.getColumnIndex(SchemaConstants.RACE_TRACK_RATING);
+        racePrizeNdx = cursor.getColumnIndex(SchemaConstants.RACE_PRIZE_TOTAL);
 
         notifyDataSetChanged();
     }
@@ -74,9 +74,9 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
         this.itemClickListener = listener;
     }
 
-    public void setOnItemLongClickListener(IItemLongClickListener listener) {
-        this.itemLongClickListener = listener;
-    }
+//    public void setOnItemLongClickListener(IItemLongClickListener listener) {
+//        this.itemLongClickListener = listener;
+//    }
 
     public Cursor getCursor() { return cursor; }
 
@@ -87,14 +87,15 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
     private void adapaterOnBindViewHolder(MeetingRacesViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
-//        holder.getMeetingId().setText(cursor.getString(meetingIdNdx));
-//        holder.getTvMeetingDate().setText(cursor.getString(meetingDateNdx));
-//        String[] strArr = cursor.getString(meetingDateNdx).split("-");
-
-//        holder.getTrackName().setText(cursor.getString(trackNameNdx));
-//        holder.getClubName().setText(cursor.getString(clubNameNdx));
-//        holder.getRacingStatus().setText(cursor.getString(racingStatusNdx));
-//        holder.getNumRaces().setText(cursor.getString(numRacesNdx));
+//        holder.getRaceId().setText(cursor.getString(raceIdNdx));
+        holder.getRaceNo().setText(cursor.getString(raceNoNdx));
+        holder.getRaceName().setText(cursor.getString(raceNameNdx));
+        holder.getRaceTime().setText(cursor.getString(raceTimeNdx));
+        holder.getRaceClass().setText(cursor.getString(raceClassNdx));
+        String[] distance = cursor.getString(raceDistNdx).split(" ");
+        holder.getRaceDistanave().setText(distance[0]);
+        holder.getRaceRating().setText(cursor.getString(raceRatingNdx));
+        holder.getRacePrize().setText(cursor.getString(racePrizeNdx));
     }
 
     private View view;
@@ -112,7 +113,7 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
     private int racePrizeNdx;
 
     private IItemClickListener itemClickListener;
-    private IItemLongClickListener itemLongClickListener;
+//    private IItemLongClickListener itemLongClickListener;
 }
 /*
   <Race Id="439963">
