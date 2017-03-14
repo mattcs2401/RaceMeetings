@@ -23,8 +23,7 @@ import com.mcssoft.racemeetings.utility.ListingDivider;
 import com.mcssoft.racemeetings.utility.Resources;
 
 public class MeetingRacesFragment extends Fragment
-            implements IItemClickListener,
-                       IItemLongClickListener {
+            implements IItemClickListener {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,21 +34,15 @@ public class MeetingRacesFragment extends Fragment
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
+            String meetingId = getArguments().getString("meeting_id_key");
             DatabaseOperations dbOper = new DatabaseOperations(getActivity());
-            int meetingId = getActivity().getIntent().getExtras()
-                    .getInt("meeting_id_key");
             cursor = dbOper.getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
-                    SchemaConstants.WHERE_FOR_GET_RACE_MEETINGID, new String[] {Integer.toString(meetingId)});
+                    SchemaConstants.WHERE_FOR_GET_RACE_MEETINGID, new String[] {meetingId});
+            cursor.moveToFirst();
 
-            String bp = "" ;
-//            setMeetingAdapter();
+            setMeetingAdapter();
 //            setRecyclerView(rootView);
         }
-
-//        @Override
-//        public void onStart() {
-//            super.onStart();
-//        }
 
         @Override
         public void onDestroy() {
@@ -66,11 +59,11 @@ public class MeetingRacesFragment extends Fragment
 //            popupMenu.show();
         }
 
-        @Override
-        public void onItemLongClick(View view, int position) {
-            // TBA.
-            String bp = "";
-        }
+//        @Override
+//        public void onItemLongClick(View view, int position) {
+//            // TBA.
+//            String bp = "";
+//        }
 
     private void setRecyclerView(View view) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_meetings_details_listing);
@@ -85,9 +78,10 @@ public class MeetingRacesFragment extends Fragment
     }
 
     private void setMeetingAdapter() {
+
         meetingsAdapter = new MeetingRacesAdapter();
         meetingsAdapter.setOnItemClickListener(this);
-        meetingsAdapter.setOnItemLongClickListener(this);
+//        meetingsAdapter.setOnItemLongClickListener(this);
         meetingsAdapter.swapCursor(cursor);
         if(cursor.getCount() == 0) {
             meetingsAdapter.setEmptyView(true);
@@ -96,11 +90,11 @@ public class MeetingRacesFragment extends Fragment
         }
     }
 
-    private int getDbRowId(int position) {
-        meetingsAdapter.getItemId(position);
-        Cursor cursor = meetingsAdapter.getCursor();
-        return cursor.getInt(cursor.getColumnIndex(SchemaConstants.MEETING_ROWID));
-    }
+//    private int getDbRowId(int position) {
+//        meetingsAdapter.getItemId(position);
+//        Cursor cursor = meetingsAdapter.getCursor();
+//        return cursor.getInt(cursor.getColumnIndex(SchemaConstants.RACE_ROWID));
+//    }
 
     private int position;
     private View rootView;

@@ -59,7 +59,7 @@ public class DownloadData extends AsyncTask<String,Void,String> {
      */
     @Override
     protected void onPostExecute(String theResult) {
-        super.onPostExecute(theResult);
+//        super.onPostExecute(theResult);
         progressDialog.dismiss();
         asyncResult.result(output, theResult);
     }

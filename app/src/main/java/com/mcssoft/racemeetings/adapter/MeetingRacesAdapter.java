@@ -57,7 +57,7 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
         cursor = newCursor;
         cursor.moveToFirst();
 
-        idColNdx = cursor.getColumnIndex(SchemaConstants.MEETING_ROWID);
+        idColNdx = cursor.getColumnIndex(SchemaConstants.RACE_ROWID);
 //        meetingIdNdx = cursor.getColumnIndex(SchemaConstants.MEETING_ID);
 //        meetingDateNdx = cursor.getColumnIndex(SchemaConstants.MEETING_DATE);
 //        trackNameNdx = cursor.getColumnIndex(SchemaConstants.MEETING_TRACK);

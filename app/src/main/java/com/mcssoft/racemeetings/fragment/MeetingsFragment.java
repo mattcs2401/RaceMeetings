@@ -21,6 +21,7 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 import com.mcssoft.racemeetings.database.DatabaseOperations;
+import com.mcssoft.racemeetings.utility.DownloadHelper;
 import com.mcssoft.racemeetings.utility.ListingDivider;
 import com.mcssoft.racemeetings.utility.Resources;
 
@@ -73,14 +74,14 @@ public class MeetingsFragment extends Fragment
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.meetings_context_menu_races:
-                intent = new Intent(getActivity(), MeetingRacesActivity.class);
+                getDataForMeetingRaces(getDbRowId(position));
                 break;
             case R.id.meetings_context_menu_detail:
                 intent = new Intent(getActivity(), MeetingDetailActivity.class);
+                intent.putExtra(Resources.getInstance().getString(R.string.meetings_rowid_key), getDbRowId(position));
+                startActivity(intent);
                 break;
         }
-        intent.putExtra(Resources.getInstance().getString(R.string.meetings_rowid_key), getDbRowId(position));
-        startActivity(intent);
         return false;
     }
 
@@ -118,6 +119,18 @@ public class MeetingsFragment extends Fragment
         meetingsAdapter.getItemId(position);
         Cursor cursor = meetingsAdapter.getCursor();
         return cursor.getInt(cursor.getColumnIndex(SchemaConstants.MEETING_ROWID));
+    }
+
+    private void getDataForMeetingRaces(int meetingRowId) {
+        // Note: MeetingRacesActivity will launch from the iAsyncResult.result() method.
+        DatabaseOperations dbOper = new DatabaseOperations(getActivity());
+        Cursor cursor = dbOper.getSelectionFromTable(SchemaConstants.MEETINGS_TABLE, null,
+                SchemaConstants.WHERE_FOR_GET_MEETING, new String[] {Integer.toString(meetingRowId)});
+        cursor.moveToFirst();
+        int meetingId = cursor.getInt(cursor.getColumnIndex(SchemaConstants.MEETING_ID));
+
+        DownloadHelper downloadHelper = new DownloadHelper(getActivity());
+        downloadHelper.getRacesForMeeting(Integer.toString(meetingId));
     }
 
     private int position;

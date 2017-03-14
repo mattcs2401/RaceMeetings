@@ -71,6 +71,7 @@ public class DownloadHelper implements IAsyncResult {
                 }
                 // Have to put it here because of inter process issues.
                 intent = new Intent(context, MeetingRacesActivity.class);
+                intent.putExtra("meeting_id_key", queryParam);
                 context.startActivity(intent);
                 break;
         }

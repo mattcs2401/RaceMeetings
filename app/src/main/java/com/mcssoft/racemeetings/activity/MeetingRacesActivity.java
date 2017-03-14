@@ -20,29 +20,13 @@ public class MeetingRacesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initialiseBaseUI();
-        databaseCheckOrUpdate();
         loadFragment();
-    }
-
-    private void databaseCheckOrUpdate() {
-        int meetingRowId = getIntent().getExtras()
-                .getInt(Resources.getInstance().getString(R.string.meetings_rowid_key));
-        DatabaseOperations dbOper = new DatabaseOperations(this);
-        Cursor cursor = dbOper.getSelectionFromTable(SchemaConstants.MEETINGS_TABLE, null,
-                SchemaConstants.WHERE_FOR_GET_MEETING, new String[] {Integer.toString(meetingRowId)});
-        cursor.moveToFirst();
-        int meetingId = cursor.getInt(cursor.getColumnIndex(SchemaConstants.MEETING_ID));
-
-//        DownloadHelper downloadHelper = new DownloadHelper(this);
-//        downloadHelper.getRacesForMeeting(Integer.toString(meetingId));
-
-//        getIntent().getExtras().clear();
-        getIntent().getExtras().putInt("meeting_id_key", meetingId);
     }
 
     private void loadFragment() {
         String fragment_tag = Resources.getInstance().getString(R.string.meeting_races_fragment_tag);
         MeetingRacesFragment meetingRacesFragment = new MeetingRacesFragment();
+        meetingRacesFragment.setArguments(getIntent().getExtras());
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_main, meetingRacesFragment, fragment_tag)
                 .addToBackStack(fragment_tag)
@@ -61,4 +45,4 @@ public class MeetingRacesActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBar actionBar;
 }
-// intent.putExtra(Resources.getInstance().getString(R.string.meetings_rowid_key), getDbRowId(position));
+
