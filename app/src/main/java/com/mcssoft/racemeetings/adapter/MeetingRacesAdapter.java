@@ -36,15 +36,15 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
 
     @Override
     public int getItemCount() {
-//        if(emptyView) {
-//            return  1; // need to do this so the onCreateViewHolder fires.
-//        } else {
+        if(emptyView) {
+            return  1; // need to do this so the onCreateViewHolder fires.
+        } else {
             if(cursor != null) {
                 return cursor.getCount();
             } else {
                 return 0;
             }
-//        }
+        }
     }
 
     @Override
@@ -58,8 +58,9 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
         cursor.moveToFirst();
 
         idColNdx = cursor.getColumnIndex(SchemaConstants.RACE_ROWID);
-//        meetingIdNdx = cursor.getColumnIndex(SchemaConstants.MEETING_ID);
-//        meetingDateNdx = cursor.getColumnIndex(SchemaConstants.MEETING_DATE);
+        raceIdNdx = cursor.getColumnIndex(SchemaConstants.RACE_ID);
+        raceNoNdx = cursor.getColumnIndex(SchemaConstants.RACE_NO);
+// /        meetingDateNdx = cursor.getColumnIndex(SchemaConstants.MEETING_DATE);
 //        trackNameNdx = cursor.getColumnIndex(SchemaConstants.MEETING_TRACK);
 //        clubNameNdx = cursor.getColumnIndex(SchemaConstants.MEETING_CLUB);
 //        racingStatusNdx = cursor.getColumnIndex(SchemaConstants.MEETING_STATUS);
@@ -101,25 +102,32 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
     private boolean emptyView;
 
     private int idColNdx;
-//    private int meetingIdNdx;
-//    private int meetingDateNdx;
-//    private int trackNameNdx;
-//    private int clubNameNdx;
-//    private int racingStatusNdx;
-//    private int numRacesNdx;
-//    private int bariierTrialNdx;
+    private int raceIdNdx;
+    private int raceNoNdx;
+    private int raceNameNdx;
+    private int raceTimeNdx;
+    private int raceClassNdx;
+    private int raceDistNdx;
+    private int raceRatingNdx;
+    private int racePrizeNdx;
 
     private IItemClickListener itemClickListener;
     private IItemLongClickListener itemLongClickListener;
 }
 /*
-
-  <Meeting Id="88788">
-    <MeetingDate>2017-02-18</MeetingDate>
-    <TrackName>Gold Coast</TrackName>
-    <ClubName>Gold Coast Turf Club</ClubName>
-    <RacingStatus>Provincial</RacingStatus>
-    <NumberOfRaces>8</NumberOfRaces>
-    <IsBarrierTrial>false</IsBarrierTrial>
-  </Meeting>
- */
+  <Race Id="439963">
+    <RaceNumber>1</RaceNumber>
+    <RaceName>APEX - BUILDING BETTER COMMUNITIES C,G&E Class 1 Handicap</RaceName>
+    <RaceTime>12:52PM</RaceTime>
+    <Class>Class 1</Class>
+    <Distance>1400 metres</Distance>
+    <TrackRating>Good</TrackRating>
+    <PrizeTotal>$14,000.00</PrizeTotal>
+    <AgeCondition>No age restriction</AgeCondition>
+    <SexCondition>Colts, Geldings and Entires</SexCondition>
+    <WeightCondition>Handicap</WeightCondition>
+    <ApprenticeClaim>true</ApprenticeClaim>
+    <StartersFee>$173.00</StartersFee>
+    <AcceptanceFee>$0.00</AcceptanceFee>
+  </Race>
+*/
