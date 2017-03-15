@@ -165,14 +165,8 @@ public class MainActivity extends AppCompatActivity
         networkExists = (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected());
     }
 
-    public boolean checkPreferences() {
+    private boolean checkPreferences() {
         return Preferences.getInstance().getMeetingsShowToday();
-//        if(Preferences.getInstance().getMeetingsShowToday()) {
-//            if(arguments == null) {
-//                arguments = new Bundle();
-//            }
-//            arguments.putBoolean(Preferences.getInstance().getMeetingShowTodayKey(), true);
-//        }
     }
 
     private String formatSearchDateValues(String[] values) {
