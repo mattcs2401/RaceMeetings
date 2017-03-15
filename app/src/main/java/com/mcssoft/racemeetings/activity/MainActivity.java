@@ -3,8 +3,10 @@ package com.mcssoft.racemeetings.activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -35,15 +37,23 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle arguments = null;
         Resources.getInstance(this);        // setup resources access.
         Preferences.getInstance(this);      // setup preferences access.
 
-        arguments = networkAndDatabaseCheck();
+        checkForNetwork();
 
-        initialiseBaseUI();                     // initialise UI components.
+        if(networkExists) {
+            checkDatabaseTables();          // simple sanity check that base tables and network exist.
+            checkPreferences();                 // check the show today's meetings preferences.
+        } else {
+            if(arguments == null) {
+                arguments = new Bundle();
+            }
+            arguments.putBoolean(Resources.getInstance().getString(R.string.network_exists_key),false);
+        }
 
-        loadFragment(savedInstanceState, arguments);
+        initialiseBaseUI();                 // initialise UI components.
+        loadFragment(savedInstanceState);   // load the activity's associated MainFragment.
     }
 
     @Override
@@ -100,19 +110,10 @@ public class MainActivity extends AppCompatActivity
         downloadHelper.getMeetingsByDate(searchDate);
     }
 
-    private Bundle networkAndDatabaseCheck() {
-        Bundle arguments = null;
-        if(checkForNetwork()) {
-            // data check.
-            DatabaseOperations dbOper = new DatabaseOperations(this);
-            dbOper.checkClubs();
-            dbOper.checkTracks();
-        } else {
-            // no active network connection exists.
-            arguments = new Bundle();
-            arguments.putString("no_network_key","no_network");
-        }
-        return arguments;
+    private void checkDatabaseTables() {
+        DatabaseOperations dbOper = new DatabaseOperations(this);
+        dbOper.checkClubs();
+        dbOper.checkTracks();
     }
 
     private void initialiseBaseUI() {
@@ -131,11 +132,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void loadFragment(Bundle savedInstanceState, Bundle args) {
+    private void loadFragment(Bundle savedInstanceState) {
         String fragment_tag = Resources.getInstance().getString(R.string.main_fragment_tag);
         MainFragment mainFragment = new MainFragment();
-        if(args != null) {
-            mainFragment.setArguments(args);
+        if(arguments != null) {
+            mainFragment.setArguments(arguments);
         }
 
         if(savedInstanceState == null) {
@@ -154,11 +155,25 @@ public class MainActivity extends AppCompatActivity
      * Check the network type in the Preferences against the actual active network type.
      * @return True if the Preferences network type is the same as the actual active network type.
      */
-    private boolean checkForNetwork() {
+    private void checkForNetwork() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected());
+        networkExists = (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected());
+    }
+
+    public void checkPreferences() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+//        Map<String,?> prefsMap = sp.getAll();
+        String key = Resources.getInstance().getString(R.string.pref_meetings_show_today_key);
+        if(sp.getAll().containsKey(key)) {
+            if(sp.getBoolean(key, false)) {
+                if(arguments == null) {
+                    arguments = new Bundle();
+                }
+                arguments.putBoolean(key, true);
+            }
+        }
     }
 
     private String formatSearchDateValues(String[] values) {
@@ -176,4 +191,6 @@ public class MainActivity extends AppCompatActivity
                 .getString(R.string.date_format_yyyyMMdd), Locale.getDefault()).format(new Date());
     }
 
+    private boolean networkExists;
+    private Bundle arguments;
 }

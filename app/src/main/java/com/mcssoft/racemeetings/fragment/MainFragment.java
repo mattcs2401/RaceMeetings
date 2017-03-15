@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.utility.Resources;
 
+import java.util.Set;
+
 public class MainFragment extends Fragment {
 
     @Override
@@ -26,20 +28,29 @@ public class MainFragment extends Fragment {
         checkArguments();
     }
 
-    // Check the arguments for existance of "no_network_key". Existance of a network was checked in
-    // the activity
+    // Check the arguments for existance of "network_exists_key".
     private void checkArguments() {
         Bundle args = getArguments();
-        if(args != null) {
-            if(args.containsKey(Resources.getInstance().getString(R.string.no_network_key))) {
+        Set<String> argsKeySet = args.keySet();
 
-                tvMessage = (TextView) rootView.findViewById(R.id.id_tv_message);
-                String message = "No network connection exists."
-                        + Resources.getInstance().getString(R.string.CR_LF)
-                        + "Check your device settings.";
-                tvMessage.setText(message);
-            }
+        for(String key : argsKeySet) {
+
         }
+
+//        if(args != null) {
+//            key = Resources.getInstance().getString(R.string.network_exists_key);
+//            if(args.containsKey(key)) {
+//               if(args.getBoolean(key, false)) {
+//
+//                    tvMessage = (TextView) rootView.findViewById(R.id.id_tv_message);
+//                    String message = Resources.getInstance().getString(R.string.no_network)
+//                                   + Resources.getInstance().getString(R.string.CR_LF)
+//                                   + Resources.getInstance().getString(R.string.check_device);
+//                    tvMessage.setText(message);
+//               }
+//            }
+//
+//        }
     }
 
     View rootView;

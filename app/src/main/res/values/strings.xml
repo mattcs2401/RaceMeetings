@@ -31,8 +31,10 @@
     <string name="get_meetings_details">Retrieving Meeting details.</string>
     <string name="get_races_details">Retrieving Race details.</string>
     <!-- Generic keys. -->
-    <string name="no_network_key">no_network_key</string>
-    <string name="no_network">no_network</string>
+    <string name="network_exists_key"></string>
+    <string name="show_todays_meetings_key"></string>
+    <string name="no_network">No network connection exists.</string>
+    <string name="check_device">Check your device settings.</string>
     <string name="meetings_rowid_key">meetings_rowid_key</string>
     <string name="CR_LF">\r\n</string>
     <!-- Preference keys. -->
