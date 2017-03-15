@@ -44,7 +44,10 @@ public class MainActivity extends AppCompatActivity
 
         if(networkExists) {
             checkDatabaseTables();          // simple sanity check that base tables and network exist.
-            checkPreferences();                 // check the show today's meetings preferences.
+            if(checkPreferences()) {        // check the show today's meetings preferences.
+                // go direct to showing today's meetings.
+                loadMeetingsActivityByProxy(getDate());
+            }
         } else {
             if(arguments == null) {
                 arguments = new Bundle();
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void iDateValues(String[] values) {
-        String searchdate = formatSearchDateValues(values);;
+        String searchdate = formatSearchDateValues(values);
         loadMeetingsActivityByProxy(searchdate);
     }
 
@@ -162,18 +165,14 @@ public class MainActivity extends AppCompatActivity
         networkExists = (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected());
     }
 
-    public void checkPreferences() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-//        Map<String,?> prefsMap = sp.getAll();
-        String key = Resources.getInstance().getString(R.string.pref_meetings_show_today_key);
-        if(sp.getAll().containsKey(key)) {
-            if(sp.getBoolean(key, false)) {
-                if(arguments == null) {
-                    arguments = new Bundle();
-                }
-                arguments.putBoolean(key, true);
-            }
-        }
+    public boolean checkPreferences() {
+        return Preferences.getInstance().getMeetingsShowToday();
+//        if(Preferences.getInstance().getMeetingsShowToday()) {
+//            if(arguments == null) {
+//                arguments = new Bundle();
+//            }
+//            arguments.putBoolean(Preferences.getInstance().getMeetingShowTodayKey(), true);
+//        }
     }
 
     private String formatSearchDateValues(String[] values) {

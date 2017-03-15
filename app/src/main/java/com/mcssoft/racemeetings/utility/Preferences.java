@@ -33,6 +33,14 @@ public class Preferences {
     }
     //</editor-fold>
 
+    public boolean getMeetingsShowToday() {
+        return getDefaultSharedPreferences().getBoolean(getMeetingShowTodayKey(), false);
+    }
+
+    public String getMeetingShowTodayKey() {
+        return Resources.getInstance().getString(R.string.pref_meetings_show_today_key);
+    }
+
     public SharedPreferences getDefaultSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
