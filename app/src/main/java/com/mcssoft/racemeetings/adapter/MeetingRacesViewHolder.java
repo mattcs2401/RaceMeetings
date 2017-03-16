@@ -23,9 +23,9 @@ public class MeetingRacesViewHolder extends RecyclerView.ViewHolder
         tvRaceNo = (TextView) view.findViewById(R.id.id_tv_race_no_val);
         tvRaceName = (TextView) view.findViewById(R.id.id_tv_race_name_val);
         tvRaceTime = (TextView) view.findViewById(R.id.id_tv_race_time_val);
-        tvRaceClass = (TextView) view.findViewById(R.id.id_tv_race_class_val);
+//        tvRaceClass = (TextView) view.findViewById(R.id.id_tv_race_class_val);
         tvRaceDistance = (TextView) view.findViewById(R.id.id_tv_race_dist_val);
-        tvRaceRating = (TextView) view.findViewById(R.id.id_tv_race_rating_val);
+//        tvRaceRating = (TextView) view.findViewById(R.id.id_tv_race_rating_val);
         tvRacePrize = (TextView) view.findViewById(R.id.id_tv_race_prize_val);
 
         itemClickListener = listener;
@@ -60,7 +60,7 @@ public class MeetingRacesViewHolder extends RecyclerView.ViewHolder
     public TextView getRaceTime() { return tvRaceTime; }
     public TextView getRaceClass() { return tvRaceClass; }
     public TextView getRaceDistanave() { return tvRaceDistance; }
-    public TextView getRaceRating() { return tvRaceRating; }
+//    public TextView getRaceRating() { return tvRaceRating; }
     public TextView getRacePrize() { return tvRacePrize; }
 
     public TextView getEmptyText() { return tvEmptyView; }

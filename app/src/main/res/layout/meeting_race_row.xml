@@ -26,39 +26,19 @@
         android:text="Time"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toRightOf="@+id/id_tv_race_no"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp" />
 
     <TextView
         android:id="@+id/id_tv_race_dist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Dist"
+        android:text="Distance"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toRightOf="@+id/id_tv_race_time"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/id_tv_race_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Rating"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_dist"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/id_tv_race_class"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Class"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_rating"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -74,7 +54,6 @@
         android:id="@+id/id_tv_race_time_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_time"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_time" />
@@ -83,37 +62,15 @@
         android:id="@+id/id_tv_race_dist_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_dist"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_dist" />
 
     <TextView
-        android:id="@+id/id_tv_race_rating_val"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_rating"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_rating" />
-
-    <TextView
-        android:id="@+id/id_tv_race_class_val"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_class"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_class" />
-
-    <TextView
         android:id="@+id/id_tv_race_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="Name"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
@@ -124,7 +81,6 @@
         android:id="@+id/id_tv_race_name_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_name"
@@ -138,14 +94,14 @@
         android:layout_marginTop="8dp"
         android:text="Prize"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_class"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_dist" />
 
     <TextView
         android:id="@+id/id_tv_race_prize_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_prize"

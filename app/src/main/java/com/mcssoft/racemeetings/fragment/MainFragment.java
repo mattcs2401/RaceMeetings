@@ -40,7 +40,7 @@ public class MainFragment extends Fragment {
             String key = Resources.getInstance().getString(R.string.network_exists_key);
 
             if(args.containsKey(key)) {          // key exists ?
-               if(args.getBoolean(key, false)) { // get the value.
+               if(!args.getBoolean(key, false)) { // get the value.
 
                     tvMessage = (TextView) rootView.findViewById(R.id.id_tv_message);
                     String message = Resources.getInstance().getString(R.string.no_network)
@@ -49,7 +49,6 @@ public class MainFragment extends Fragment {
                     tvMessage.setText(message);
                }
             }
-
         }
     }
 

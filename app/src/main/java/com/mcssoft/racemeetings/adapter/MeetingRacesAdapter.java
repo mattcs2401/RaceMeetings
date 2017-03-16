@@ -91,12 +91,12 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
         holder.getRaceNo().setText(cursor.getString(raceNoNdx));
         holder.getRaceName().setText(cursor.getString(raceNameNdx));
         holder.getRaceTime().setText(cursor.getString(raceTimeNdx));
-        holder.getRaceClass().setText(cursor.getString(raceClassNdx));
-        String[] distance = cursor.getString(raceDistNdx).split(" ");
-        holder.getRaceDistanave().setText(distance[0]);
-        holder.getRaceRating().setText(cursor.getString(raceRatingNdx));
+//        holder.getRaceClass().setText(cursor.getString(raceClassNdx));
+        holder.getRaceDistanave().setText((cursor.getString(raceDistNdx).split(" "))[0]);
+//        holder.getRaceRating().setText(cursor.getString(raceRatingNdx));
         holder.getRacePrize().setText(cursor.getString(racePrizeNdx));
     }
+
 
     private View view;
     private Cursor cursor;
