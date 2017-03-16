@@ -20,7 +20,7 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
     public MeetingsViewHolder(View view, IItemClickListener listener, IItemLongClickListener longListener) {
         super(view);
 //        tvMeetingId = (TextView) view.findViewById(R.id)
-        tvMeetingDateDDMM = (TextView) view.findViewById(R.id.id_tv_race_no);
+        tvMeetingDateDDMMM = (TextView) view.findViewById(R.id.id_tv_ddmmm);
         tvMeetingDateYYYY = (TextView) view.findViewById(R.id.id_tv_yyyy);
         tvTrackName = (TextView) view.findViewById(R.id.id_tv_track_name);
 //        tvClubName = (TextView) view.findViewById(R.id.id_tv_club_name);
@@ -54,9 +54,9 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Accessors">
-    public TextView getMeetingId() { return tvMeetingId;  }
-//    public TextView getTvMeetingDateMMDD() { return tvMeetingDateDDMM; }
-//    public TextView getTvMeetingDateYYYY() { return tvMeetingDateYYYY; }
+//    public TextView getMeetingId() { return tvMeetingId;  }
+    public TextView getMeetingDateDDMMM() { return tvMeetingDateDDMMM; }
+    public TextView getMeetingDateYYYY() { return tvMeetingDateYYYY; }
     public TextView getTrackName() { return tvTrackName; }
 //    public TextView getClubName() { return tvClubName; }
 //    public TextView getRacingStatus() { return tvRacingStatus; }
@@ -67,12 +67,12 @@ public class MeetingsViewHolder  extends RecyclerView.ViewHolder
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Private vars">
-    private TextView tvMeetingId;
-    private TextView tvMeetingDateDDMM;
+//    private TextView tvMeetingId;
+    private TextView tvMeetingDateDDMMM;
     private TextView tvMeetingDateYYYY;
     private TextView tvTrackName;
-    private TextView tvClubName;
-    private TextView tvRacingStatus;
+//    private TextView tvClubName;
+//    private TextView tvRacingStatus;
     private TextView tvNumRaces;
     private TextView tvBarrierTrial;
 

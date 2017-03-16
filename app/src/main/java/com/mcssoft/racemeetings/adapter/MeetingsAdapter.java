@@ -11,12 +11,17 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.*;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Utility class that lists the Meetings for a particular (user selected) date.
  */
 
 public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
+
+    public MeetingsAdapter() {
+        createMonthHashMap();
+    }
 
     @Override
     public MeetingsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -99,13 +104,12 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
     private void adapaterOnBindViewHolder(MeetingsViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
-//        holder.getMeetingId().setText(cursor.getString(meetingIdNdx));
-//        holder.getTvMeetingDate().setText(cursor.getString(meetingDateNdx));
         String[] strArr = cursor.getString(meetingDateNdx).split("-");
+        String ddMMM = strArr[2] + " " + monthHashMap.get(Integer.parseInt(strArr[1]));
+        holder.getMeetingDateDDMMM().setText(ddMMM);
+        holder.getMeetingDateYYYY().setText(strArr[0]);
 
         holder.getTrackName().setText(cursor.getString(trackNameNdx));
-//        holder.getClubName().setText(cursor.getString(clubNameNdx));
-//        holder.getRacingStatus().setText(cursor.getString(racingStatusNdx));
         holder.getNumRaces().setText(cursor.getString(numRacesNdx));
 
         String isTrial = cursor.getString(bariierTrialNdx);
@@ -114,6 +118,22 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
         } else {
             holder.getBarrierTrial().setText("Y");
         }
+    }
+
+    private void createMonthHashMap() {
+        monthHashMap = new HashMap();
+        monthHashMap.put(1,"Jan");
+        monthHashMap.put(2,"Feb");
+        monthHashMap.put(3,"Mar");
+        monthHashMap.put(4,"Apr");
+        monthHashMap.put(5,"May");
+        monthHashMap.put(6,"Jun");
+        monthHashMap.put(7,"Jul");
+        monthHashMap.put(8,"Aug");
+        monthHashMap.put(9,"Sep");
+        monthHashMap.put(10,"Oct");
+        monthHashMap.put(11,"Nov");
+        monthHashMap.put(12,"Dec");
     }
 
     private View view;
@@ -129,11 +149,12 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsViewHolder> {
     private int numRacesNdx;
     private int bariierTrialNdx;
 
+    private HashMap monthHashMap;
+
     private IItemClickListener itemClickListener;
     private IItemLongClickListener itemLongClickListener;
 }
 /*
-
   <Meeting Id="88788">
     <MeetingDate>2017-02-18</MeetingDate>
     <TrackName>Gold Coast</TrackName>

@@ -10,7 +10,7 @@
         android:text="03 Apr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/id_tv_race_no"
+        android:id="@+id/id_tv_ddmmm"
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
@@ -22,13 +22,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/id_tv_yyyy"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_no"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_ddmmm"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_no"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_ddmmm"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/id_tv_race_no" />
+        app:layout_constraintRight_toRightOf="@+id/id_tv_ddmmm" />
 
     <TextView
         android:id="@+id/id_tv_track_name"
@@ -39,7 +39,7 @@
         android:layout_marginTop="8dp"
         android:text="Blackall"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_no"
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_ddmmm"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -65,22 +65,20 @@
         android:layout_marginLeft="8dp" />
 
     <TextView
-        android:text="10"
+        android:id="@+id/id_tv_numRaces_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/id_tv_numRaces_val"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_races"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_races"
         app:layout_constraintRight_toRightOf="@+id/id_tv_races"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"/>
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_races" />
 
     <TextView
-        android:text="N"
+        android:id="@+id/id_tv_barrier_trial_YN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/id_tv_barrier_trial_YN"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_barrier_trial"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_barrier_trial"
         app:layout_constraintRight_toRightOf="@+id/id_tv_barrier_trial"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"/>
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_barrier_trial" />
 </android.support.constraint.ConstraintLayout>
