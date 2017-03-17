@@ -3,10 +3,8 @@ package com.mcssoft.racemeetings.activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -34,17 +32,15 @@ public class MainActivity extends AppCompatActivity
                    IDateSelect {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle inState) {
+        super.onCreate(inState);
 
-        Resources.getInstance(this);        // setup resources access.
-        Preferences.getInstance(this);      // setup preferences access.
+        Resources.getInstance(this);   // setup resources access.
+        Preferences.getInstance(this); // setup preferences access.
 
-        checkForNetwork();
-
-        if(networkExists) {
-            checkDatabaseTables();          // simple sanity check that base tables and network exist.
-            if(checkPreferences()) {        // check the show today's meetings preferences.
+        if(checkForNetwork()) {
+            checkDatabaseTables();     // TBA - need a way to bypass this when onCreate again.
+            if(checkPreferences()) {
                 // go direct to showing today's meetings.
                 loadMeetingsActivityByProxy(getDate());
             }
@@ -55,8 +51,8 @@ public class MainActivity extends AppCompatActivity
             arguments.putBoolean(Resources.getInstance().getString(R.string.network_exists_key),false);
         }
 
-        initialiseBaseUI();                 // initialise UI components.
-        loadFragment(savedInstanceState);   // load the activity's associated MainFragment.
+        initialiseBaseUI();       // initialise UI components.
+        loadFragment(inState);    // load the activity's associated MainFragment.
     }
 
     @Override
@@ -158,11 +154,11 @@ public class MainActivity extends AppCompatActivity
      * Check the network type in the Preferences against the actual active network type.
      * @return True if the Preferences network type is the same as the actual active network type.
      */
-    private void checkForNetwork() {
+    private boolean checkForNetwork() {
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        networkExists = (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected());
+        return (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected());
     }
 
     private boolean checkPreferences() {
@@ -184,6 +180,5 @@ public class MainActivity extends AppCompatActivity
                 .getString(R.string.date_format_yyyyMMdd), Locale.getDefault()).format(new Date());
     }
 
-    private boolean networkExists;
     private Bundle arguments;
 }
