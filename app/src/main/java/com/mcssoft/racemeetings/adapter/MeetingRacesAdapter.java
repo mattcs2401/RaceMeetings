@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
-import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 
 /**
  * Utility class that lists the Meetings for a particular (user selected) date.
@@ -64,7 +63,7 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
         raceTimeNdx = cursor.getColumnIndex(SchemaConstants.RACE_TIME);
         raceClassNdx = cursor.getColumnIndex(SchemaConstants.RACE_CLASS);
         raceDistNdx = cursor.getColumnIndex(SchemaConstants.RACE_DISTANCE);
-        raceRatingNdx = cursor.getColumnIndex(SchemaConstants.RACE_TRACK_RATING);
+//        raceRatingNdx = cursor.getColumnIndex(SchemaConstants.RACE_TRACK_RATING);
         racePrizeNdx = cursor.getColumnIndex(SchemaConstants.RACE_PRIZE_TOTAL);
 
         notifyDataSetChanged();
@@ -91,8 +90,8 @@ public class MeetingRacesAdapter extends RecyclerView.Adapter<MeetingRacesViewHo
         holder.getRaceNo().setText(cursor.getString(raceNoNdx));
         holder.getRaceName().setText(cursor.getString(raceNameNdx));
         holder.getRaceTime().setText(cursor.getString(raceTimeNdx));
-//        holder.getRaceClass().setText(cursor.getString(raceClassNdx));
-        holder.getRaceDistanave().setText((cursor.getString(raceDistNdx).split(" "))[0]);
+        holder.getRaceClass().setText(cursor.getString(raceClassNdx));
+        holder.getRaceDistance().setText((cursor.getString(raceDistNdx).split(" "))[0]);
 //        holder.getRaceRating().setText(cursor.getString(raceRatingNdx));
         holder.getRacePrize().setText(cursor.getString(racePrizeNdx));
     }
