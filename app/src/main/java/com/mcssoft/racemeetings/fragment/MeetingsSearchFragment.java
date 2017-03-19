@@ -15,7 +15,7 @@ import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
 import com.mcssoft.racemeetings.utility.Resources;
 
-public class DateSearchFragment extends DialogFragment
+public class MeetingsSearchFragment extends DialogFragment
         implements DialogInterface.OnClickListener {
 
     @Override

@@ -11,9 +11,9 @@
             android:icon="@drawable/ic_binoculars_24"
             android:title="Meetings For Today" />
         <item
-            android:id="@+id/id_nav_menu_settings"
-            android:icon="@drawable/ic_wrench_black_24"
-            android:title="Preferences" />
+            android:id="@+id/id_nav_menu_clear_meetings"
+            android:icon="@drawable/ic_delete_black_24"
+            android:title="Delete Meetings" />
     </group>
 
 </menu>

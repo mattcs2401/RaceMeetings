@@ -12,13 +12,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.fragment.DateSearchFragment;
+import com.mcssoft.racemeetings.fragment.MeetingsDeleteFragment;
+import com.mcssoft.racemeetings.fragment.MeetingsSearchFragment;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
 import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.fragment.MainFragment;
+import com.mcssoft.racemeetings.interfaces.IMeetingsDelete;
 import com.mcssoft.racemeetings.utility.DownloadHelper;
 import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.Resources;
@@ -29,8 +33,9 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-                   IDateSelect {
+                   IDateSelect, IMeetingsDelete {
 
+    //<editor-fold defaultstate="collapsed" desc="Region: Lifecycle">
     @Override
     protected void onCreate(Bundle inState) {
         super.onCreate(inState);
@@ -56,6 +61,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.listing_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Resources.getInstance().destroy();
@@ -71,21 +82,24 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Region: Listeners">
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch(id) {
             case R.id.id_nav_menu_search:
-                DialogFragment dateSearchFragment = new DateSearchFragment();
+                DialogFragment dateSearchFragment = new MeetingsSearchFragment();
                 dateSearchFragment.show(getFragmentManager(),
                         Resources.getInstance().getString(R.string.date_search_fragment_tag));
                 break;
             case R.id.id_nav_menu_meetings_today:
                 loadMeetingsActivityByProxy(getDate());
                 break;
-            case R.id.id_nav_menu_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+            case R.id.id_nav_menu_clear_meetings:
+                DialogFragment deleteFragment = new MeetingsDeleteFragment();
+                deleteFragment.show(getFragmentManager(), null);
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -93,6 +107,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.toolbar_preference_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Region: Interface">
     /**
      * Implement IDateSelect interface.
      * @param values The date values; [0] YYYY, [1] MM, [2] DD.
@@ -103,6 +129,17 @@ public class MainActivity extends AppCompatActivity
         loadMeetingsActivityByProxy(searchdate);
     }
 
+    /**
+     * Implement the IMeetingsDelete interface.
+     * @param rows The number of rows deleted.
+     */
+    @Override
+    public void iMeetingsDelete(int rows) {
+        Toast.makeText(this, Integer.toString(rows) + " meeting entries deleted.", Toast.LENGTH_SHORT).show();
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Region: Utility">
     private void loadMeetingsActivityByProxy(String searchDate) {
         // Note: MeetingsActivity is launched as a result of this.
         DownloadHelper downloadHelper = new DownloadHelper(this);
@@ -179,6 +216,7 @@ public class MainActivity extends AppCompatActivity
         return new SimpleDateFormat(Resources.getInstance()
                 .getString(R.string.date_format_yyyyMMdd), Locale.getDefault()).format(new Date());
     }
+    //</editor-fold>
 
     private Bundle arguments;
 }

@@ -1,7 +1,7 @@
 package com.mcssoft.racemeetings.interfaces;
 
 /**
- * Used to provide an interface betweeen the DateSearchFragment and MainActivity.
+ * Used to provide an interface betweeen the MeetingsSearchFragment and MainActivity.
  */
 public interface IDateSelect {
     /**

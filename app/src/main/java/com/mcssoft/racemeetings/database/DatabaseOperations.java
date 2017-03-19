@@ -53,6 +53,15 @@ public class DatabaseOperations {
         return cursor;
     }
 
+    public int deleteAllFromTable(String tableName) {
+        SQLiteDatabase db = dbHelper.getDatabase();
+        db.beginTransaction();
+        int rows = db.delete(tableName, "1", null);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        return rows;
+    }
+
     /**
      * Utility wrapper method to query the database.
      * @param tableName The table name.
