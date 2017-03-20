@@ -286,7 +286,9 @@ public class DatabaseOperations {
                     cv.put(SchemaConstants.RACE_MEETING_ID, meetingId);
                     cv.put(SchemaConstants.RACE_NO, race.getRaceNumber());
                     cv.put(SchemaConstants.RACE_NAME, race.getRaceName());
-                    cv.put(SchemaConstants.RACE_TIME, race.getRaceTime());
+                    String time = race.getRaceTime();
+                    if(time == null) { time = "00:00"; }
+                    cv.put(SchemaConstants.RACE_TIME, time); //race.getRaceTime());
                     cv.put(SchemaConstants.RACE_CLASS, race.getRaceClass());
                     cv.put(SchemaConstants.RACE_DISTANCE, race.getRaceDistance());
                     cv.put(SchemaConstants.RACE_TRACK_RATING, race.getRaceTrackRating());

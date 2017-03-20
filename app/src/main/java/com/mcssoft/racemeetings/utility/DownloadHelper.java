@@ -61,10 +61,8 @@ public class DownloadHelper implements IAsyncResult {
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Race> races = mxmlp.parseRacesXml();
                 if(races != null && races.size() > 0) {
-//                    dbUtil.checkAndDeleteOld(tableName);
                     dbOper.insertFromList(SchemaConstants.RACES_TABLE, races, Integer.parseInt(queryParam));
                 } else {
-//                    dbUtil.checkAndDeleteOld(tableName);
                 }
                 // Have to put it here because of inter process issues.
                 intent = new Intent(context, MeetingRacesActivity.class);

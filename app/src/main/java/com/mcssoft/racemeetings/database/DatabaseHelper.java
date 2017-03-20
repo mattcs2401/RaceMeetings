@@ -66,12 +66,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  null;
     }
 
+    // TBA
     public void onStart() {
         if(db == null) {
             db = this.getWritableDatabase();
         }
     }
 
+    // TBA
     public void onStop() {
         if(db.isOpen()) {
             db.close();
