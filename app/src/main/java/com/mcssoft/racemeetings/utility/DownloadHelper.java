@@ -49,11 +49,8 @@ public class DownloadHelper implements IAsyncResult {
                 inStream = new ByteArrayInputStream(results.getBytes());
                 mxmlp = new XMLParser(inStream);
                 ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
-                if(meetings != null && meetings.size() > 0) {
-                    dbOper.checkAndDeleteOld(tableName);
+                if(meetings != null) {
                     dbOper.insertFromList(SchemaConstants.MEETINGS_TABLE, meetings, 0);
-                } else {
-                    dbOper.checkAndDeleteOld(tableName);
                 }
                 // Have to put it here because of inter process issues.
                 intent = new Intent(context, MeetingsActivity.class);

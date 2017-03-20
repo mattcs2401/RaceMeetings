@@ -17,6 +17,7 @@ import com.mcssoft.racemeetings.model.Meeting;
 import com.mcssoft.racemeetings.model.Race;
 import com.mcssoft.racemeetings.model.Track;
 import com.mcssoft.racemeetings.utility.DownloadHelper;
+import com.mcssoft.racemeetings.utility.Preferences;
 import com.mcssoft.racemeetings.utility.XMLParser;
 
 /**
@@ -45,6 +46,21 @@ public class DatabaseOperations {
         }
     }
 
+    /**
+     * Search the Meetings table based on the given parameter.
+     * @param searchDate The Meeting's MeetingDate value.
+     * @return True if records exist with the given date.
+     */
+    public boolean checkMeetingsByDate(String searchDate) {
+        // Note: the column select is purely arbitary (only interested in row count).
+        Cursor cursor = getSelectionFromTable(SchemaConstants.MEETINGS_TABLE,
+                                              new String[] {SchemaConstants.MEETING_ID},
+                                              SchemaConstants.WHERE_FOR_GET_MEETINGS_BY_DATE,
+                                              new String[] {searchDate});
+        cursor.moveToFirst();
+        return (cursor.getCount() > 0);
+    }
+
     public Cursor getAllFromTable(String tableName) {
         SQLiteDatabase db = dbHelper.getDatabase();
         db.beginTransaction();
@@ -54,6 +70,7 @@ public class DatabaseOperations {
     }
 
     public int deleteAllFromTable(String tableName) {
+        // TODO - also delete any associated races.
         SQLiteDatabase db = dbHelper.getDatabase();
         db.beginTransaction();
         int rows = db.delete(tableName, "1", null);
@@ -216,23 +233,30 @@ public class DatabaseOperations {
 
             for (Object object : theList) {
                 Meeting meeting = (Meeting) object;
-                cv = new ContentValues();
-                cv.put(SchemaConstants.MEETING_ID, meeting.getMeetingId());
-                cv.put(SchemaConstants.MEETING_DATE, meeting.getMeetingDate());
-                cv.put(SchemaConstants.MEETING_TRACK, meeting.getTrackName());
-                cv.put(SchemaConstants.MEETING_CLUB, meeting.getClubName());
-                cv.put(SchemaConstants.MEETING_STATUS, meeting.getRacingStatus());
-                cv.put(SchemaConstants.MEETING_NO_RACES, meeting.getNumberOfRaces());
-                cv.put(SchemaConstants.MEETING_IS_TRIAL, meeting.getIsBarrierTrial());
 
-                try {
-                    db.beginTransaction();
-                    db.insertOrThrow(SchemaConstants.MEETINGS_TABLE, null, cv);
-                    db.setTransactionSuccessful();
-                } catch (SQLException ex) {
-                    Log.d("", ex.getMessage());
-                } finally {
-                    db.endTransaction();
+                boolean exclBarrierTrial = Preferences.getInstance().getExcludeBarrierTrial();  // preference.
+                boolean isBarrierTrial = meeting.getIsBarrierTrial().equals("true");            // in data.
+
+                if (!exclBarrierTrial || (exclBarrierTrial && !isBarrierTrial)) {
+
+                    cv = new ContentValues();
+                    cv.put(SchemaConstants.MEETING_ID, meeting.getMeetingId());
+                    cv.put(SchemaConstants.MEETING_DATE, meeting.getMeetingDate());
+                    cv.put(SchemaConstants.MEETING_TRACK, meeting.getTrackName());
+                    cv.put(SchemaConstants.MEETING_CLUB, meeting.getClubName());
+                    cv.put(SchemaConstants.MEETING_STATUS, meeting.getRacingStatus());
+                    cv.put(SchemaConstants.MEETING_NO_RACES, meeting.getNumberOfRaces());
+                    cv.put(SchemaConstants.MEETING_IS_TRIAL, meeting.getIsBarrierTrial());
+
+                    try {
+                        db.beginTransaction();
+                        db.insertOrThrow(SchemaConstants.MEETINGS_TABLE, null, cv);
+                        db.setTransactionSuccessful();
+                    } catch (SQLException ex) {
+                        Log.d("", ex.getMessage());
+                    } finally {
+                        db.endTransaction();
+                    }
                 }
             }
         }

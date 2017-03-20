@@ -33,12 +33,28 @@ public class Preferences {
     }
     //</editor-fold>
 
-    public boolean getMeetingsShowToday() {
-        return getDefaultSharedPreferences().getBoolean(getMeetingShowTodayKey(), false);
+    public String getMeetingsShowTodayKey() {
+        return Resources.getInstance().getString(R.string.pref_meetings_show_today_key);
     }
 
-    public String getMeetingShowTodayKey() {
-        return Resources.getInstance().getString(R.string.pref_meetings_show_today_key);
+    public boolean getMeetingsShowToday() {
+        return getDefaultSharedPreferences().getBoolean(getMeetingsShowTodayKey(), false);
+    }
+
+    public String getCacheMeetingsKey() {
+        return Resources.getInstance().getString(R.string.pref_meetings_cache_key);
+    }
+
+    public String getExcludeBarrierTrialKey() {
+        return Resources.getInstance().getString(R.string.pref_meetings_exclude_BT_key);
+    }
+
+    public boolean getExcludeBarrierTrial() {
+        return getDefaultSharedPreferences().getBoolean(getExcludeBarrierTrialKey(), false);
+    }
+
+    public boolean getCacheMeetings() {
+        return getDefaultSharedPreferences().getBoolean(getCacheMeetingsKey(), false);
     }
 
     public SharedPreferences getDefaultSharedPreferences() {

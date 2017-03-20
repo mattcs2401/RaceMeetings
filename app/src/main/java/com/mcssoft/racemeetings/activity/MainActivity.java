@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.mcssoft.racemeetings.R;
+import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.fragment.MeetingsDeleteFragment;
 import com.mcssoft.racemeetings.fragment.MeetingsSearchFragment;
 import com.mcssoft.racemeetings.interfaces.IDateSelect;
@@ -45,9 +46,9 @@ public class MainActivity extends AppCompatActivity
 
         if(checkForNetwork()) {
             checkDatabaseTables();     // TBA - need a way to bypass this when onCreate again.
-            if(checkPreferences()) {
+            if(Preferences.getInstance().getMeetingsShowToday()) {
                 // go direct to showing today's meetings.
-                loadMeetingsActivityByProxy(getDate());
+                loadMeetingsActivity(getDate());
             }
         } else {
             if(arguments == null) {
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity
                         Resources.getInstance().getString(R.string.date_search_fragment_tag));
                 break;
             case R.id.id_nav_menu_meetings_today:
-                loadMeetingsActivityByProxy(getDate());
+                loadMeetingsActivity(getDate());
                 break;
             case R.id.id_nav_menu_clear_meetings:
                 DialogFragment deleteFragment = new MeetingsDeleteFragment();
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void iDateValues(String[] values) {
         String searchdate = formatSearchDateValues(values);
-        loadMeetingsActivityByProxy(searchdate);
+        loadMeetingsActivity(searchdate);
     }
 
     /**
@@ -140,7 +141,28 @@ public class MainActivity extends AppCompatActivity
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Utility">
-    private void loadMeetingsActivityByProxy(String searchDate) {
+    private void loadMeetingsActivity(String searchDate) {
+        DatabaseOperations dbOper = new DatabaseOperations(this);
+        // TODO - logic flaw between the cache preference and the default show preference..
+        if(Preferences.getInstance().getCacheMeetings()) {
+            // Check if meetings with that date already exist.
+            if(!dbOper.checkMeetingsByDate(searchDate)) {
+                // No meetings of that date exist so download.
+                getMeetingsByDate(searchDate);
+            } else {
+                // Meetings with that date exist.
+                Intent intent = new Intent(this, MeetingsActivity.class);
+                startActivity(intent);
+            }
+        } else {
+            // Preference is not set so delete old meetings.
+            dbOper.checkAndDeleteOld(SchemaConstants.MEETINGS_TABLE);
+            // Note: MeetingsActivity is launched as a result of this.
+            getMeetingsByDate(searchDate);
+        }
+    }
+
+    private void getMeetingsByDate(String searchDate) {
         // Note: MeetingsActivity is launched as a result of this.
         DownloadHelper downloadHelper = new DownloadHelper(this);
         downloadHelper.getMeetingsByDate(searchDate);
@@ -196,10 +218,6 @@ public class MainActivity extends AppCompatActivity
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         return (networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected());
-    }
-
-    private boolean checkPreferences() {
-        return Preferences.getInstance().getMeetingsShowToday();
     }
 
     private String formatSearchDateValues(String[] values) {

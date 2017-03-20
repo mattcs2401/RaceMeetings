@@ -16,6 +16,12 @@
             android:summary="@string/pref_meetings_exclude_BT_summary"
             android:defaultValue="true"/>
 
+        <CheckBoxPreference
+            android:key="@string/pref_meetings_cache_key"
+            android:title="@string/pref_meetings_cache_title"
+            android:summary="@string/pref_meetings_cache_summary"
+            android:defaultValue="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
