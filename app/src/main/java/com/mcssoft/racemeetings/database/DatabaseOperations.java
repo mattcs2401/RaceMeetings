@@ -30,6 +30,9 @@ public class DatabaseOperations {
         dbHelper = new DatabaseHelper(context);
     }
 
+    /**
+     * Get the Clubs table data (first checks to see if records exist).
+     */
     public void checkClubs() {
         if(!checkTableRowCount(SchemaConstants.CLUBS_TABLE)) {
             DownloadHelper downloadHelper = new DownloadHelper(context);
@@ -37,6 +40,9 @@ public class DatabaseOperations {
         }
     }
 
+    /**
+     * Get the Tracks table data (first checks to see if records exist).
+     */
     public void checkTracks() {
         if(!checkTableRowCount(SchemaConstants.TRACKS_TABLE)) {
             InputStream inStream = context.getResources().openRawResource(R.raw.tracks);
@@ -61,6 +67,12 @@ public class DatabaseOperations {
         return (cursor.getCount() > 0);
     }
 
+    /**
+     * Get all the records in a table.
+     * @param tableName The table name.
+     * @return A cursor over the records.
+     *         Note: No guarantee the cursor contains anything.
+     */
     public Cursor getAllFromTable(String tableName) {
         SQLiteDatabase db = dbHelper.getDatabase();
         db.beginTransaction();

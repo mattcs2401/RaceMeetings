@@ -66,6 +66,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  null;
     }
 
+    public void onStart() {
+        if(db == null) {
+            db = this.getWritableDatabase();
+        }
+    }
+
+    public void onStop() {
+        if(db.isOpen()) {
+            db.close();
+        }
+    }
+
     private static final String[] getClubProjection() {
         return new String [] {
             SchemaConstants.CLUB_ROWID,
