@@ -135,8 +135,8 @@ public class MainActivity extends AppCompatActivity
      * @param rows The number of rows deleted.
      */
     @Override
-    public void iMeetingsDelete(int rows) {
-        Toast.makeText(this, Integer.toString(rows) + " meeting entries deleted.", Toast.LENGTH_SHORT).show();
+    public void iMeetingsDelete(int[] rows) {
+        Toast.makeText(this, Integer.toString(rows[0]) + " meeting entries deleted.", Toast.LENGTH_SHORT).show();
     }
     //</editor-fold>
 
@@ -156,7 +156,8 @@ public class MainActivity extends AppCompatActivity
             }
         } else {
             // Preference is not set so delete old meetings.
-            dbOper.checkAndDeleteOld(SchemaConstants.MEETINGS_TABLE);
+            dbOper.deleteAllFromTable(SchemaConstants.MEETINGS_TABLE);
+            dbOper.deleteAllFromTable(SchemaConstants.RACES_TABLE);
             // Note: MeetingsActivity is launched as a result of this.
             getMeetingsByDate(searchDate);
         }

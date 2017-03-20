@@ -7,7 +7,8 @@ public interface IMeetingsDelete {
 
     /**
      *
-     * @param rows The number of rows deleted.
+     * @param rows [0] The number of meetings rows deleted.
+     *             [1] The number of races rows deleted.
      */
-    void iMeetingsDelete(int rows);
+    void iMeetingsDelete(int[] rows);
 }

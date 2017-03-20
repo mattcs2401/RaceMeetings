@@ -41,14 +41,16 @@ public class MeetingsDeleteFragment extends DialogFragment
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        int rows = 0;
+        int[] rows = {};
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE:
+                rows = new int[2];
                 DatabaseOperations dbOper = new DatabaseOperations(getActivity());
-                rows = dbOper.deleteAllFromTable(SchemaConstants.MEETINGS_TABLE);
+                rows[0] = dbOper.deleteAllFromTable(SchemaConstants.MEETINGS_TABLE);
+                rows[1] = dbOper.deleteAllFromTable(SchemaConstants.RACES_TABLE);
                 break;
         }
-        if(rows > 0) {
+        if(rows[0] > 0) {
             iMeetingDelete.iMeetingsDelete(rows);
         }
     }

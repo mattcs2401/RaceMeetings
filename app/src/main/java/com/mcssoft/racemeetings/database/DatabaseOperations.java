@@ -69,13 +69,20 @@ public class DatabaseOperations {
         return cursor;
     }
 
+    /**
+     * Delete all the records in a table.
+     * @param tableName The table name.
+     * @return The number of rows deleted.
+     */
     public int deleteAllFromTable(String tableName) {
-        // TODO - also delete any associated races.
-        SQLiteDatabase db = dbHelper.getDatabase();
-        db.beginTransaction();
-        int rows = db.delete(tableName, "1", null);
-        db.setTransactionSuccessful();
-        db.endTransaction();
+        int rows = 0;
+        if(checkTableRowCount(tableName)) {
+            SQLiteDatabase db = dbHelper.getDatabase();
+            db.beginTransaction();
+            rows = db.delete(tableName, "1", null);
+            db.setTransactionSuccessful();
+            db.endTransaction();
+        }
         return rows;
     }
 
@@ -154,16 +161,6 @@ public class DatabaseOperations {
             case SchemaConstants.RACES_TABLE:
                 insertFromListRaces(theList, identifier);
                 break;
-        }
-    }
-
-    public void checkAndDeleteOld(String tableName) {
-        if(checkTableRowCount(tableName)) {
-            SQLiteDatabase db = dbHelper.getDatabase();
-            db.beginTransaction();
-            int count = db.delete(tableName, null, null);
-            db.setTransactionSuccessful();
-            db.endTransaction();
         }
     }
 
