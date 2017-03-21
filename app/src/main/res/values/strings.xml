@@ -38,6 +38,7 @@
     <string name="no_network">No network connection exists.</string>
     <string name="check_device">Check your device settings.</string>
     <string name="meetings_rowid_key">meetings_rowid_key</string>
+    <string name="races_rowid_key">races_rowid_key</string>
     <string name="CR_LF">\r\n</string>
     <!-- Preference keys. -->
     <!-- Tracks preference. -->

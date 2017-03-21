@@ -14,12 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.activity.MeetingDetailActivity;
+import com.mcssoft.racemeetings.activity.RaceDetailActivity;
 import com.mcssoft.racemeetings.adapter.MeetingRacesAdapter;
 import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
-import com.mcssoft.racemeetings.interfaces.IItemLongClickListener;
 import com.mcssoft.racemeetings.utility.ListingDivider;
 import com.mcssoft.racemeetings.utility.Resources;
 
@@ -36,7 +35,7 @@ public class MeetingRacesFragment extends Fragment
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            String meetingId = getArguments().getString("meeting_id_key");
+            String meetingId = getArguments().getString("race_id_key");
             DatabaseOperations dbOper = new DatabaseOperations(getActivity());
             cursor = dbOper.getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
                     SchemaConstants.WHERE_FOR_GET_RACE_MEETINGID, new String[] {meetingId});
@@ -65,14 +64,14 @@ public class MeetingRacesFragment extends Fragment
     public boolean onMenuItemClick(MenuItem item) {
         Intent intent = null;
         switch (item.getItemId()) {
-//            case R.id.meetings_context_menu_races:
+            case R.id.races_context_menu_info:
 //                getDataForMeetingRaces(getDbRowId(position));
-//                break;
-//            case R.id.meetings_context_menu_detail:
-//                intent = new Intent(getActivity(), MeetingDetailActivity.class);
-//                intent.putExtra(Resources.getInstance().getString(R.string.meetings_rowid_key), getDbRowId(position));
-//                startActivity(intent);
-//                break;
+                break;
+            case R.id.races_context_menu_detail:
+                intent = new Intent(getActivity(), RaceDetailActivity.class);
+                intent.putExtra(Resources.getInstance().getString(R.string.races_rowid_key), getDbRowId(position));
+                startActivity(intent);
+                break;
         }
         return false;
     }
@@ -91,31 +90,31 @@ public class MeetingRacesFragment extends Fragment
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new ListingDivider(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(meetingsAdapter);
+        recyclerView.setAdapter(meetingRacesAdapter);
     }
 
     private void setMeetingAdapter() {
 
-        meetingsAdapter = new MeetingRacesAdapter();
-        meetingsAdapter.setOnItemClickListener(this);
-//        meetingsAdapter.setOnItemLongClickListener(this);
-        meetingsAdapter.swapCursor(cursor);
+        meetingRacesAdapter = new MeetingRacesAdapter();
+        meetingRacesAdapter.setOnItemClickListener(this);
+//        meetingRacesAdapter.setOnItemLongClickListener(this);
+        meetingRacesAdapter.swapCursor(cursor);
         if(cursor.getCount() == 0) {
-            meetingsAdapter.setEmptyView(true);
+            meetingRacesAdapter.setEmptyView(true);
         } else {
-            meetingsAdapter.setEmptyView(false);
+            meetingRacesAdapter.setEmptyView(false);
         }
     }
 
-//    private int getDbRowId(int position) {
-//        meetingsAdapter.getItemId(position);
-//        Cursor cursor = meetingsAdapter.getCursor();
-//        return cursor.getInt(cursor.getColumnIndex(SchemaConstants.RACE_ROWID));
-//    }
+    private int getDbRowId(int position) {
+        meetingRacesAdapter.getItemId(position);
+        Cursor cursor = meetingRacesAdapter.getCursor();
+        return cursor.getInt(cursor.getColumnIndex(SchemaConstants.RACE_ROWID));
+    }
 
     private int position;
     private View rootView;
     private Cursor cursor;
-    private MeetingRacesAdapter meetingsAdapter;
+    private MeetingRacesAdapter meetingRacesAdapter;
 
 }
