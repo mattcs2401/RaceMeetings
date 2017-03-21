@@ -115,7 +115,8 @@ Example: http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/Ge
   </Race>
 
 
-(3) GetHorsesForRace - use race Id (from above).
+(3) GetHorsesForRace - use 'Race Id' (from above).
+    Example: http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/GetHorsesForRace?raceId=439963
 
 <Horses>
   <Horse Id="269248">
@@ -128,6 +129,7 @@ Example: http://www.racingqueensland.com.au/opendatawebservices/meetings.asmx/Ge
       <FullName>Ian Savins</FullName>
     </Trainer>
   </Horse>
+
 
 ----------------------------
 Assorted sample (tutorials):
