@@ -37,16 +37,52 @@ public class RaceDetailFragment extends Fragment {
     }
 
     private void initialiseComponents() {
-
+        tvRaceId = (TextView) rootView.findViewById(R.id.id_tv_race_Id_val);
+        tvRaceNo = (TextView) rootView.findViewById(R.id.id_tv_race_no_val);
+        tvRaceName = (TextView) rootView.findViewById(R.id.id_tv_race_name_val);
+        tvRaceTime = (TextView) rootView.findViewById(R.id.id_tv_race_time_val);
+        tvRaceClass = (TextView) rootView.findViewById(R.id.id_tv_race_class_val);
+        tvRaceDistance = (TextView) rootView.findViewById(R.id.id_tv_race_distance_val);
+        tvTrackRating = (TextView) rootView.findViewById(R.id.id_tv_track_rating_val);
+        tvPrizeTotal = (TextView) rootView.findViewById(R.id.id_tv_prize_val);
+        tvAgeCond = (TextView) rootView.findViewById(R.id.id_tv_age_restrict_val);
+        tvSexCond = (TextView) rootView.findViewById(R.id.id_tv_sex_restrict_val);
+        tvWeightCond = (TextView) rootView.findViewById(R.id.id_tv_weight_restrict_val);
+        tvAppClaim = (TextView) rootView.findViewById(R.id.id_tv_app_claim_val);
+        tvStartersFee = (TextView) rootView.findViewById(R.id.id_tv_starters_fee_val);
+        tvAcceptFee = (TextView) rootView.findViewById(R.id.id_tv_accept_fee_val);
     }
 
     private void getFromDatabase() {
-
+        int rowId = getActivity().getIntent()
+                .getIntExtra(Resources.getInstance().getString(R.string.races_rowid_key),
+                        Resources.getInstance().getInteger(R.integer.init_default));
+        DatabaseOperations dbOper = new DatabaseOperations(getActivity());
+        cursor = dbOper.getSelectionFromTable(SchemaConstants.RACES_TABLE,
+                null,
+                SchemaConstants.WHERE_FOR_GET_RACE,
+                new String[] {Integer.toString(rowId)});
     }
 
     private void setComponentValues() {
         cursor.moveToFirst();
+        tvRaceId.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_ID)));
+        tvRaceNo.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_NO)));
+        tvRaceName.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_NAME)));
+        tvRaceTime.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_TIME)));
+        tvRaceClass.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_CLASS)));
+        tvRaceDistance.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_DISTANCE)));
+        tvTrackRating.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_TRACK_RATING)));
 
+        String testing = cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_PRIZE_TOTAL));
+
+        tvPrizeTotal.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_PRIZE_TOTAL)));
+        tvAgeCond.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_AGE_COND)));
+        tvSexCond.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_SEX_COND)));
+        tvWeightCond.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_WEIGHT_COND)));
+        tvAppClaim.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_APP_CLAIM)));
+        tvStartersFee.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_START_FEE)));
+        tvAcceptFee.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_ACCEPT_FEE)));
     }
     //</editor-fold>
 

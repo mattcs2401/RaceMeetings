@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:text="Race ID"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="No"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_race_Id"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_Id" />
 
@@ -37,7 +37,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Name"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_race_no"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_no" />
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Time"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_race_name"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name" />
 
@@ -58,7 +58,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Class"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_race_time"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_time" />
 
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Distance"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_race_class"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_class" />
 
@@ -79,7 +79,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Rating"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_race_distance"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_distance" />
 
@@ -89,10 +89,11 @@
         android:id="@+id/id_tv_race_Id_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toRightOf="@+id/id_tv_race_Id"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,66 +101,66 @@
         android:id="@+id/id_tv_race_no_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_Id_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_Id_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_Id_val" />
 
     <TextView
         android:id="@+id/id_tv_race_name_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_no_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_no_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_no_val" />
 
     <TextView
         android:id="@+id/id_tv_race_time_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_name_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_name_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name_val" />
 
     <TextView
         android:id="@+id/id_tv_race_class_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_time_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_time_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_time_val" />
 
     <TextView
         android:id="@+id/id_tv_race_distance_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_class_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_class_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_class_val" />
 
     <TextView
         android:id="@+id/id_tv_track_rating_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_distance_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_distance_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_race_distance_val" />
 
     <TextView
@@ -169,7 +170,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Prize"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_track_rating"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_track_rating" />
 
@@ -180,7 +181,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_track_rating_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_track_rating_val" />
 
@@ -191,7 +192,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Age Cond"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_prize"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_prize" />
 
@@ -202,7 +203,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_prize_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_prize_val" />
 
@@ -213,7 +214,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Sex Cond"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_age_restrict"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_age_restrict" />
 
@@ -224,7 +225,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_age_restrict_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_age_restrict_val" />
 
@@ -235,7 +236,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Weight"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_sex_restrict"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_sex_restrict" />
 
@@ -246,7 +247,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_sex_restrict_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_sex_restrict_val" />
 
@@ -257,7 +258,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="App Claim"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_weight_restrict"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_weight_restrict" />
 
@@ -268,7 +269,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_weight_restrict_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_weight_restrict_val" />
 
@@ -279,7 +280,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Start Fee"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_app_claim"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_app_claim" />
 
@@ -290,7 +291,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_app_claim_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_app_claim_val" />
 
@@ -301,7 +302,7 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:text="Acc Fee"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_starters_fee"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_starters_fee" />
 
@@ -312,7 +313,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_starters_fee_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_starters_fee_val" />
 

@@ -121,7 +121,7 @@ public class SchemaConstants {
     public static final String WHERE_FOR_TRACK_UPDATE = SchemaConstants.TRACK_ROWID + " = ?;";
     public static final String WHERE_FOR_GET_MEETINGS_BY_DATE = SchemaConstants.MEETING_DATE + " = ?;";
     public static final String WHERE_FOR_GET_MEETING = SchemaConstants.MEETING_ROWID + " = ?;";
-    public static final String WHERE_FOR_GET_RACE_RACEID = SchemaConstants.RACE_ROWID + " = ?;";
     public static final String WHERE_FOR_GET_RACE_MEETINGID = SchemaConstants.RACE_MEETING_ID + " = ?;";
+    public static final String WHERE_FOR_GET_RACE = SchemaConstants.RACE_ROWID + " = ?;";
 
 }
