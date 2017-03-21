@@ -73,9 +73,6 @@ public class RaceDetailFragment extends Fragment {
         tvRaceClass.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_CLASS)));
         tvRaceDistance.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_DISTANCE)));
         tvTrackRating.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_TRACK_RATING)));
-
-        String testing = cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_PRIZE_TOTAL));
-
         tvPrizeTotal.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_PRIZE_TOTAL)));
         tvAgeCond.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_AGE_COND)));
         tvSexCond.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_SEX_COND)));
