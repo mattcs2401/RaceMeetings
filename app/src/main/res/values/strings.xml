@@ -8,6 +8,7 @@
     <string name="main_fragment_tag">main_fragment_tag</string>
     <string name="meetings_details_fragment_tag">meetings_details_fragment_tag</string>
     <string name="meeting_detail_fragment_tag">meeting_detail_fragment_tag</string>
+    <string name="race_detail_fragment_tag">race_detail_fragment_tag</string>
     <string name="meeting_races_fragment_tag">meeting_races_fragment_tag</string>
     <string name="date_search_fragment_tag">date_search_fragment_tag</string>
     <!-- Fragment text. -->

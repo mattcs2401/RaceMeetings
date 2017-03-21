@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TextView labels. -->
+
+    <TextView
+        android:id="@+id/id_tv_meetingId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Meeting ID"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="32dp" />
+
+    <TextView
+        android:id="@+id/id_tv_meetingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Meeting Date"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_meetingId"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingId" />
+
+    <TextView
+        android:id="@+id/id_tv_trackName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Track Name"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_meetingDate"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingDate"
+        android:layout_marginRight="0dp" />
+
+    <TextView
+        android:id="@+id/id_tv_clubName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Club Name"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_trackName"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_trackName" />
+
+    <TextView
+        android:id="@+id/id_tv_racingStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Racing Status"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_clubName"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_clubName"
+        android:layout_marginRight="0dp" />
+
+    <TextView
+        android:id="@+id/id_tv_numRaces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="No Of Races"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_racingStatus"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_racingStatus" />
+
+    <TextView
+        android:id="@+id/id_tv_barrierTrial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Barrier Trial"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_numRaces"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_numRaces"
+        android:layout_marginRight="0dp" />
+
+    <!-- TextView values.-->
+
+    <TextView
+        android:id="@+id/id_tv_meetingdId_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_meetingId"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_tv_meetingDate_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_meetingdId_val"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingdId_val" />
+
+    <TextView
+        android:id="@+id/id_tv_trackName_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_meetingDate_val"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingDate_val" />
+
+    <TextView
+        android:id="@+id/id_tv_clubName_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_trackName_val"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_trackName_val" />
+
+    <TextView
+        android:id="@+id/id_tv_racingStatus_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_clubName_val"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_clubName_val" />
+
+    <TextView
+        android:id="@+id/id_tv_numRaces_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_racingStatus_val"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_racingStatus_val" />
+
+    <TextView
+        android:id="@+id/id_tv_barrierTrail_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_numRaces_val"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_numRaces_val" />
+
+</android.support.constraint.ConstraintLayout>
+
+<!--<Meeting Id="88788">-->
+    <!--<MeetingDate>2017-02-18</MeetingDate>-->
+    <!--<TrackName>Gold Coast</TrackName>-->
+    <!--<ClubName>Gold Coast Turf Club</ClubName>-->
+    <!--<RacingStatus>Provincial</RacingStatus>-->
+    <!--<NumberOfRaces>8</NumberOfRaces>-->
+    <!--<IsBarrierTrial>false</IsBarrierTrial>-->
+<!--</Meeting>-->
