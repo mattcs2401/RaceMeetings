@@ -9,7 +9,7 @@
     <!-- TextView labels. -->
 
     <TextView
-        android:id="@+id/id_tv_meetingId"
+        android:id="@+id/id_tv_race_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -21,146 +21,146 @@
         android:layout_marginLeft="32dp" />
 
     <TextView
-        android:id="@+id/id_tv_meetingDate"
+        android:id="@+id/id_tv_race_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Meeting Date"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintRight_toRightOf="@+id/id_tv_meetingId"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingId" />
+        app:layout_constraintRight_toRightOf="@+id/id_tv_race_Id"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_Id" />
 
     <TextView
-        android:id="@+id/id_tv_trackName"
+        android:id="@+id/id_tv_race_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Track Name"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintRight_toRightOf="@+id/id_tv_meetingDate"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingDate"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_race_no"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_no"
         android:layout_marginRight="0dp" />
 
     <TextView
-        android:id="@+id/id_tv_clubName"
+        android:id="@+id/id_tv_race_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Club Name"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintRight_toRightOf="@+id/id_tv_trackName"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_trackName" />
+        app:layout_constraintRight_toRightOf="@+id/id_tv_race_name"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name" />
 
     <TextView
-        android:id="@+id/id_tv_racingStatus"
+        android:id="@+id/id_tv_race_class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Racing Status"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintRight_toRightOf="@+id/id_tv_clubName"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_clubName"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_race_time"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_time"
         android:layout_marginRight="0dp" />
 
     <TextView
-        android:id="@+id/id_tv_numRaces"
+        android:id="@+id/id_tv_race_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="No Of Races"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintRight_toRightOf="@+id/id_tv_racingStatus"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_racingStatus" />
+        app:layout_constraintRight_toRightOf="@+id/id_tv_race_class"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_class" />
 
     <TextView
-        android:id="@+id/id_tv_barrierTrial"
+        android:id="@+id/id_tv_track_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Barrier Trial"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintRight_toRightOf="@+id/id_tv_numRaces"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_numRaces"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_race_distance"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_distance"
         android:layout_marginRight="0dp" />
 
     <!-- TextView values.-->
 
     <TextView
-        android:id="@+id/id_tv_meetingdId_val"
+        android:id="@+id/id_tv_race_Id_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_meetingId"
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_Id"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/id_tv_meetingDate_val"
+        android:id="@+id/id_tv_race_no_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_meetingdId_val"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_Id_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingdId_val" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_Id_val" />
 
     <TextView
-        android:id="@+id/id_tv_trackName_val"
+        android:id="@+id/id_tv_race_name_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_meetingDate_val"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_no_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_meetingDate_val" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_no_val" />
 
     <TextView
-        android:id="@+id/id_tv_clubName_val"
+        android:id="@+id/id_tv_race_time_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_trackName_val"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_name_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_trackName_val" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name_val" />
 
     <TextView
-        android:id="@+id/id_tv_racingStatus_val"
+        android:id="@+id/id_tv_race_class_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_clubName_val"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_time_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_clubName_val" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_time_val" />
 
     <TextView
-        android:id="@+id/id_tv_numRaces_val"
+        android:id="@+id/id_tv_race_distance_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_racingStatus_val"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_class_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_racingStatus_val" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_class_val" />
 
     <TextView
-        android:id="@+id/id_tv_barrierTrail_val"
+        android:id="@+id/id_tv_track_rating_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_numRaces_val"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_distance_val"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_numRaces_val" />
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_distance_val" />
 
 </android.support.constraint.ConstraintLayout>
 

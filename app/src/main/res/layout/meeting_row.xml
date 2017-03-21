@@ -65,7 +65,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
-        android:id="@+id/id_tv_numRaces_val"
+        android:id="@+id/id_tv_race_distance_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Material.Small"

@@ -37,17 +37,18 @@ public class MeetingDetailFragment extends Fragment {
     }
 
     private void initialiseComponents() {
-        tvMeetingId = (TextView) rootView.findViewById(R.id.id_tv_meetingdId_val);
-        tvMeetingDate = (TextView) rootView.findViewById(R.id.id_tv_meetingDate_val);
-        tvTrackName = (TextView) rootView.findViewById(R.id.id_tv_trackName_val);
-        tvClubName = (TextView) rootView.findViewById(R.id.id_tv_clubName_val);
-        tvRacingStatus = (TextView) rootView.findViewById(R.id.id_tv_racingStatus_val);
-        tvNumRaces = (TextView) rootView.findViewById(R.id.id_tv_numRaces_val);
-        tvBarrierTrial = (TextView) rootView.findViewById(R.id.id_tv_barrierTrail_val);
+        tvMeetingId = (TextView) rootView.findViewById(R.id.id_tv_race_Id_val);
+        tvMeetingDate = (TextView) rootView.findViewById(R.id.id_tv_race_no_val);
+        tvTrackName = (TextView) rootView.findViewById(R.id.id_tv_race_name_val);
+        tvClubName = (TextView) rootView.findViewById(R.id.id_tv_race_time_val);
+        tvRacingStatus = (TextView) rootView.findViewById(R.id.id_tv_race_class_val);
+        tvNumRaces = (TextView) rootView.findViewById(R.id.id_tv_race_distance_val);
+        tvBarrierTrial = (TextView) rootView.findViewById(R.id.id_tv_track_rating_val);
     }
 
     private void getFromDatabase() {
-        int rowId = getActivity().getIntent().getIntExtra(Resources.getInstance().getString(R.string.meetings_rowid_key),
+        int rowId = getActivity().getIntent()
+                .getIntExtra(Resources.getInstance().getString(R.string.meetings_rowid_key),
                 Resources.getInstance().getInteger(R.integer.init_default));
         DatabaseOperations dbOper = new DatabaseOperations(getActivity());
         cursor = dbOper.getSelectionFromTable(SchemaConstants.MEETINGS_TABLE,

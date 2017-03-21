@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/races_context_menu_info"
+        android:title="Show Race Info" />
+    <item
+        android:id="@+id/races_context_menu_detail"
+        android:title="Race Details" />
+</menu>
