@@ -35,7 +35,11 @@ public class MeetingRacesFragment extends Fragment
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            String meetingId = getArguments().getString("race_id_key");
+            String key = Resources.getInstance().getString(R.string.meeting_id_key);
+            String argsPref = Resources.getInstance().getString(R.string.arguments_preference);
+            String meetingId = getActivity()
+                    .getSharedPreferences(argsPref, getActivity().MODE_PRIVATE)
+                    .getString(key, null);
             DatabaseOperations dbOper = new DatabaseOperations(getActivity());
             cursor = dbOper.getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
                     SchemaConstants.WHERE_FOR_GET_RACE_MEETINGID, new String[] {meetingId});

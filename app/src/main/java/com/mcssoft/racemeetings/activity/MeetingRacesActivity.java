@@ -1,5 +1,6 @@
 package com.mcssoft.racemeetings.activity;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -20,6 +21,7 @@ public class MeetingRacesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initialiseBaseUI();
+        saveArgument();
         loadFragment();
     }
 
@@ -40,6 +42,21 @@ public class MeetingRacesActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setTitle(Resources.getInstance().getString(R.string.appbar_title_meeting_races));
         actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    /**
+     * Save the "meeting id" argument to the shared preferences. Resolves a back navigation issue
+     * from the race details activity to this.
+     */
+    private void saveArgument() {
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            String key = Resources.getInstance().getString(R.string.meeting_id_key);
+            String argsPref = Resources.getInstance().getString(R.string.arguments_preference);
+            String argument = bundle.getString(key);
+            SharedPreferences sp = getSharedPreferences(argsPref, this.MODE_PRIVATE);
+            sp.edit().putString(key, argument).apply();
+        }
     }
 
     private Toolbar toolbar;
