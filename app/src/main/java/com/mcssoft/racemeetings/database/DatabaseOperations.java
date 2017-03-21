@@ -286,12 +286,18 @@ public class DatabaseOperations {
                     cv.put(SchemaConstants.RACE_MEETING_ID, meetingId);
                     cv.put(SchemaConstants.RACE_NO, race.getRaceNumber());
                     cv.put(SchemaConstants.RACE_NAME, race.getRaceName());
-                    String time = race.getRaceTime();
-                    if(time == null) { time = "00:00"; }
-                    cv.put(SchemaConstants.RACE_TIME, time); //race.getRaceTime());
+
+                    String raceTime = race.getRaceTime();
+                    if(raceTime == null) { raceTime = "00:00"; }
+                    cv.put(SchemaConstants.RACE_TIME, raceTime);
+
                     cv.put(SchemaConstants.RACE_CLASS, race.getRaceClass());
                     cv.put(SchemaConstants.RACE_DISTANCE, race.getRaceDistance());
-                    cv.put(SchemaConstants.RACE_TRACK_RATING, race.getRaceTrackRating());
+
+                    String trackRating = race.getRaceTrackRating();
+                    if(trackRating == null) { trackRating = "No rating"; };
+                    cv.put(SchemaConstants.RACE_TRACK_RATING, trackRating);
+
                     cv.put(SchemaConstants.RACE_PRIZE_TOTAL, race.getRacePrizeTotal());
                     cv.put(SchemaConstants.RACE_AGE_COND, race.getRaceAgeCondition());
                     cv.put(SchemaConstants.RACE_SEX_COND, race.getRaceSexCondtion());
