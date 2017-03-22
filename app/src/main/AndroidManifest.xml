@@ -23,7 +23,7 @@
                   android:parentActivityName=".activity.MeetingsActivity" />
         <activity android:name=".activity.MeetingRacesActivity"
                   android:parentActivityName=".activity.MeetingsActivity" />
-        <activity android:name=".activity.RaceSummaryActivity"
+        <activity android:name=".activity.MeetingRaceSummaryActivity"
             android:parentActivityName=".activity.MeetingRacesActivity" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

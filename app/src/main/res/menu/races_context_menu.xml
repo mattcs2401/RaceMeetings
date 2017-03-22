@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/races_context_menu_info"
-        android:title="Show Race Info" />
+        android:title="Show Racing Info" />
     <item
         android:id="@+id/races_context_menu_detail"
-        android:title="Race Details" />
+        android:title="Race Summary" />
 </menu>

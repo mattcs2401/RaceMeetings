@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.activity.RaceDetailsActivity;
+import com.mcssoft.racemeetings.activity.MeetingRacesDetailsActivity;
 import com.mcssoft.racemeetings.activity.MeetingRacesActivity;
 import com.mcssoft.racemeetings.activity.MeetingsActivity;
 import com.mcssoft.racemeetings.database.DatabaseOperations;
@@ -79,7 +79,7 @@ public class DownloadHelper implements IAsyncResult {
                 if(horses != null && horses.size() > 0) {
                     dbOper.insertFromList(SchemaConstants.RACE_DETAILS_TABLE, horses, Integer.parseInt(queryParam));
                 }
-                intent = new Intent(context, RaceDetailsActivity.class);
+                intent = new Intent(context, MeetingRacesDetailsActivity.class);
                 key = Resources.getInstance().getString(R.string.race_details_id_key);
                 intent.putExtra(key, queryParam);
                 context.startActivity(intent);

@@ -5,5 +5,5 @@
         android:title="Show Races" />
     <item
         android:id="@+id/meetings_context_menu_detail"
-        android:title="Meeting Details" />
+        android:title="Meeting Summary" />
 </menu>

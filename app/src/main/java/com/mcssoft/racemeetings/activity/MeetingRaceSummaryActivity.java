@@ -6,11 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.fragment.RaceSummaryFragment;
+import com.mcssoft.racemeetings.fragment.MeetingRaceSummaryFragment;
 import com.mcssoft.racemeetings.utility.Resources;
 
 
-public class RaceSummaryActivity extends AppCompatActivity {
+public class MeetingRaceSummaryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +25,7 @@ public class RaceSummaryActivity extends AppCompatActivity {
 
         // Load the fragment.
         String fragment_tag = Resources.getInstance().getString(R.string.race_detail_fragment_tag);
-        RaceSummaryFragment raceDetailFragment = new RaceSummaryFragment();
+        MeetingRaceSummaryFragment raceDetailFragment = new MeetingRaceSummaryFragment();
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_main, raceDetailFragment, fragment_tag)
                 .addToBackStack(fragment_tag)
