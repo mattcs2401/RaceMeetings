@@ -15,16 +15,16 @@ public class MeetingSummaryActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.content_view_meeting_detail_activity);
+        setContentView(R.layout.content_view_meeting_summary_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(Resources.getInstance().getString(R.string.appbar_title_meeting_details));
+        actionBar.setTitle(Resources.getInstance().getString(R.string.appbar_title_meeting_summary));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Load the fragment.
-        String fragment_tag = Resources.getInstance().getString(R.string.meeting_detail_fragment_tag);
+        String fragment_tag = Resources.getInstance().getString(R.string.meeting_summary_fragment_tag);
         MeetingSummaryFragment meetingDetailFragment = new MeetingSummaryFragment();
         getFragmentManager().beginTransaction()
                 .replace(R.id.content_main, meetingDetailFragment, fragment_tag)

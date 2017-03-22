@@ -15,12 +15,12 @@ public class RaceSummaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.content_view_race_detail_activity);
+        setContentView(R.layout.content_view_race_summary_activity);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar_main);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(Resources.getInstance().getString(R.string.appbar_title_race_details));
+        actionBar.setTitle(Resources.getInstance().getString(R.string.appbar_title_race_summary));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // Load the fragment.

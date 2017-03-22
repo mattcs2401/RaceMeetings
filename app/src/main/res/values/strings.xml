@@ -2,16 +2,18 @@
     <string name="app_name">RaceMeetings</string>
     <!-- Activity App Bar Titles. -->
     <string name="appbar_title_meetings">Meetings</string>
-    <string name="appbar_title_meeting_details">Meeting Details</string>
-    <string name="appbar_title_race_details">Race Details</string>
+    <string name="appbar_title_meeting_summary">Meeting Summary</string>
+    <string name="appbar_title_race_summary">Race Summary</string>
     <string name="appbar_title_meeting_races">Meeting Races</string>
+    <string name="appbar_title_race_details">Meeting - Horse/Jockey/Trainer</string>
     <!-- Fragment tags. -->
     <string name="main_fragment_tag">main_fragment_tag</string>
     <string name="meetings_details_fragment_tag">meetings_details_fragment_tag</string>
-    <string name="meeting_detail_fragment_tag">meeting_detail_fragment_tag</string>
+    <string name="meeting_summary_fragment_tag">meeting_detail_fragment_tag</string>
     <string name="race_detail_fragment_tag">race_detail_fragment_tag</string>
     <string name="meeting_races_fragment_tag">meeting_races_fragment_tag</string>
     <string name="date_search_fragment_tag">date_search_fragment_tag</string>
+    <string name="race_details_fragment_tag">race_details_fragment_tag</string>
     <!-- Fragment text. -->
     <string name="nothing_to_show">Nothing to show yet</string>
     <string name="no_meetings_to_show">No meetings to show</string>
@@ -27,11 +29,14 @@
     <string name="meeting_date">meetingDate</string>
     <string name="get_races_for_meeting">GetRacesForMeeting</string>
     <string name="meeting_id">meetingId</string>
+    <string name="get_horses_for_race">GetHorsesForRace</string>
+    <string name="race_id">raceId</string>
     <!-- Progress dialog -->
     <string name="init_clubs_data">Initialising Clubs data.</string>
     <string name="init_tracks_data">Initialising Tracks data.</string>
     <string name="get_meetings_details">Retrieving Meeting details.</string>
     <string name="get_races_details">Retrieving Race details.</string>
+    <string name="get_horses_details">Retrieving Horse and Jockey details.</string>
     <!-- Generic keys. -->
     <string name="network_exists_key"></string>
     <string name="show_todays_meetings_key"></string>

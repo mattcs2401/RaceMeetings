@@ -97,6 +97,11 @@ public class DownloadHelper implements IAsyncResult {
         downloadTableData(SchemaConstants.RACES_TABLE, meetingId);
     }
 
+    public void getHorsesForRace(String raceId) {
+        queryParam = raceId;
+        downloadTableData(SchemaConstants.RACE_DETAILS_TABLE, raceId);
+    }
+
     public void downloadTableData(String table, @Nullable String queryParam) {
         URL url = null;
         String message = null;
@@ -115,6 +120,10 @@ public class DownloadHelper implements IAsyncResult {
                 case SchemaConstants.RACES_TABLE:
                     url = new URL(createRacesUrl(queryParam));
                     message = Resources.getInstance().getString(R.string.get_races_details);
+                    break;
+                case SchemaConstants.RACE_DETAILS_TABLE:
+                    url = new URL(createHorsesForRaceUrl(queryParam));
+                    message = Resources.getInstance().getString(R.string.get_horses_details);
                     break;
             }
             dld = new DownloadData(context, url, message, table);
@@ -149,6 +158,16 @@ public class DownloadHelper implements IAsyncResult {
         builder.encodedPath(Resources.getInstance().getString(R.string.base_path_meetings))
                 .appendPath(Resources.getInstance().getString(R.string.get_races_for_meeting))
                 .appendQueryParameter(Resources.getInstance().getString(R.string.meeting_id), queryParam);
+
+        builder.build();
+        return builder.toString();
+    }
+
+    private String createHorsesForRaceUrl(String queryParam) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.encodedPath(Resources.getInstance().getString(R.string.base_path_meetings))
+                .appendPath(Resources.getInstance().getString(R.string.get_horses_for_race))
+                .appendQueryParameter(Resources.getInstance().getString(R.string.race_id), queryParam);
 
         builder.build();
         return builder.toString();
