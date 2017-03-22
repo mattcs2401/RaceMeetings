@@ -86,7 +86,7 @@ public class MeetingRacesFragment extends Fragment
 //        }
 
     private void setRecyclerView(View view) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_races_details_listing);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_races_summary_listing);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         llm.scrollToPosition(0);

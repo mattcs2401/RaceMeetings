@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/id_tv_race_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="10"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_tv_race_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Race name"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_no"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_tv_race_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="8dp"
+        android:text="15:59"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_tv_race_prize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:text="Prize"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_name"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name" />
+
+    <TextView
+        android:id="@+id/id_tv_race_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Class"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_prize"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name" />
+
+    <TextView
+        android:id="@+id/id_tv_race_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:text="2400"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_time"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_time" />
+
+</android.support.constraint.ConstraintLayout>
+  <!--<Race Id="439963">-->
+    <!--<RaceNumber>1</RaceNumber>-->
+    <!--<RaceName>APEX - BUILDING BETTER COMMUNITIES C,G&E Class 1 Handicap</RaceName>-->
+    <!--<RaceTime>12:52PM</RaceTime>-->
+    <!--<Class>Class 1</Class>-->
+    <!--<Distance>1400 metres</Distance>-->
+    <!--<TrackRating>Good</TrackRating>-->
+    <!--<PrizeTotal>$14,000.00</PrizeTotal>-->
+    <!--<AgeCondition>No age restriction</AgeCondition>-->
+    <!--<SexCondition>Colts, Geldings and Entires</SexCondition>-->
+    <!--<WeightCondition>Handicap</WeightCondition>-->
+    <!--<ApprenticeClaim>true</ApprenticeClaim>-->
+    <!--<StartersFee>$173.00</StartersFee>-->
+    <!--<AcceptanceFee>$0.00</AcceptanceFee>-->
+  <!--</Race>-->
+

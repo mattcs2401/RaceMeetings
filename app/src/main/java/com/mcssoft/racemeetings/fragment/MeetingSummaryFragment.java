@@ -18,7 +18,7 @@ public class MeetingSummaryFragment extends Fragment {
     //<editor-fold defaultstate="collapsed" desc="Region: Lifecycle">
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.meeting_detail_fragment, container, false);
+        rootView = inflater.inflate(R.layout.meeting_summary_fragment, container, false);
         return rootView;
     }
 

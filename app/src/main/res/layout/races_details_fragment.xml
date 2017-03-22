@@ -7,12 +7,12 @@
     android:fitsSystemWindows="true">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/id_rv_races_summary_listing"
+        android:id="@+id/id_rv_races_details_listing"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginTop="64dp"/>
 
-    <include layout="@layout/meeting_race_row" />
+    <include layout="@layout/meeting_race_details_row" />
 
 </android.support.design.widget.CoordinatorLayout>
