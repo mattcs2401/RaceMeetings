@@ -3,6 +3,7 @@ package com.mcssoft.racemeetings.utility;
 import android.util.Log;
 
 import com.mcssoft.racemeetings.model.Club;
+import com.mcssoft.racemeetings.model.Horse;
 import com.mcssoft.racemeetings.model.Meeting;
 import com.mcssoft.racemeetings.model.Race;
 import com.mcssoft.racemeetings.model.Track;
@@ -229,6 +230,61 @@ public class XMLParser {
             Log.d("", ex.getMessage());
         } finally {
             return races;
+        }
+    }
+
+    public ArrayList<Horse> parseHorseXml(String queryparam) {
+        ArrayList<Horse> horses = null;
+        Horse horse = null;
+        try {
+            String elementName;
+            int eventType = parser.getEventType();
+            while(eventType != parser.END_DOCUMENT) {
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        //regions = new ArrayList<>();
+                        break;
+                    case XmlPullParser.START_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Horses")) {
+                            horses = new ArrayList<>();
+                        }
+                        else if (elementName.equals("Horse")) {
+                            horse = new Horse();
+                            horse.setHorseId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
+                        }
+                        else if(elementName.equals("HorseName")) {
+                            horse.setHorseName(parser.nextText());
+                        }
+                        else if(elementName.equals("Weight")) {
+                            horse.setHorseWeight(parser.nextText());
+                        }
+                        else if(elementName.equals("Jockey")) {
+                            horse.setJockeyId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
+                        }
+                        else if(elementName.equals("FullName") && horse.getJockeyId() == 0) {
+                            horse.setJockeyName(parser.nextText());
+                        }
+                        else if(elementName.equals("Trainer")) {
+                            horse.setTrainerId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
+                        }
+                        else if(elementName.equals("FullName") && horse.getTrainerId() == 0) {
+                            horse.setTrainerName(parser.nextText());
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        elementName = parser.getName();
+                        if(elementName.equals("Horse") && horse != null) {
+                            horse.setRaceId(Integer.parseInt(queryparam));
+                            horses.add(horse);
+                        }
+                }
+                eventType = parser.next();
+            }
+        } catch(XmlPullParserException ex) {
+            Log.d("", ex.getMessage());
+        } finally {
+            return horses;
         }
     }
 

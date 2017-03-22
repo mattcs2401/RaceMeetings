@@ -41,6 +41,7 @@
     <string name="races_rowid_key">races_rowid_key</string>
     <string name="CR_LF">\r\n</string>
     <string name="meeting_id_key">meeting_id_key</string>
+    <string name="race_details_id_key">race_details_id_key</string>
     <string name="arguments_preference">arguments_preference</string>
     <!-- Preference keys. -->
     <!-- Tracks preference. -->

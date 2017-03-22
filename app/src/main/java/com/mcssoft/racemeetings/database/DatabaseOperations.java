@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import com.mcssoft.racemeetings.R;
 import com.mcssoft.racemeetings.model.Club;
+import com.mcssoft.racemeetings.model.Horse;
 import com.mcssoft.racemeetings.model.Meeting;
 import com.mcssoft.racemeetings.model.Race;
 import com.mcssoft.racemeetings.model.Track;
@@ -173,6 +174,9 @@ public class DatabaseOperations {
             case SchemaConstants.RACES_TABLE:
                 insertFromListRaces(theList, identifier);
                 break;
+            case SchemaConstants.RACE_DETAILS_TABLE:
+                insertFromListRaceDetails(theList, identifier);
+                break;
         }
     }
 
@@ -320,6 +324,40 @@ public class DatabaseOperations {
         }
     }
 
+    private void insertFromListRaceDetails(ArrayList theList, int raceId) {
+        if(theList.size() > 0) {
+            ContentValues cv;
+            db = dbHelper.getDatabase();
+
+            if(!raceIdExists(raceId)) {  // only insert new race detailss.
+
+                for (Object object : theList) {
+                    Horse horse = (Horse) object;
+
+                    cv = new ContentValues();
+                    cv.put(SchemaConstants.RACE_DETAILS_RACE_ID, raceId);
+                    cv.put(SchemaConstants.RACE_DETAILS_HORSE_ID, horse.getHorseId());
+                    cv.put(SchemaConstants.RACE_DETAILS_HORSENAME, horse.getHorseName());
+                    cv.put(SchemaConstants.RACE_DETAILS_WEIGHT, horse.getHorseWeight());
+                    cv.put(SchemaConstants.RACE_DETAILS_JOCKEY_ID, horse.getJockeyId());
+                    cv.put(SchemaConstants.RACE_DETAILS_JOCKEY_NAME, horse.getJockeyName());
+                    cv.put(SchemaConstants.RACE_DETAILS_TRAINER_ID, horse.getTrainerId());
+                    cv.put(SchemaConstants.RACE_DETAILS_TRAINER_NAME, horse.getTrainerName());
+
+                    try {
+                        db.beginTransaction();
+                        db.insertOrThrow(SchemaConstants.RACES_TABLE, null, cv);
+                        db.setTransactionSuccessful();
+                    } catch (SQLException ex) {
+                        Log.d("", ex.getMessage());
+                    } finally {
+                        db.endTransaction();
+                    }
+                }
+            }
+        }
+    }
+
     private String[] getProjection(String tableName) {
         String[] projection = {};
         switch (tableName) {
@@ -340,6 +378,16 @@ public class DatabaseOperations {
         boolean retVal = false;
         Cursor cursor = getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
                 SchemaConstants.WHERE_FOR_GET_RACE_MEETINGID, new String[] { Integer.toString(meetingId)});
+        if(cursor.getCount() > 0) {
+            retVal = true;
+        }
+        return retVal;
+    }
+
+    private boolean raceIdExists(int raceId) {
+        boolean retVal = false;
+        Cursor cursor = getSelectionFromTable(SchemaConstants.RACE_DETAILS_TABLE, null,
+                SchemaConstants.WHERE_FOR_GET_RACE_DETAILS_RACEID, new String[] { Integer.toString(raceId)});
         if(cursor.getCount() > 0) {
             retVal = true;
         }

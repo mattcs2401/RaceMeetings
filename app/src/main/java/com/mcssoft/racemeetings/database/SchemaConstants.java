@@ -1,18 +1,6 @@
 package com.mcssoft.racemeetings.database;
 
 public class SchemaConstants {
-
-    // Content Provider Uri and Authority
-//    public static final String MEETINGS = "meetings";
-//    public static final String BASE = "com.mcssoft.racemeeting.";
-//    public static final String AUTHORITY = BASE + "database.MeetingsProvider";
-//    public static final String CONTENT_URI = "content://" + AUTHORITY + "/" + MEETINGS;
-//    public static final String CURSOR_BASE_TYPE = "/" + BASE + MEETINGS;
-//
-//    // UriMatcher stuff
-//    public static final int MEETINGS_TABLE = 0;
-//    public static final int MEETINGS_RECORD = 1;
-
     // Database version and names.
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "RACEMEETINGS";
@@ -20,6 +8,7 @@ public class SchemaConstants {
     public static final String TRACKS_TABLE = "TRACKS";
     public static final String MEETINGS_TABLE = "MEETINGS";
     public static final String RACES_TABLE = "RACES";
+    public static final String RACE_DETAILS_TABLE = "RACE_DETAILS";
 
     // Database columns CLUBS table.
     public static final String CLUB_ROWID = "_id";
@@ -60,12 +49,23 @@ public class SchemaConstants {
     public static final String RACE_START_FEE = "RACE_START_FEE";
     public static final String RACE_ACCEPT_FEE = "RACE_ACCEPT_FEE";
 
+    // Database columns for RACE_DETAILS table.
+    public static final String RACE_DETAILS_ROWID = "_id";
+    public static final String RACE_DETAILS_RACE_ID = "RACE_ID";
+    public static final String RACE_DETAILS_HORSE_ID = "HORSE_ID";
+    public static final String RACE_DETAILS_HORSENAME = "HORSE_NAME";
+    public static final String RACE_DETAILS_WEIGHT = "WEIGHT";
+    public static final String RACE_DETAILS_JOCKEY_ID = "JOCKEY_ID";
+    public static final String RACE_DETAILS_JOCKEY_NAME = "JOCKEY_NAME";
+    public static final String RACE_DETAILS_TRAINER_ID = "TRAINER_ID";
+    public static final String RACE_DETAILS_TRAINER_NAME = "TRAINER_NAME";
+
     // CLUBS table create.
     public static final String CREATE_CLUBS_TABLE = "CREATE TABLE "
-            + CLUBS_TABLE     + " ("
-            + CLUB_ROWID      + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + CLUB_ID         + " INTEGER NOT NULL, "
-            + CLUB_NAME       + " TEXT NOT NULL)";
+            + CLUBS_TABLE + " ("
+            + CLUB_ROWID  + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CLUB_ID     + " INTEGER NOT NULL, "
+            + CLUB_NAME   + " TEXT NOT NULL)";
 
     // TRACKS table create.
     public static final String CREATE_TRACKS_TABLE = "CREATE TABLE "
@@ -108,20 +108,30 @@ public class SchemaConstants {
             + RACE_START_FEE    + " TEXT NOT NULL, "
             + RACE_ACCEPT_FEE   + " TEXT NOT NULL)";
 
+    // RACE_DETAILS table create.
+    public static final String CREATE_RACE_DETAILS_TABLE = "CREATE TABLE "
+            + RACE_DETAILS_TABLE        + " ("
+            + RACE_DETAILS_ROWID        + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + RACE_DETAILS_RACE_ID      + " INTEGER NOT NULL, "
+            + RACE_DETAILS_HORSE_ID     + " INTEGER NOT NULL, "
+            + RACE_DETAILS_HORSENAME    + " TEXT NOT NULL, "
+            + RACE_DETAILS_WEIGHT       + " TEXT NOT NULL, "
+            + RACE_DETAILS_JOCKEY_ID    + " INTEGER NOT NULL, "
+            + RACE_DETAILS_JOCKEY_NAME  + " TEXT NOT NULL, "
+            + RACE_DETAILS_TRAINER_ID   + " INTEGER NOT NULL, "
+            + RACE_DETAILS_TRAINER_NAME + " TEXT NOT NULL)";
+
     public  static final String DROP_CLUBS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + CLUBS_TABLE + ";";
     public  static final String DROP_TRACKS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + TRACKS_TABLE + ";";
     public  static final String DROP_MEETINGS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + MEETINGS_TABLE + ";";
     public  static final String DROP_RACES_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + RACES_TABLE + ";";
-
-    // marries with DatabaseHelper.getMeetingListItemProjection.
-//    public static final String SELECT_ALL_CLUBS = "SELECT * FROM " + CLUBS_TABLE;
-//    public static final String SELECT_ALL_TRACKS = "SELECT * FROM " + TRACKS_TABLE;
-//    public static final String SELECT_ALL_MEETINGS = "SELECT * FROM " + MEETINGS_TABLE;
+    public  static final String DROP_RACE_DETAILS_TABLE = "DROP TABLE IF EXISTS " + DATABASE_NAME + "." + RACE_DETAILS_TABLE + ";";
 
     public static final String WHERE_FOR_TRACK_UPDATE = SchemaConstants.TRACK_ROWID + " = ?;";
     public static final String WHERE_FOR_GET_MEETINGS_BY_DATE = SchemaConstants.MEETING_DATE + " = ?;";
     public static final String WHERE_FOR_GET_MEETING = SchemaConstants.MEETING_ROWID + " = ?;";
     public static final String WHERE_FOR_GET_RACE_MEETINGID = SchemaConstants.RACE_MEETING_ID + " = ?;";
+    public static final String WHERE_FOR_GET_RACE_DETAILS_RACEID = SchemaConstants.RACE_DETAILS_RACE_ID + " = ?;";
     public static final String WHERE_FOR_GET_RACE = SchemaConstants.RACE_ROWID + " = ?;";
 
 }

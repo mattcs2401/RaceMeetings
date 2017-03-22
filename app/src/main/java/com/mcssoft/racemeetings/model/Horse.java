@@ -6,6 +6,15 @@ package com.mcssoft.racemeetings.model;
  */
 public class Horse {
 
+    public Horse() {
+        jockeyId = 0;
+        trainerId = 0;
+    }
+
+    public int getRaceId() { return raceId; }
+
+    public void setRaceId(int raceId) { this.raceId = raceId; }
+
     public int getHorseId() {
         return horseId;
     }
@@ -62,6 +71,7 @@ public class Horse {
         this.trainerName = trainerName;
     }
 
+    private int raceId;      // not part of xml schema.
     private int horseId;
     private String horseName;
     private String horseWeight;

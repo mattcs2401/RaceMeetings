@@ -13,7 +13,7 @@ import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.utility.Resources;
 
-public class RaceDetailFragment extends Fragment {
+public class RaceSummaryFragment extends Fragment {
 
     //<editor-fold defaultstate="collapsed" desc="Region: Lifecycle">
     @Override

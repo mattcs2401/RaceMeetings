@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mcssoft.racemeetings.R;
+import com.mcssoft.racemeetings.activity.RaceDetailsActivity;
 import com.mcssoft.racemeetings.activity.MeetingRacesActivity;
 import com.mcssoft.racemeetings.activity.MeetingsActivity;
 import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IAsyncResult;
 import com.mcssoft.racemeetings.model.Club;
+import com.mcssoft.racemeetings.model.Horse;
 import com.mcssoft.racemeetings.model.Meeting;
 import com.mcssoft.racemeetings.model.Race;
 
@@ -36,6 +38,7 @@ public class DownloadHelper implements IAsyncResult {
         Intent intent;
         XMLParser mxmlp;
         InputStream inStream;
+        String key;
         DatabaseOperations dbOper = new DatabaseOperations(context);
 
         switch (tableName) {
@@ -62,11 +65,22 @@ public class DownloadHelper implements IAsyncResult {
                 ArrayList<Race> races = mxmlp.parseRacesXml();
                 if(races != null && races.size() > 0) {
                     dbOper.insertFromList(SchemaConstants.RACES_TABLE, races, Integer.parseInt(queryParam));
-                } else {
                 }
                 // Have to put it here because of inter process issues.
                 intent = new Intent(context, MeetingRacesActivity.class);
-                String key = Resources.getInstance().getString(R.string.meeting_id_key);
+                key = Resources.getInstance().getString(R.string.meeting_id_key);
+                intent.putExtra(key, queryParam);
+                context.startActivity(intent);
+                break;
+            case SchemaConstants.RACE_DETAILS_TABLE:
+                inStream = new ByteArrayInputStream(results.getBytes());
+                mxmlp = new XMLParser(inStream);
+                ArrayList<Horse> horses = mxmlp.parseHorseXml(queryParam);
+                if(horses != null && horses.size() > 0) {
+                    dbOper.insertFromList(SchemaConstants.RACE_DETAILS_TABLE, horses, Integer.parseInt(queryParam));
+                }
+                intent = new Intent(context, RaceDetailsActivity.class);
+                key = Resources.getInstance().getString(R.string.race_details_id_key);
                 intent.putExtra(key, queryParam);
                 context.startActivity(intent);
                 break;

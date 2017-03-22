@@ -14,8 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mcssoft.racemeetings.R;
-import com.mcssoft.racemeetings.activity.MeetingDetailActivity;
-import com.mcssoft.racemeetings.activity.MeetingRacesActivity;
+import com.mcssoft.racemeetings.activity.MeetingSummaryActivity;
 import com.mcssoft.racemeetings.adapter.MeetingsAdapter;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
@@ -77,7 +76,7 @@ public class MeetingsFragment extends Fragment
                 getDataForMeetingRaces(getDbRowId(position));
                 break;
             case R.id.meetings_context_menu_detail:
-                intent = new Intent(getActivity(), MeetingDetailActivity.class);
+                intent = new Intent(getActivity(), MeetingSummaryActivity.class);
                 intent.putExtra(Resources.getInstance().getString(R.string.meetings_rowid_key), getDbRowId(position));
                 startActivity(intent);
                 break;

@@ -25,13 +25,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(SchemaConstants.DROP_TRACKS_TABLE);
             db.execSQL(SchemaConstants.DROP_MEETINGS_TABLE);
             db.execSQL(SchemaConstants.DROP_RACES_TABLE);
+            db.execSQL(SchemaConstants.DROP_RACE_DETAILS_TABLE);
             db.execSQL(SchemaConstants.CREATE_CLUBS_TABLE);
             db.execSQL(SchemaConstants.CREATE_TRACKS_TABLE);
             db.execSQL(SchemaConstants.CREATE_MEETINGS_TABLE);
             db.execSQL(SchemaConstants.CREATE_RACES_TABLE);
+            db.execSQL(SchemaConstants.CREATE_RACE_DETAILS_TABLE);
             db.setTransactionSuccessful();
-        } catch(SQLException sqle) {
-            Log.d("Exception dB create: ", sqle.getMessage());
+        } catch(SQLException ex) {
+            Log.d("Exception dB create: ", ex.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -42,14 +44,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.MEETINGS_TABLE + ";");
         db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.CLUBS_TABLE + ";");
         db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.TRACKS_TABLE + ";");
-        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.RACES_TABLE + ";");    }
+        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.RACES_TABLE + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + SchemaConstants.DATABASE_NAME + "." + SchemaConstants.RACE_DETAILS_TABLE + ";");
+    }
 
     public SQLiteDatabase getDatabase() {
         return db;
     }
 
     public enum Projection {
-        ClubSchema, TrackSchema, MeetingSchema, RaceSchema
+        ClubSchema, TrackSchema, MeetingSchema, RaceSchema, RaceDetailsSchema
     }
 
     public static String [] getProjection(Projection projection) {
@@ -62,6 +66,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return getMeetingsProjection();
             case RaceSchema:
                 return getRacesProjection();
+            case RaceDetailsSchema:
+                return getRaceDetailsSchema();
         }
         return  null;
     }
@@ -128,6 +134,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SchemaConstants.RACE_APP_CLAIM,
             SchemaConstants.RACE_START_FEE,
             SchemaConstants.RACE_ACCEPT_FEE
+        };
+    }
+
+    private static final String[] getRaceDetailsSchema() {
+        return new String[] {
+            SchemaConstants.RACE_DETAILS_ROWID,
+            SchemaConstants.RACE_DETAILS_RACE_ID,
+            SchemaConstants.RACE_DETAILS_HORSE_ID,
+            SchemaConstants.RACE_DETAILS_HORSENAME,
+            SchemaConstants.RACE_DETAILS_WEIGHT,
+            SchemaConstants.RACE_DETAILS_JOCKEY_ID,
+            SchemaConstants.RACE_DETAILS_JOCKEY_NAME,
+            SchemaConstants.RACE_DETAILS_TRAINER_ID,
+            SchemaConstants.RACE_DETAILS_TRAINER_NAME
         };
     }
 
