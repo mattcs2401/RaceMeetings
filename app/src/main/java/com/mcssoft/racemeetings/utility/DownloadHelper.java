@@ -80,7 +80,7 @@ public class DownloadHelper implements IAsyncResult {
                     dbOper.insertFromList(SchemaConstants.RACE_DETAILS_TABLE, horses, Integer.parseInt(queryParam));
                 }
                 intent = new Intent(context, MeetingRacesDetailsActivity.class);
-                key = Resources.getInstance().getString(R.string.race_details_id_key);
+                key = Resources.getInstance().getString(R.string.race_id_key);
                 intent.putExtra(key, queryParam);
                 context.startActivity(intent);
                 break;

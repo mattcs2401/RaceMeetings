@@ -12,6 +12,7 @@
     <string name="meeting_summary_fragment_tag">meeting_detail_fragment_tag</string>
     <string name="race_detail_fragment_tag">race_detail_fragment_tag</string>
     <string name="meeting_races_fragment_tag">meeting_races_fragment_tag</string>
+    <string name="meeting_races_details_fragment_tag">meeting_races_details_fragment_tag</string>
     <string name="date_search_fragment_tag">date_search_fragment_tag</string>
     <string name="race_details_fragment_tag">race_details_fragment_tag</string>
     <!-- Fragment text. -->
@@ -46,7 +47,7 @@
     <string name="races_rowid_key">races_rowid_key</string>
     <string name="CR_LF">\r\n</string>
     <string name="meeting_id_key">meeting_id_key</string>
-    <string name="race_details_id_key">race_details_id_key</string>
+    <string name="race_id_key">race_details_id_key</string>
     <string name="arguments_preference">arguments_preference</string>
     <!-- Preference keys. -->
     <!-- Tracks preference. -->
