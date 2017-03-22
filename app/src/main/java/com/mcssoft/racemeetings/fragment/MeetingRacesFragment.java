@@ -19,6 +19,7 @@ import com.mcssoft.racemeetings.adapter.MeetingRacesAdapter;
 import com.mcssoft.racemeetings.database.DatabaseOperations;
 import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
+import com.mcssoft.racemeetings.utility.DownloadHelper;
 import com.mcssoft.racemeetings.utility.ListingDivider;
 import com.mcssoft.racemeetings.utility.Resources;
 
@@ -69,7 +70,7 @@ public class MeetingRacesFragment extends Fragment
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.races_context_menu_info:
-//                getDataForMeetingRaces(getDbRowId(position));
+                getDataForRaceDetails(getDbRowId(position));
                 break;
             case R.id.races_context_menu_detail:
                 intent = new Intent(getActivity(), MeetingRaceSummaryActivity.class);
@@ -84,6 +85,17 @@ public class MeetingRacesFragment extends Fragment
 //            // TBA.
 //            String bp = "";
 //        }
+
+    private void getDataForRaceDetails(int raceRowId) {
+        DatabaseOperations dbOper = new DatabaseOperations(getActivity());
+        Cursor cursor = dbOper.getSelectionFromTable(SchemaConstants.RACES_TABLE, null,
+                SchemaConstants.WHERE_FOR_GET_RACE, new String[] {Integer.toString(raceRowId)});
+        cursor.moveToFirst();
+        int raceId = cursor.getInt(cursor.getColumnIndex(SchemaConstants.RACE_ID));
+
+        DownloadHelper downloadHelper = new DownloadHelper(getActivity());
+        downloadHelper.getHorsesForRace(Integer.toString(raceId));
+    }
 
     private void setRecyclerView(View view) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.id_rv_races_summary_listing);

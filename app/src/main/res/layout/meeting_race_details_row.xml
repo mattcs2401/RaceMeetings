@@ -7,86 +7,72 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/id_tv_race_no"
+        android:id="@+id/id_tv_horse_name_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="10"
+        android:text="All Girls Rock"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/id_tv_race_name"
+        android:id="@+id/id_tv_jockey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Jockey"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_horse_name_val"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/id_tv_weight_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="Race name"
+        android:text="56.0"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_no"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_horse_name_val"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_horse_name_val"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_horse_name_val" />
 
     <TextView
-        android:id="@+id/id_tv_race_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="8dp"
-        android:text="15:59"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/id_tv_race_prize"
+        android:id="@+id/id_tv_jockey_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="8dp"
-        android:text="Prize"
+        android:text="Bonnie Thomson"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_name"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name" />
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_jockey"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_jockey" />
 
     <TextView
-        android:id="@+id/id_tv_race_class"
+        android:id="@+id/id_tv_trainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Class"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintLeft_toRightOf="@+id/id_tv_race_prize"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_name" />
+        android:layout_marginLeft="64dp"
+        android:text="Trainer"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintLeft_toRightOf="@+id/id_tv_jockey"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
 
     <TextView
-        android:id="@+id/id_tv_race_distance"
+        android:id="@+id/id_tv_trainer_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:text="2400"
-        android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_race_time"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_race_time" />
+        android:text="Milton Baker"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_trainer"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_trainer" />
 
 </android.support.constraint.ConstraintLayout>
-  <!--<Race Id="439963">-->
-    <!--<RaceNumber>1</RaceNumber>-->
-    <!--<RaceName>APEX - BUILDING BETTER COMMUNITIES C,G&E Class 1 Handicap</RaceName>-->
-    <!--<RaceTime>12:52PM</RaceTime>-->
-    <!--<Class>Class 1</Class>-->
-    <!--<Distance>1400 metres</Distance>-->
-    <!--<TrackRating>Good</TrackRating>-->
-    <!--<PrizeTotal>$14,000.00</PrizeTotal>-->
-    <!--<AgeCondition>No age restriction</AgeCondition>-->
-    <!--<SexCondition>Colts, Geldings and Entires</SexCondition>-->
-    <!--<WeightCondition>Handicap</WeightCondition>-->
-    <!--<ApprenticeClaim>true</ApprenticeClaim>-->
-    <!--<StartersFee>$173.00</StartersFee>-->
-    <!--<AcceptanceFee>$0.00</AcceptanceFee>-->
-  <!--</Race>-->
 

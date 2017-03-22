@@ -15,21 +15,15 @@ public class MeetingRacesDetailsViewHolder extends RecyclerView.ViewHolder {
         tvEmptyView = (TextView) view.findViewById(R.id.id_tv_nothingToShow);
     }
 
-    public MeetingRacesDetailsViewHolder(View view, IItemClickListener listener) { //, IItemLongClickListener longListener) {
+    public MeetingRacesDetailsViewHolder(View view, IItemClickListener listener) {
         super(view);
-//        tvRaceId = (TextView) view.findViewById(R.id.id_tv_)
-//        tvRaceNo = (TextView) view.findViewById(R.id.id_tv_race_no);
-//        tvRaceName = (TextView) view.findViewById(R.id.id_tv_race_name);
-//        tvRaceTime = (TextView) view.findViewById(R.id.id_tv_race_time);
-//        tvRaceClass = (TextView) view.findViewById(R.id.id_tv_race_class);
-//        tvRaceDistance = (TextView) view.findViewById(R.id.id_tv_race_distance);
-//        tvRaceRating = (TextView) view.findViewById(R.id.id_tv_race_rating);
-//        tvRacePrize = (TextView) view.findViewById(R.id.id_tv_race_prize);
+        tvHorseName = (TextView) view.findViewById(R.id.id_tv_horse_name_val);
+        tvWeight= (TextView) view.findViewById(R.id.id_tv_weight_val);
+        tvJockeyName = (TextView) view.findViewById(R.id.id_tv_jockey_val);
+        tvTrainerName = (TextView) view.findViewById(R.id.id_tv_trainer_val);
 
 //        itemClickListener = listener;
 //        view.setOnClickListener(this);
-//        itemLongClickListener = longListener;
-//        view.setOnLongClickListener(this);
     }
 
     //<editor-fold defaultstate="collapsed" desc="Region: Listeners">
@@ -41,26 +35,18 @@ public class MeetingRacesDetailsViewHolder extends RecyclerView.ViewHolder {
 //    }
 
     //<editor-fold defaultstate="collapsed" desc="Region: Accessors">
-//    public TextView getTvRaceId() { return tvRaceId;  }
-//    public TextView getRaceNo() { return tvRaceNo; }
-//    public TextView getRaceName() { return tvRaceName; }
-//    public TextView getRaceTime() { return tvRaceTime; }
-//    public TextView getRaceClass() { return tvRaceClass; }
-//    public TextView getRaceDistance() { return tvRaceDistance; }
-//    public TextView getRaceRating() { return tvRaceRating; }
-//    public TextView getRacePrize() { return tvRacePrize; }
-//    public TextView getEmptyText() { return tvEmptyView; }
+    public TextView getTvHorseName() { return tvHorseName;  }
+    public TextView getTvWeight() { return tvWeight; }
+    public TextView getTvJockeyName() { return tvJockeyName; }
+    public TextView getTvTrainerName() { return tvTrainerName; }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Region: Private vars">
-//    private TextView tvRaceId;
-//    private TextView tvRaceNo;
-//    private TextView tvRaceName;
-//    private TextView tvRaceTime;
-//    private TextView tvRaceClass;
-//    private TextView tvRaceDistance;
-//    private TextView tvRaceRating;
-//
+    private TextView tvHorseName;
+    private TextView tvWeight;
+    private TextView tvJockeyName;
+    private TextView tvTrainerName;
+
     private TextView tvEmptyView;
 
 //    private IItemClickListener itemClickListener;

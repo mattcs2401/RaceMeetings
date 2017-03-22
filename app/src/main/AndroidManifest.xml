@@ -25,6 +25,8 @@
                   android:parentActivityName=".activity.MeetingsActivity" />
         <activity android:name=".activity.MeetingRaceSummaryActivity"
             android:parentActivityName=".activity.MeetingRacesActivity" />
+        <activity android:name=".activity.MeetingRacesDetailsActivity"
+            android:parentActivityName=".activity.MeetingRacesActivity" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

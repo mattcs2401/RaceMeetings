@@ -41,49 +41,54 @@ public class DownloadHelper implements IAsyncResult {
         String key;
         DatabaseOperations dbOper = new DatabaseOperations(context);
 
-        switch (tableName) {
-            case SchemaConstants.CLUBS_TABLE:
-                inStream = new ByteArrayInputStream(results.getBytes());
-                mxmlp = new XMLParser(inStream);
-                ArrayList<Club> clubs = mxmlp.parseClubsXml();
-                dbOper.insertFromList(SchemaConstants.CLUBS_TABLE, clubs, 0);
-                break;
-            case SchemaConstants.MEETINGS_TABLE:
-                inStream = new ByteArrayInputStream(results.getBytes());
-                mxmlp = new XMLParser(inStream);
-                ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
-                if(meetings != null) {
-                    dbOper.insertFromList(SchemaConstants.MEETINGS_TABLE, meetings, 0);
-                }
-                // Have to put it here because of inter process issues.
-                intent = new Intent(context, MeetingsActivity.class);
-                context.startActivity(intent);
-                break;
-            case SchemaConstants.RACES_TABLE:
-                inStream = new ByteArrayInputStream(results.getBytes());
-                mxmlp = new XMLParser(inStream);
-                ArrayList<Race> races = mxmlp.parseRacesXml();
-                if(races != null && races.size() > 0) {
-                    dbOper.insertFromList(SchemaConstants.RACES_TABLE, races, Integer.parseInt(queryParam));
-                }
-                // Have to put it here because of inter process issues.
-                intent = new Intent(context, MeetingRacesActivity.class);
-                key = Resources.getInstance().getString(R.string.meeting_id_key);
-                intent.putExtra(key, queryParam);
-                context.startActivity(intent);
-                break;
-            case SchemaConstants.RACE_DETAILS_TABLE:
-                inStream = new ByteArrayInputStream(results.getBytes());
-                mxmlp = new XMLParser(inStream);
-                ArrayList<Horse> horses = mxmlp.parseHorseXml(queryParam);
-                if(horses != null && horses.size() > 0) {
-                    dbOper.insertFromList(SchemaConstants.RACE_DETAILS_TABLE, horses, Integer.parseInt(queryParam));
-                }
-                intent = new Intent(context, MeetingRacesDetailsActivity.class);
-                key = Resources.getInstance().getString(R.string.race_id_key);
-                intent.putExtra(key, queryParam);
-                context.startActivity(intent);
-                break;
+        if(results != null) {
+
+            switch (tableName) {
+                case SchemaConstants.CLUBS_TABLE:
+                    inStream = new ByteArrayInputStream(results.getBytes());
+                    mxmlp = new XMLParser(inStream);
+                    ArrayList<Club> clubs = mxmlp.parseClubsXml();
+                    dbOper.insertFromList(SchemaConstants.CLUBS_TABLE, clubs, 0);
+                    break;
+                case SchemaConstants.MEETINGS_TABLE:
+                    inStream = new ByteArrayInputStream(results.getBytes());
+                    mxmlp = new XMLParser(inStream);
+                    ArrayList<Meeting> meetings = mxmlp.parseMeetingsXml();
+                    if (meetings != null) {
+                        dbOper.insertFromList(SchemaConstants.MEETINGS_TABLE, meetings, 0);
+                    }
+                    // Have to put it here because of inter process issues.
+                    intent = new Intent(context, MeetingsActivity.class);
+                    context.startActivity(intent);
+                    break;
+                case SchemaConstants.RACES_TABLE:
+                    inStream = new ByteArrayInputStream(results.getBytes());
+                    mxmlp = new XMLParser(inStream);
+                    ArrayList<Race> races = mxmlp.parseRacesXml();
+                    if (races != null && races.size() > 0) {
+                        dbOper.insertFromList(SchemaConstants.RACES_TABLE, races, Integer.parseInt(queryParam));
+                    }
+                    // Have to put it here because of inter process issues.
+                    intent = new Intent(context, MeetingRacesActivity.class);
+                    key = Resources.getInstance().getString(R.string.meeting_id_key);
+                    intent.putExtra(key, queryParam);
+                    context.startActivity(intent);
+                    break;
+                case SchemaConstants.RACE_DETAILS_TABLE:
+                    inStream = new ByteArrayInputStream(results.getBytes());
+                    mxmlp = new XMLParser(inStream);
+                    ArrayList<Horse> horses = mxmlp.parseHorseXml(queryParam);
+                    if (horses != null && horses.size() > 0) {
+                        dbOper.insertFromList(SchemaConstants.RACE_DETAILS_TABLE, horses, Integer.parseInt(queryParam));
+                    }
+                    intent = new Intent(context, MeetingRacesDetailsActivity.class);
+                    key = Resources.getInstance().getString(R.string.race_id_key);
+                    intent.putExtra(key, queryParam);
+                    context.startActivity(intent);
+                    break;
+            }
+        } else {
+            // TODO - 'results' will be null if download didn't return anything, e.g. network error.
         }
     }
 

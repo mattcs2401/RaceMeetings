@@ -11,9 +11,8 @@ import com.mcssoft.racemeetings.database.SchemaConstants;
 import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 
 /**
- * Utility class that lists the Meetings for a particular (user selected) date.
+ * Utility class that lists the Horse/Jockey/Trainer for a race.
  */
-
 public class MeetingRacesDetailsAdapter extends RecyclerView.Adapter<MeetingRacesDetailsViewHolder> {
 
     @Override
@@ -56,25 +55,17 @@ public class MeetingRacesDetailsAdapter extends RecyclerView.Adapter<MeetingRace
         cursor = newCursor;
         cursor.moveToFirst();
 
-//        idColNdx = cursor.getColumnIndex(SchemaConstants.RACE_ROWID);
-//        raceIdNdx = cursor.getColumnIndex(SchemaConstants.RACE_ID);
-//        raceNoNdx = cursor.getColumnIndex(SchemaConstants.RACE_NO);
-//        raceNameNdx = cursor.getColumnIndex(SchemaConstants.RACE_NAME);
-//        raceTimeNdx = cursor.getColumnIndex(SchemaConstants.RACE_TIME);
-//        raceClassNdx = cursor.getColumnIndex(SchemaConstants.RACE_CLASS);
-//        raceDistNdx = cursor.getColumnIndex(SchemaConstants.RACE_DISTANCE);
-////        raceRatingNdx = cursor.getColumnIndex(SchemaConstants.RACE_TRACK_RATING);
-//        racePrizeNdx = cursor.getColumnIndex(SchemaConstants.RACE_PRIZE_TOTAL);
+        idColNdx = cursor.getColumnIndex(SchemaConstants.RACE_DETAILS_ROWID);
+        horseNameNdx = cursor.getColumnIndex(SchemaConstants.RACE_DETAILS_HORSENAME);
+        horseWeightNdx = cursor.getColumnIndex(SchemaConstants.RACE_DETAILS_WEIGHT);
+        jockeyNameNdx = cursor.getColumnIndex(SchemaConstants.RACE_DETAILS_JOCKEY_NAME);
+        trainerNameNdx = cursor.getColumnIndex(SchemaConstants.RACE_DETAILS_TRAINER_NAME);
 
         notifyDataSetChanged();
     }
 
 //    public void setOnItemClickListener(IItemClickListener listener) {
 //        this.itemClickListener = listener;
-//    }
-
-//    public void setOnItemLongClickListener(IItemLongClickListener listener) {
-//        this.itemLongClickListener = listener;
 //    }
 
     public Cursor getCursor() { return cursor; }
@@ -86,14 +77,10 @@ public class MeetingRacesDetailsAdapter extends RecyclerView.Adapter<MeetingRace
     private void adapaterOnBindViewHolder(MeetingRacesDetailsViewHolder holder, int position) {
         cursor.moveToPosition(position);
 
-//        holder.getRaceId().setText(cursor.getString(raceIdNdx));
-//        holder.getRaceNo().setText(cursor.getString(raceNoNdx));
-//        holder.getRaceName().setText(cursor.getString(raceNameNdx));
-//        holder.getRaceTime().setText(cursor.getString(raceTimeNdx));
-//        holder.getRaceClass().setText(cursor.getString(raceClassNdx));
-//        holder.getRaceDistance().setText((cursor.getString(raceDistNdx).split(" "))[0]);
-//        holder.getRaceRating().setText(cursor.getString(raceRatingNdx));
-//        holder.getRacePrize().setText(cursor.getString(racePrizeNdx));
+        holder.getTvHorseName().setText(cursor.getString(horseNameNdx));
+        holder.getTvWeight().setText(cursor.getString(horseWeightNdx));
+        holder.getTvJockeyName().setText(cursor.getString(jockeyNameNdx));
+        holder.getTvTrainerName().setText(cursor.getString(trainerNameNdx));
     }
 
 
@@ -102,14 +89,10 @@ public class MeetingRacesDetailsAdapter extends RecyclerView.Adapter<MeetingRace
     private boolean emptyView;
 
     private int idColNdx;
-    private int raceIdNdx;
-    private int raceNoNdx;
-    private int raceNameNdx;
-    private int raceTimeNdx;
-    private int raceClassNdx;
-    private int raceDistNdx;
-    private int raceRatingNdx;
-    private int racePrizeNdx;
+    private int horseNameNdx;
+    private int horseWeightNdx;
+    private int jockeyNameNdx;
+    private int trainerNameNdx;
 
     private IItemClickListener itemClickListener;
 //    private IItemLongClickListener itemLongClickListener;

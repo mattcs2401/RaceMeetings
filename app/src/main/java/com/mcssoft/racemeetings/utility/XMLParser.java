@@ -262,13 +262,13 @@ public class XMLParser {
                         else if(elementName.equals("Jockey")) {
                             horse.setJockeyId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
                         }
-                        else if(elementName.equals("FullName") && horse.getJockeyId() == 0) {
+                        else if(elementName.equals("FullName") && horse.getJockeyId() > 0 && horse.getTrainerId() == 0) {
                             horse.setJockeyName(parser.nextText());
                         }
                         else if(elementName.equals("Trainer")) {
                             horse.setTrainerId(Integer.parseInt(parser.getAttributeValue(null, "Id")));
                         }
-                        else if(elementName.equals("FullName") && horse.getTrainerId() == 0) {
+                        else if(elementName.equals("FullName") && horse.getTrainerId() > 0) {
                             horse.setTrainerName(parser.nextText());
                         }
                         break;

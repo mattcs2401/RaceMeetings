@@ -1,9 +1,13 @@
 -------
 Issues:
 -------
--> TRACKS references are hard coded (is there a way around this ?
-   maybe external config files) ?.
+-> TRACKS references are hard coded, is there a way around this ?
+   -> Maybe external config files ?
+   -> Ability to edit etc ?
 
+-> Need more rigour around downloading, e.g. for network related issues.
+   -> Maybe auto extend the time out, and retry ?
+      -> if fails several times then "network unavailable" message ?
 
 ------
 To Do:
