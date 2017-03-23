@@ -37,7 +37,8 @@ public class MeetingRaceSummaryFragment extends Fragment {
     }
 
     private void initialiseComponents() {
-        tvRaceId = (TextView) rootView.findViewById(R.id.id_tv_race_Id_val);
+        tvMeetingId = (TextView) rootView.findViewById(R.id.id_tv_race_meeting_id_val);
+        tvRaceId = (TextView) rootView.findViewById(R.id.id_tv_race_id_val);
         tvRaceNo = (TextView) rootView.findViewById(R.id.id_tv_race_no_val);
         tvRaceName = (TextView) rootView.findViewById(R.id.id_tv_race_name_val);
         tvRaceTime = (TextView) rootView.findViewById(R.id.id_tv_race_time_val);
@@ -45,6 +46,8 @@ public class MeetingRaceSummaryFragment extends Fragment {
         tvRaceDistance = (TextView) rootView.findViewById(R.id.id_tv_race_distance_val);
         tvTrackRating = (TextView) rootView.findViewById(R.id.id_tv_track_rating_val);
         tvPrizeTotal = (TextView) rootView.findViewById(R.id.id_tv_prize_val);
+        tvBonusType = (TextView) rootView.findViewById(R.id.id_tv_bonus_val);
+        tvBonusTotal = (TextView) rootView.findViewById(R.id.id_tv_bonus_total_avl);
         tvAgeCond = (TextView) rootView.findViewById(R.id.id_tv_age_restrict_val);
         tvSexCond = (TextView) rootView.findViewById(R.id.id_tv_sex_restrict_val);
         tvWeightCond = (TextView) rootView.findViewById(R.id.id_tv_weight_restrict_val);
@@ -66,6 +69,7 @@ public class MeetingRaceSummaryFragment extends Fragment {
 
     private void setComponentValues() {
         cursor.moveToFirst();
+        tvMeetingId.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_MEETING_ID)));
         tvRaceId.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_ID)));
         tvRaceNo.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_NO)));
         tvRaceName.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_NAME)));
@@ -74,6 +78,8 @@ public class MeetingRaceSummaryFragment extends Fragment {
         tvRaceDistance.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_DISTANCE)));
         tvTrackRating.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_TRACK_RATING)));
         tvPrizeTotal.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_PRIZE_TOTAL)));
+        tvBonusType.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_BONUS_TYPE)));
+        tvBonusTotal.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_BONUS_TOTAL)));
         tvAgeCond.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_AGE_COND)));
         tvSexCond.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_SEX_COND)));
         tvWeightCond.setText(cursor.getString(cursor.getColumnIndex(SchemaConstants.RACE_WEIGHT_COND)));
@@ -87,6 +93,7 @@ public class MeetingRaceSummaryFragment extends Fragment {
     private View rootView;
     private Cursor cursor;
 
+    private TextView tvMeetingId;
     private TextView tvRaceId;
     private TextView tvRaceNo;
     private TextView tvRaceName;
@@ -95,6 +102,8 @@ public class MeetingRaceSummaryFragment extends Fragment {
     private TextView tvRaceDistance;
     private TextView tvTrackRating;
     private TextView tvPrizeTotal;
+    private TextView tvBonusType;
+    private TextView tvBonusTotal;
     private TextView tvAgeCond;
     private TextView tvSexCond;
     private TextView tvWeightCond;

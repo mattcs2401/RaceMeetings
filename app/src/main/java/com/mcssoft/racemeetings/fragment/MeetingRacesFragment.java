@@ -72,7 +72,7 @@ public class MeetingRacesFragment extends Fragment
             case R.id.races_context_menu_info:
                 getDataForRaceDetails(getDbRowId(position));
                 break;
-            case R.id.races_context_menu_detail:
+            case R.id.races_context_menu_summary:
                 intent = new Intent(getActivity(), MeetingRaceSummaryActivity.class);
                 intent.putExtra(Resources.getInstance().getString(R.string.races_rowid_key), getDbRowId(position));
                 startActivity(intent);

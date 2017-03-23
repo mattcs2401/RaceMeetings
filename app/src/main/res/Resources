@@ -1,38 +1,33 @@
 -------
 Issues:
 -------
--> TRACKS references are hard coded, is there a way around this ?
-   -> Maybe external config files ?
-   -> Ability to edit etc ?
+--> TRACKS references are hard coded, is there a way around this ?
+    -> Maybe external config files ?
+    -> Ability to edit etc ?
 
--> Need more rigour around downloading, e.g. for network related issues.
-   -> Maybe auto extend the time out, and retry ?
-      -> if fails several times then "network unavailable" message ?
+--> Need more rigour around downloading, e.g. for network related issues.
+    -> Maybe auto extend the time out, and retry ?
+       -> if fails several times then "network unavailable" message ?
+
+--> Display:
+    -> Long race names.
+      - truncate in portrait ?
+    -> Bottom of race summary cut of in landscape.
+       - use a scrollable view ?
+
 
 ------
 To Do:
 ------
 (in no particular order)
 
--> No active connection and 1st time app run:
-   - do nothing, display message.
-   - No active connection any time.
-
 -> Remove shadow of 1st checkbox on tracks listing.
 
--> A MeetingDetails form that gives more information about a particular meeting.
-   - e.g. the club name, racing status and meeting identifier.
+-> Filter races based on track preferences.
+   - Display message if meetings exist but filtered out.
 
--> What do we want this app to do ?
-   - Display a list of meetings based on track preferences.
-     - Need to limit by date.
-     - Enter date.
-       - So, get date and show potential options based on that date (WRT to track preferences).
-         - Show list of meetings (tracks) for that date.
-         - Show message if track preferences filter out the meetings in the list.
-         - Categorise meetings by track name if more than one meeting on that date.
-   - For a particular meeting, list race details.
-   - For a particular race, list horse, jockey, trainer details.
+-> Detect orientation change:
+
 
 Notes:
 ------

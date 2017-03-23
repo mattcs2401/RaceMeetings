@@ -37,7 +37,7 @@ public class MeetingSummaryFragment extends Fragment {
     }
 
     private void initialiseComponents() {
-        tvMeetingId = (TextView) rootView.findViewById(R.id.id_tv_race_Id_val);
+        tvMeetingId = (TextView) rootView.findViewById(R.id.id_tv_race_id_val);
         tvMeetingDate = (TextView) rootView.findViewById(R.id.id_tv_race_no_val);
         tvTrackName = (TextView) rootView.findViewById(R.id.id_tv_race_name_val);
         tvClubName = (TextView) rootView.findViewById(R.id.id_tv_race_time_val);
