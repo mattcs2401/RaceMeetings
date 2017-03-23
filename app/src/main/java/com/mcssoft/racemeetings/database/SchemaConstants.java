@@ -42,6 +42,8 @@ public class SchemaConstants {
     public static final String RACE_DISTANCE = "RACE_DISTANCE";
     public static final String RACE_TRACK_RATING = "RACE_TRACK_RATING";
     public static final String RACE_PRIZE_TOTAL = "RACE_PRIZE";
+    public static final String RACE_BONUS_TYPE = "BONUS_TYPE";
+    public static final String RACE_BONUS_TOTAL = "BONUS_TOTAL";
     public static final String RACE_AGE_COND = "RACE_AGE_COND";
     public static final String RACE_SEX_COND = "RACE_SEX_COND";
     public static final String RACE_WEIGHT_COND = "RACE_WEIGHT_COND";
@@ -101,6 +103,8 @@ public class SchemaConstants {
             + RACE_DISTANCE     + " TEXT NOT NULL, "
             + RACE_TRACK_RATING + " TEXT NOT NULL, "
             + RACE_PRIZE_TOTAL  + " TEXT NOT NULL, "
+            + RACE_BONUS_TYPE   + " TEXT NOT NULL, "
+            + RACE_BONUS_TOTAL  + " TEXT NOT NULL, "
             + RACE_AGE_COND     + " TEXT NOT NULL, "
             + RACE_SEX_COND     + " TEXT NOT NULL, "
             + RACE_WEIGHT_COND  + " TEXT NOT NULL, "

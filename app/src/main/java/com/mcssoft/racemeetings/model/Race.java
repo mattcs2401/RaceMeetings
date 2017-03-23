@@ -70,6 +70,18 @@ public class Race {
         this.racePrizeTotal = racePrizeTotal;
     }
 
+    public String getRaceBonusType() { return raceBonusType; }
+
+    public void setRaceBonusType(String raceBonusType) {
+        this.raceBonusType = raceBonusType;
+    }
+
+    public String getRaceBonusTotal() { return raceBonusTotal; }
+
+    public void setRaceBonusTotal(String raceBonusTotal) {
+        this.raceBonusTotal = raceBonusTotal;
+    }
+
     public String getRaceAgeCondition() {
         return raceAgeCondition;
     }
@@ -127,6 +139,8 @@ public class Race {
     private String raceDistance;
     private String raceTrackRating;
     private String racePrizeTotal;
+    private String raceBonusType;
+    private String raceBonusTotal;
     private String raceAgeCondition;
     private String raceSexCondtion;
     private String raceWeightCondition;

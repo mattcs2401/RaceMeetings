@@ -189,29 +189,28 @@
         android:id="@+id/id_tv_age_restrict"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
         android:text="Age Cond"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintRight_toRightOf="@+id/id_tv_prize"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_prize" />
+        android:layout_marginTop="7dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_bonus_total"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_bonus_total" />
 
     <TextView
         android:id="@+id/id_tv_age_restrict_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
-        app:layout_constraintLeft_toLeftOf="@+id/id_tv_prize_val"
-        app:layout_constraintTop_toBottomOf="@+id/id_tv_prize_val" />
+        tools:layout_editor_absoluteX="96dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_bonus_total_avl" />
 
     <TextView
         android:id="@+id/id_tv_sex_restrict"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="0dp"
+        android:layout_marginRight="2dp"
         android:layout_marginTop="8dp"
         android:text="Sex Cond"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
@@ -223,7 +222,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_age_restrict_val"
@@ -233,7 +232,7 @@
         android:id="@+id/id_tv_weight_restrict"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="0dp"
+        android:layout_marginRight="-1dp"
         android:layout_marginTop="8dp"
         android:text="Weight"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
@@ -255,8 +254,8 @@
         android:id="@+id/id_tv_app_claim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginRight="-6dp"
+        android:layout_marginTop="6dp"
         android:text="App Claim"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintRight_toRightOf="@+id/id_tv_weight_restrict"
@@ -267,7 +266,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_weight_restrict_val"
@@ -316,6 +315,48 @@
         android:textAppearance="@android:style/TextAppearance.Material.Small"
         app:layout_constraintLeft_toLeftOf="@+id/id_tv_starters_fee_val"
         app:layout_constraintTop_toBottomOf="@+id/id_tv_starters_fee_val" />
+
+    <TextView
+        android:id="@+id/id_tv_bonus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bonus"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_prize"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_prize" />
+
+    <TextView
+        android:id="@+id/id_tv_bonus_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bonus Total"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_bonus"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="@+id/id_tv_bonus" />
+
+    <TextView
+        android:id="@+id/id_tv_bonus_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_prize_val"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_prize_val" />
+
+    <TextView
+        android:id="@+id/id_tv_bonus_total_avl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_tv_bonus_val"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/id_tv_bonus_val" />
 
 </android.support.constraint.ConstraintLayout>
 

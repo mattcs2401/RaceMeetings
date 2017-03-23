@@ -199,6 +199,12 @@ public class XMLParser {
                         else if(elementName.equals("PrizeTotal")) {
                             race.setRacePrizeTotal(parser.nextText());
                         }
+                        else if(elementName.equals("BonusType")) {
+                            race.setRaceBonusType(parser.nextText());
+                        }
+                        else if(elementName.equals("BonusTotal")) {
+                            race.setRaceBonusTotal(parser.nextText());
+                        }
                         else if(elementName.equals("AgeCondition")) {
                             race.setRaceAgeCondition(parser.nextText());
                         }

@@ -128,6 +128,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SchemaConstants.RACE_DISTANCE,
             SchemaConstants.RACE_TRACK_RATING,
             SchemaConstants.RACE_PRIZE_TOTAL,
+            SchemaConstants.RACE_BONUS_TYPE,
+            SchemaConstants.RACE_BONUS_TOTAL,
             SchemaConstants.RACE_AGE_COND,
             SchemaConstants.RACE_SEX_COND,
             SchemaConstants.RACE_WEIGHT_COND,

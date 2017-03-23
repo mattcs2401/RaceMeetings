@@ -303,6 +303,15 @@ public class DatabaseOperations {
                     cv.put(SchemaConstants.RACE_TRACK_RATING, trackRating);
 
                     cv.put(SchemaConstants.RACE_PRIZE_TOTAL, race.getRacePrizeTotal());
+
+                    String bonusType = race.getRaceBonusType();
+                    if(bonusType == null) { bonusType = "N/A"; }
+                    cv.put(SchemaConstants.RACE_BONUS_TYPE, bonusType);
+
+                    String bonusTotal = race.getRaceBonusTotal();
+                    if(bonusTotal == null) { bonusTotal = "N/A"; }
+                    cv.put(SchemaConstants.RACE_BONUS_TOTAL, bonusTotal);
+
                     cv.put(SchemaConstants.RACE_AGE_COND, race.getRaceAgeCondition());
                     cv.put(SchemaConstants.RACE_SEX_COND, race.getRaceSexCondtion());
                     cv.put(SchemaConstants.RACE_WEIGHT_COND, race.getRaceWeightCondition());
