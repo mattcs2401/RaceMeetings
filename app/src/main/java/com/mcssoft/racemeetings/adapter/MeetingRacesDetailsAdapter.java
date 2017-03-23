@@ -21,7 +21,7 @@ public class MeetingRacesDetailsAdapter extends RecyclerView.Adapter<MeetingRace
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meeting_race_details_row, parent, false);
             view.setFocusable(true);
             // don't need to keep a local copy, framework now supplies.
-            return new MeetingRacesDetailsViewHolder(view);
+            return new MeetingRacesDetailsViewHolder(view, itemClickListener);
         } else {
             throw new RuntimeException("Not bound to RecyclerView");
         }
@@ -79,8 +79,22 @@ public class MeetingRacesDetailsAdapter extends RecyclerView.Adapter<MeetingRace
 
         holder.getTvHorseName().setText(cursor.getString(horseNameNdx));
         holder.getTvWeight().setText(cursor.getString(horseWeightNdx));
-        holder.getTvJockeyName().setText(cursor.getString(jockeyNameNdx));
-        holder.getTvTrainerName().setText(cursor.getString(trainerNameNdx));
+
+        holder.getTvJockeyName().setText(getAbbreviatedName(cursor.getString(jockeyNameNdx)));
+        holder.getTvTrainerName().setText(getAbbreviatedName(cursor.getString(trainerNameNdx)));
+    }
+
+    private String getAbbreviatedName(String name) {
+        String rName;
+        String[] aName = name.split(" ");
+        int size = aName.length;
+        rName = aName[0].substring(0,1) + ".";
+        if(size > 2) {
+            rName = rName + aName[size-1];
+        } else {
+            rName = rName + aName[1];
+        }
+        return rName;
     }
 
 

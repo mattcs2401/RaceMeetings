@@ -10,11 +10,6 @@ import com.mcssoft.racemeetings.interfaces.IItemClickListener;
 
 public class MeetingRacesDetailsViewHolder extends RecyclerView.ViewHolder {
 
-    public MeetingRacesDetailsViewHolder(View view) {
-        super(view);
-        tvEmptyView = (TextView) view.findViewById(R.id.id_tv_nothingToShow);
-    }
-
     public MeetingRacesDetailsViewHolder(View view, IItemClickListener listener) {
         super(view);
         tvHorseName = (TextView) view.findViewById(R.id.id_tv_horse_name_val);
@@ -46,10 +41,6 @@ public class MeetingRacesDetailsViewHolder extends RecyclerView.ViewHolder {
     private TextView tvWeight;
     private TextView tvJockeyName;
     private TextView tvTrainerName;
-
-    private TextView tvEmptyView;
-
 //    private IItemClickListener itemClickListener;
-//    private IItemLongClickListener itemLongClickListener;
     //</editor-fold> {
 }

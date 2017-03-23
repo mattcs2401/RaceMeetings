@@ -346,7 +346,7 @@ public class DatabaseOperations {
 
                     try {
                         db.beginTransaction();
-                        db.insertOrThrow(SchemaConstants.RACES_TABLE, null, cv);
+                        db.insertOrThrow(SchemaConstants.RACE_DETAILS_TABLE, null, cv);
                         db.setTransactionSuccessful();
                     } catch (SQLException ex) {
                         Log.d("", ex.getMessage());
