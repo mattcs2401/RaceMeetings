@@ -24,19 +24,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="Meeting Tracks">
-
-        <CheckBoxPreference
-            android:key="@string/pref_tracks_filter_key"
-            android:title="@string/pref_tracks_filter_title"
-            android:summary="@string/pref_tracks_filter_summary"
-            android:defaultValue="true"/>
-
-        <com.mcssoft.racemeetings.dialog.TracksPreferenceDialog
-            android:title="Track Preferences"
-            android:summary="Set the Track preferences."/>
-
-    </PreferenceCategory>
-
 </PreferenceScreen>
